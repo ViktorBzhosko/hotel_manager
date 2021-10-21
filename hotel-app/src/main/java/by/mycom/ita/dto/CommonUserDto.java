@@ -13,8 +13,8 @@ public class CommonUserDto {
     private long id;
     private String firstName;
     private String secondName;
-    private char passport;
-    private char email;
+    private String passport;
+    private String email;
     private int phoneNumber;
     private Booking booking;
 }

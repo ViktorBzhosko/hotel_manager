@@ -26,6 +26,7 @@ public class Hotel {
     private String convenience;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "hotel_id")
     private List<Room> rooms;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

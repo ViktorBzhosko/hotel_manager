@@ -3,7 +3,6 @@ package by.mycom.ita.services;
 import by.mycom.ita.exception.DataIsIncorrectException;
 import by.mycom.ita.exception.DataNotFoundException;
 import by.mycom.ita.model.CommonUser;
-import by.mycom.ita.model.Hotel;
 
 public interface ICommonUserService {
 

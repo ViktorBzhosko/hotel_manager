@@ -24,7 +24,6 @@ public class HotelFavorites {
     private Hotel hotel;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "favorites_id")
     private CommonUser user;
 
     @Override

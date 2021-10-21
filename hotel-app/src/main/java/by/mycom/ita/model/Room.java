@@ -24,7 +24,6 @@ public class Room {
     private int numberOfRoom;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "room_id")
     private Hotel hotels;
 
     @OneToOne(cascade = CascadeType.ALL)
