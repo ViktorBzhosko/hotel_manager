@@ -1,12 +1,13 @@
 package by.mycom.ita.services.impl;
 
+import by.mycom.ita.dao.HotelDao;
 import by.mycom.ita.dao.RoomDao;
 import by.mycom.ita.exception.DataIsIncorrectException;
 import by.mycom.ita.exception.DataNotFoundException;
+import by.mycom.ita.model.Hotel;
 import by.mycom.ita.model.Room;
-import by.mycom.ita.model.enums.Accommodation;
-import by.mycom.ita.model.enums.Comfort;
 import by.mycom.ita.services.IRoomService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,19 +16,27 @@ import java.util.List;
 public class RoomServiceImpl implements IRoomService {
 
     private final RoomDao roomDao;
+    private final HotelDao hotelDao;
 
-    public RoomServiceImpl(RoomDao roomDao) {
+    @Autowired
+    public RoomServiceImpl(RoomDao roomDao, HotelDao hotelDao) {
         this.roomDao = roomDao;
+        this.hotelDao = hotelDao;
     }
 
     @Override
-    public Room create(Room room, int roomNumber) throws DataIsIncorrectException {
-        Room newRoom = Room.builder()
-                .numberOfRoom(roomNumber)
-                .comfort(Comfort.FAMILY)
-                .accommodation(Accommodation.DOUBLE)
-                .build();
-        return roomDao.save(newRoom);
+    public List<Room> create(Room room, Long hotelId) throws DataIsIncorrectException {
+        Hotel hotelFounded = hotelDao.findById(hotelId).orElseThrow(DataNotFoundException::new);
+        List<Room> rooms = hotelFounded.getRooms();
+        Room roomFounded = rooms.stream()
+                .filter(r -> r.getNumberOfRoom() == room.getNumberOfRoom())
+                .findFirst().orElseGet(() -> Room.builder()
+                        .numberOfRoom(room.getNumberOfRoom())
+                        .comfort(room.getComfort())
+                        .accommodation(room.getAccommodation())
+                        .build());
+        if (!rooms.contains(roomFounded)) rooms.add(roomFounded);
+        return hotelDao.save(hotelFounded).getRooms();
     }
 
     @Override
@@ -44,11 +53,11 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public Room update(Long id, int roomNumber) {
+    public Room update(Long id, Room room) {
         Room foundedRoom = roomDao.findById(id).orElseThrow(DataNotFoundException::new);
-        foundedRoom.setNumberOfRoom(roomNumber);
-        foundedRoom.setComfort(Comfort.FAMILY);
-        foundedRoom.setAccommodation(Accommodation.DOUBLE);
+        foundedRoom.setNumberOfRoom(room.getNumberOfRoom());
+        foundedRoom.setComfort(room.getComfort());
+        foundedRoom.setAccommodation(room.getAccommodation());
         return roomDao.save(foundedRoom);
     }
 

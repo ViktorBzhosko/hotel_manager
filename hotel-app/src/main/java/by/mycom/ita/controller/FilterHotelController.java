@@ -1,10 +1,13 @@
 package by.mycom.ita.controller;
 
+import by.mycom.ita.dao.FilterDao;
 import by.mycom.ita.dto.HotelDto;
 import by.mycom.ita.model.Hotel;
-import by.mycom.ita.services.IHotelFilterService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,34 +17,27 @@ import java.util.stream.Collectors;
 public class FilterHotelController {
 
     private final ObjectMapper objectMapper;
-    private final IHotelFilterService hotelFilterService;
 
-    public FilterHotelController(ObjectMapper objectMapper, IHotelFilterService hotelFilterService) {
+    private final FilterDao filterDao;
+
+    public FilterHotelController(ObjectMapper objectMapper, FilterDao filterDao) {
         this.objectMapper = objectMapper;
-        this.hotelFilterService = hotelFilterService;
+        this.filterDao = filterDao;
     }
 
-    @PostMapping("/name")
-    public List<HotelDto> filterByName(@RequestParam HotelDto hotelDto) {
+    @PostMapping(value = "/coincidences")
+    public List<HotelDto> coincidencesFiltering(@RequestBody HotelDto hotelDto) {
         final Hotel hotel = objectMapper.convertValue(hotelDto, Hotel.class);
-        List<Hotel> hotels = hotelFilterService.filterByName(hotel.getName());
+        List<Hotel> hotels = filterDao.coincidencesFiltering(hotel);
         return hotels.stream()
                 .map(convertHotel -> objectMapper.convertValue(convertHotel, HotelDto.class))
                 .collect(Collectors.toList());
     }
 
-    @PostMapping("/location")
-    public List<HotelDto> filterByLocation(@RequestParam HotelDto hotelDto) {
+    @PostMapping(value = "/exact")
+    public List<HotelDto> exactFiltering(@RequestBody HotelDto hotelDto) {
         final Hotel hotel = objectMapper.convertValue(hotelDto, Hotel.class);
-        List<Hotel> hotels = hotelFilterService.filterByLocation(hotel.getLocation());
-        return hotels.stream()
-                .map(convertHotel -> objectMapper.convertValue(convertHotel, HotelDto.class))
-                .collect(Collectors.toList());
-    }
-
-    @PostMapping("/rating")
-    public List<HotelDto> filterByRating() {
-        List<Hotel> hotels = hotelFilterService.filterByRanking();
+        List<Hotel> hotels = filterDao.exactFiltering(hotel);
         return hotels.stream()
                 .map(convertHotel -> objectMapper.convertValue(convertHotel, HotelDto.class))
                 .collect(Collectors.toList());

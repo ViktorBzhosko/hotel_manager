@@ -22,10 +22,12 @@ public class RoomController {
     }
 
     @PostMapping("/create")
-    public RoomDto create(@RequestBody RoomDto roomDto) {
+    public List <RoomDto> create(@RequestBody RoomDto roomDto,
+                          @RequestParam Long hotelId) {
         final Room room = objectMapper.convertValue(roomDto, Room.class);
-        Room roomCreated = iServiceRoom.create(room,room.getNumberOfRoom());
-        return objectMapper.convertValue(roomCreated, RoomDto.class);
+        List<Room> roomCreated = iServiceRoom.create(room, hotelId);
+        return roomCreated.stream().map(r -> objectMapper.convertValue(r, RoomDto.class))
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/read/all")
@@ -45,7 +47,7 @@ public class RoomController {
     public RoomDto update(@RequestParam(value = "id") Long id,
                           @RequestBody RoomDto roomDto) {
         final Room room = objectMapper.convertValue(roomDto, Room.class);
-        Room updatedRoom = iServiceRoom.update(id, room.getNumberOfRoom());
+        Room updatedRoom = iServiceRoom.update(id, room);
         return objectMapper.convertValue(updatedRoom, RoomDto.class);
     }
 

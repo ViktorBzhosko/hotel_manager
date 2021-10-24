@@ -29,7 +29,7 @@ public class Hotel {
     @JoinColumn(name = "hotel_id")
     private List<Room> rooms;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "hotel_id")
     private List<HotelRating> hotelRatings;
 

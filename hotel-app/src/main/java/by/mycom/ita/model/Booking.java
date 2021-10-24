@@ -29,7 +29,7 @@ public class Booking {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Hotel hotel;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "booking")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Room room;
 
     @Enumerated

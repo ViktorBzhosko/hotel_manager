@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface IRoomService {
 
-    Room create(Room room, int roomNumber) throws DataIsIncorrectException;
+    List<Room> create(Room room, Long hotelId) throws DataIsIncorrectException;
 
     List<Room> readAll() throws DataNotFoundException;
 
     Room readById(Long id) throws DataNotFoundException;
 
-    Room update(Long id, int roomNumber);
+    Room update(Long id, Room room);
 
     void deleteById(Long id);
 }

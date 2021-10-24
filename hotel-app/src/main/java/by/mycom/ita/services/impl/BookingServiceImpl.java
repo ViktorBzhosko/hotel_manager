@@ -11,6 +11,7 @@ import by.mycom.ita.services.IBookingService;
 import by.mycom.ita.services.ICommonUserService;
 import by.mycom.ita.services.IEmailService;
 import by.mycom.ita.services.IHotelService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,6 +24,7 @@ public class BookingServiceImpl implements IBookingService {
     private final BookingDao bookingDao;
     private final IEmailService iEmailService;
 
+    @Autowired
     public BookingServiceImpl(IHotelService iServiceHotel, ICommonUserService iServiceCommonUser, BookingDao bookingDao, IEmailService iEmailService) {
         this.iServiceHotel = iServiceHotel;
         this.iServiceCommonUser = iServiceCommonUser;

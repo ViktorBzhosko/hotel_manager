@@ -3,6 +3,7 @@ package by.mycom.ita.services.impl;
 import by.mycom.ita.model.CommonUser;
 import by.mycom.ita.services.ICommonUserService;
 import by.mycom.ita.services.IEmailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ public class EmailServiceImpl implements IEmailService {
 
     private final static String MASSAGE_FOR_CLIENT = "Your reservation Cancelled";
 
+    @Autowired
     public EmailServiceImpl(JavaMailSender emailSender, ICommonUserService commonUserService) {
         this.emailSender = emailSender;
         this.commonUserService = commonUserService;

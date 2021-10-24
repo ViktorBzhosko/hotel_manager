@@ -8,6 +8,7 @@ import by.mycom.ita.model.CommonUser;
 import by.mycom.ita.model.Hotel;
 import by.mycom.ita.model.HotelFavorites;
 import by.mycom.ita.services.IHotelFavoritesService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class HotelFavoritesService implements IHotelFavoritesService {
     private final CommonUserDao userDao;
     private final HotelDao hotelDao;
 
+    @Autowired
     public HotelFavoritesService(HotelFavoritesDao hotelFavoritesDao, CommonUserDao userDao, HotelDao hotelDao) {
         this.hotelFavoritesDao = hotelFavoritesDao;
         this.userDao = userDao;

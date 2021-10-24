@@ -6,6 +6,7 @@ import by.mycom.ita.exception.DataNotFoundException;
 import by.mycom.ita.model.Hotel;
 import by.mycom.ita.model.HotelRating;
 import by.mycom.ita.services.IHotelRatingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,11 +18,10 @@ import java.util.stream.IntStream;
 @Service
 public class HotelRatingService implements IHotelRatingService {
 
-    private final HotelRatingDao hotelRatingDao;
     private final HotelDao hotelDao;
 
-    public HotelRatingService(HotelRatingDao hotelRatingDao, HotelDao hotelDao) {
-        this.hotelRatingDao = hotelRatingDao;
+    @Autowired
+    public HotelRatingService(HotelDao hotelDao) {
         this.hotelDao = hotelDao;
     }
 

@@ -26,9 +26,6 @@ public class Room {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Hotel hotels;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Booking booking;
-
     @Enumerated(EnumType.STRING)
     private Accommodation accommodation;
     @Enumerated(EnumType.STRING)

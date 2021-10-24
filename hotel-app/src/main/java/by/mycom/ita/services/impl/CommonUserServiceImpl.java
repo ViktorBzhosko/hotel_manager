@@ -6,6 +6,7 @@ import by.mycom.ita.exception.DataNotFoundException;
 import by.mycom.ita.model.CommonUser;
 import by.mycom.ita.model.enums.UserRole;
 import by.mycom.ita.services.ICommonUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,6 +14,7 @@ public class CommonUserServiceImpl implements ICommonUserService {
 
     private final CommonUserDao userDao;
 
+    @Autowired
     public CommonUserServiceImpl(CommonUserDao userDao) {
         this.userDao = userDao;
     }
