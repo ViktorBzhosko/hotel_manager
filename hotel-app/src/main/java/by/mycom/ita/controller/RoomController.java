@@ -4,6 +4,7 @@ import by.mycom.ita.dto.RoomDto;
 import by.mycom.ita.model.Room;
 import by.mycom.ita.services.IRoomService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,14 +17,15 @@ public class RoomController {
     private final ObjectMapper objectMapper;
     private final IRoomService iServiceRoom;
 
+    @Autowired
     public RoomController(ObjectMapper objectMapper, IRoomService iServiceRoom) {
         this.objectMapper = objectMapper;
         this.iServiceRoom = iServiceRoom;
     }
 
     @PostMapping("/create")
-    public List <RoomDto> create(@RequestBody RoomDto roomDto,
-                          @RequestParam Long hotelId) {
+    public List<RoomDto> create(@RequestBody RoomDto roomDto,
+                                @RequestParam Long hotelId) {
         final Room room = objectMapper.convertValue(roomDto, Room.class);
         List<Room> roomCreated = iServiceRoom.create(room, hotelId);
         return roomCreated.stream().map(r -> objectMapper.convertValue(r, RoomDto.class))
@@ -31,7 +33,7 @@ public class RoomController {
     }
 
     @GetMapping("/read/all")
-    public List<RoomDto> readAll() throws Exception {
+    public List<RoomDto> readAll() {
         List<Room> list = iServiceRoom.readAll();
         return list.stream().map(room -> objectMapper.convertValue(room, RoomDto.class))
                 .collect(Collectors.toList());
