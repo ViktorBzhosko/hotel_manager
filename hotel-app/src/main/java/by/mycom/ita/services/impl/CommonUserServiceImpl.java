@@ -51,7 +51,7 @@ public class CommonUserServiceImpl implements ICommonUserService {
                 .firstName("Viktor")
                 .secondName("Bzhosko")
                 .passport("1562")
-                .email("dfsdf")
+                .email("vic308@mail.ru")
                 .phoneNumber(1489)
                 .build();
     }
