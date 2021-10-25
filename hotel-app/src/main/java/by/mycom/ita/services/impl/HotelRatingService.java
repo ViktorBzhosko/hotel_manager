@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 public class HotelRatingService implements IHotelRatingService {
@@ -49,5 +51,20 @@ public class HotelRatingService implements IHotelRatingService {
     public static double roundAvoid(double value, int places) {
         double scale = Math.pow(10, places);
         return Math.round(value * scale) / scale;
+    }
+
+    @Override
+    public List<HotelRating> createDefaultRating() {
+        return IntStream.range(1, 6)
+                .mapToObj(this::createRating)
+                .collect(Collectors.toList());
+    }
+
+    private HotelRating createRating(Integer mark) {
+        return HotelRating.builder()
+                .mark(mark)
+                .countOfMarks(0)
+                .build();
+
     }
 }

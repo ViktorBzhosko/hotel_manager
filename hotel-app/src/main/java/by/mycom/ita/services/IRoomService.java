@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IRoomService {
 
-    List<Room> create(Room room, Long hotelId) throws DataIsIncorrectException;
+    Room create(Room room, Long hotelId) throws DataNotFoundException;
 
     Room update(Long id, Room room);
 

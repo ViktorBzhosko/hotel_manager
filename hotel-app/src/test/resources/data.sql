@@ -1,3 +1,36 @@
+create table common_user
+(
+    user_id      long not null auto_increment,
+    email        varchar(255),
+    first_name   varchar(255),
+    passport     varchar(255),
+    phone_number integer,
+    second_name  varchar(255),
+    user_role    integer,
+    booking_id   bigint,
+    PRIMARY KEY (user_id),
+    Foreign Key (booking_id) references booking (id)
+);
+
+create table booking
+(
+    id             long not null auto_increment,
+    booking_status integer,
+    date_chek_in   date,
+    date_chek_out  date,
+    hotel_hotel_id bigint,
+    room_room_id   bigint,
+    users_user_id  bigint,
+    PRIMARY KEY (id),
+    FOREIGN KEY (room_room_id) references room (room_id),
+    FOREIGN KEY (users_user_id) references common_user (user_id),
+    FOREIGN KEY (hotel_hotel_id) references hotel (hotel_id)
+);
+
+alter table booking
+    add constraint fkbejtw8590cotmxmwao5axlmu8
+        foreign key (users_user_id) references common_user;
+
 create table hotel
 (
     hotel_id    long not null auto_increment,
@@ -31,38 +64,6 @@ create table room
 
 );
 
-create table booking
-(
-    id             long not null auto_increment,
-    booking_status integer,
-    date_chek_in   date,
-    date_chek_out  date,
-    hotel_hotel_id bigint,
-    room_room_id   bigint,
-    users_user_id  bigint,
-    PRIMARY KEY (id),
-    FOREIGN KEY (room_room_id) references room (room_id),
-    FOREIGN KEY (users_user_id) references common_user (user_id),
-    FOREIGN KEY (hotel_hotel_id) references hotel (hotel_id)
-);
-
-create table common_user
-(
-    user_id      long not null auto_increment,
-    email        varchar(255),
-    first_name   varchar(255),
-    passport     varchar(255),
-    phone_number integer,
-    second_name  varchar(255),
-    user_role    integer,
-    booking_id   bigint,
-    PRIMARY KEY (user_id),
-    Foreign Key (booking_id) references booking (id)
-);
-
-alter table booking
-    add constraint fkbejtw8590cotmxmwao5axlmu8
-        foreign key (users_user_id) references common_user;
 
 create table hotel_favorites
 (

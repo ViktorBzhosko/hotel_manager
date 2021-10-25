@@ -10,7 +10,7 @@ spring:
     driver-class-name: org.h2.Driver
     username: test
     password: test
-    data: classpath:data.sql
+    data: classpath:data-test.sql
 
 
 

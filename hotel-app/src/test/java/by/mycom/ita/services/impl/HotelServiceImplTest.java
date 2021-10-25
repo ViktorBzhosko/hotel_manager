@@ -32,7 +32,7 @@ class HotelServiceImplTest {
     private HotelServiceImpl hotelService;
 
     @Test
-    void create() {
+    void whenCreate_thenOk() {
         Hotel hotel = createSimpleHotel();
         Mockito.when(hotelDao.save(Mockito.any())).thenReturn(hotel);
         Hotel actual = hotelService.create(hotel);

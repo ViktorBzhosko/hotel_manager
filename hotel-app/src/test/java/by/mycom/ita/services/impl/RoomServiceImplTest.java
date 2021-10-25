@@ -10,74 +10,81 @@ import by.mycom.ita.model.enums.Comfort;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.Mockito.doThrow;
-
-@ExtendWith(MockitoExtension.class)
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
 class RoomServiceImplTest {
 
-    @Mock
+    @Autowired
     private RoomDao roomDao;
 
-    @Mock
+    @MockBean
     private HotelDao hotelDao;
 
-    @InjectMocks
+    @Autowired
     private RoomServiceImpl roomService;
 
     @Test
     void whenCreate_thenOk() {
 
-//        Mockito.when(hotelDao.findById(1L)).thenReturn();
+        Room simpleRoom1 = createSimpleRoom(1);
+        Room simpleRoom2 = createSimpleRoom(2);
 
+        List<Room> rooms1 = new ArrayList<>(List.of(simpleRoom1));
+
+        Hotel simpleHotel1 = createSimpleHotel(rooms1, 1L, "Mercuri");
+        Hotel simpleHotel2 = createSimpleHotel(List.of(), 2L, "Alladin");
+
+        Mockito.when(hotelDao.findById(1L)).thenReturn(Optional.ofNullable(simpleHotel1));
+        Mockito.when(hotelDao.findById(2L)).thenReturn(Optional.ofNullable(simpleHotel2));
+
+        Mockito.when(hotelDao.save(Mockito.any())).thenReturn(simpleHotel1);
+        Mockito.when(hotelDao.save(Mockito.any())).thenReturn(simpleHotel2);
+
+        Room room11 = roomService.create(simpleRoom2, 1L);
+        Room room22 = roomService.create(simpleRoom2, 2L);
+
+        Assertions.assertEquals(room11, simpleRoom2);
+        Assertions.assertEquals(room22, simpleRoom2);
+
+    }
+
+    @Test
+    void whenCreate_thenException() {
+        Room simpleRoom = createSimpleRoom(1);
+        Mockito.when(hotelDao.findById(1L)).thenReturn(Optional.empty());
+        Assertions.assertThrows(DataNotFoundException.class, () -> roomService.create(simpleRoom, 1L));
     }
 
     @Test
     void whenUpdate_returnRoom() {
-        Room room = createSimpleRoom();
-        Room updatedRoom = createSimpleRoom();
-        updatedRoom.setNumberOfRoom(2);
-        Mockito.when(roomDao.findById(1L)).thenReturn(Optional.of(room));
-        Mockito.when(roomDao.save(room)).thenReturn(updatedRoom);
-        Room expected = roomService.update(1L, room);
+        Room room = createSimpleRoom(1);
+        Room updatedRoom = createSimpleRoom(2);
+        updatedRoom.setId(1);
+        updatedRoom.setComfort(Comfort.BUSINESS);
+        roomDao.save(room);
+        Room expected = roomService.update(1L, updatedRoom);
         Assertions.assertEquals(expected, updatedRoom);
-        Mockito.verify(roomDao, Mockito.times(1)).findById(1L);
-        Mockito.verify(roomDao, Mockito.times(1)).save(room);
-
     }
 
     @Test
     void whenUpdate_returnException() {
-        Room room = new Room();
-        Mockito.when(roomDao.findById(20L)).thenReturn(Optional.empty());
-        Assertions.assertThrows(DataNotFoundException.class, () -> roomService.update(20L, room));
-        Mockito.verify(roomDao, Mockito.times(1)).findById(20L);
+        Assertions.assertThrows(DataNotFoundException.class, () -> roomService.update(20L, null));
     }
 
-    @Test
-    void whenDelete_thenOk() {
-        roomDao.deleteById(1L);
-        Mockito.verify(roomDao, Mockito.times(1)).deleteById(1L);
-    }
-
-    @Test
-    void whenDelete_returnException() {
-        Long id = 2L;
-        doThrow(new DataNotFoundException()).when(roomDao).deleteById(id);
-        Assertions.assertThrows(DataNotFoundException.class, () -> roomService.deleteById(id));
-    }
-
-    private Hotel createSimpleHotel(List<Room> rooms) {
+    private Hotel createSimpleHotel(List<Room> rooms, Long id, String name) {
         return Hotel.builder()
-                .id(1L)
-                .name("Mercuri")
+                .id(id)
+                .name(name)
                 .location("Egypt")
                 .rooms(rooms)
                 .avgMark(4.5)
@@ -85,9 +92,9 @@ class RoomServiceImplTest {
                 .build();
     }
 
-    private Room createSimpleRoom() {
+    private Room createSimpleRoom(Integer numberOfRoom) {
         return Room.builder()
-                .numberOfRoom(1)
+                .numberOfRoom(numberOfRoom)
                 .accommodation(Accommodation.SINGLE)
                 .comfort(Comfort.STANDARD)
                 .build();

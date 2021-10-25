@@ -15,12 +15,12 @@ import java.util.List;
 public class HotelServiceImpl implements IHotelService {
 
     private final HotelDao hotelDao;
-    private final IHotelRatingService hotelRating;
+    private final IHotelRatingService hotelRatingService;
 
     @Autowired
-    public HotelServiceImpl(HotelDao hotelDao, IHotelRatingService hotelRating) {
+    public HotelServiceImpl(HotelDao hotelDao, IHotelRatingService hotelRatingService) {
         this.hotelDao = hotelDao;
-        this.hotelRating = hotelRating;
+        this.hotelRatingService = hotelRatingService;
     }
 
     @Override
@@ -32,6 +32,7 @@ public class HotelServiceImpl implements IHotelService {
                 .name(hotel.getName())
                 .location(hotel.getLocation())
                 .avgMark(0D)
+                .hotelRatings(hotelRatingService.createDefaultRating())
                 .convenience(hotel.getConvenience())
                 .build();
         return hotelDao.save(createHotel);

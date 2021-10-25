@@ -25,7 +25,7 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public List<Room> create(Room room, Long hotelId) throws DataIsIncorrectException {
+    public Room create(Room room, Long hotelId) throws DataNotFoundException {
         Hotel hotelFounded = hotelDao.findById(hotelId).orElseThrow(DataNotFoundException::new);
         List<Room> rooms = hotelFounded.getRooms();
         Room roomFounded = rooms.stream()
@@ -33,10 +33,10 @@ public class RoomServiceImpl implements IRoomService {
                 .findFirst().orElseGet(() -> Room.builder()
                         .numberOfRoom(room.getNumberOfRoom())
                         .comfort(room.getComfort())
+                        .hotels(hotelFounded)
                         .accommodation(room.getAccommodation())
                         .build());
-        if (!rooms.contains(roomFounded)) rooms.add(roomFounded);
-        return hotelDao.save(hotelFounded).getRooms();
+        return roomDao.save(roomFounded);
     }
 
     @Override
