@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.doThrow;
@@ -24,16 +25,17 @@ class RoomServiceImplTest {
 
     @Mock
     private RoomDao roomDao;
+
     @Mock
     private HotelDao hotelDao;
 
     @InjectMocks
     private RoomServiceImpl roomService;
 
-
     @Test
-    void create() {
+    void whenCreate_thenOk() {
 
+//        Mockito.when(hotelDao.findById(1L)).thenReturn();
 
     }
 
@@ -59,23 +61,6 @@ class RoomServiceImplTest {
         Mockito.verify(roomDao, Mockito.times(1)).findById(20L);
     }
 
-    private Room createSimpleRoom() {
-        return Room.builder()
-                .numberOfRoom(1)
-                .accommodation(Accommodation.SINGLE)
-                .comfort(Comfort.STANDARD)
-                .build();
-    }
-
-    private Hotel createSimpleHotel() {
-        return Hotel.builder()
-                .name("Mercuri")
-                .location("Egypt")
-                .avgMark(4.5)
-                .convenience("5 stars")
-                .build();
-    }
-
     @Test
     void whenDelete_thenOk() {
         roomDao.deleteById(1L);
@@ -87,5 +72,24 @@ class RoomServiceImplTest {
         Long id = 2L;
         doThrow(new DataNotFoundException()).when(roomDao).deleteById(id);
         Assertions.assertThrows(DataNotFoundException.class, () -> roomService.deleteById(id));
+    }
+
+    private Hotel createSimpleHotel(List<Room> rooms) {
+        return Hotel.builder()
+                .id(1L)
+                .name("Mercuri")
+                .location("Egypt")
+                .rooms(rooms)
+                .avgMark(4.5)
+                .convenience("5 stars")
+                .build();
+    }
+
+    private Room createSimpleRoom() {
+        return Room.builder()
+                .numberOfRoom(1)
+                .accommodation(Accommodation.SINGLE)
+                .comfort(Comfort.STANDARD)
+                .build();
     }
 }

@@ -1,7 +1,6 @@
 package by.mycom.ita.services.impl;
 
 import by.mycom.ita.dao.HotelDao;
-import by.mycom.ita.dao.HotelRatingDao;
 import by.mycom.ita.exception.DataNotFoundException;
 import by.mycom.ita.model.Hotel;
 import by.mycom.ita.model.HotelRating;
@@ -12,8 +11,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Service
 public class HotelRatingService implements IHotelRatingService {
@@ -27,7 +24,7 @@ public class HotelRatingService implements IHotelRatingService {
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     @Override
-    public void estimateHotel(Long hotelId, Integer mark) {
+    public Hotel estimateHotel(Long hotelId, Integer mark) {
         Hotel foundHotel = hotelDao.getById(hotelId);
 
         List<HotelRating> hotelRatings = foundHotel.getHotelRatings();
@@ -46,26 +43,11 @@ public class HotelRatingService implements IHotelRatingService {
 
         foundHotel.setAvgMark(avgMark);
 
-        hotelDao.save(foundHotel);
+        return hotelDao.save(foundHotel);
     }
 
     public static double roundAvoid(double value, int places) {
         double scale = Math.pow(10, places);
         return Math.round(value * scale) / scale;
-    }
-
-    @Override
-    public List<HotelRating> createDefaultRating() {
-        return IntStream.range(1, 6)
-                .mapToObj(this::createRating)
-                .collect(Collectors.toList());
-    }
-
-    private HotelRating createRating(Integer mark) {
-        return HotelRating.builder()
-                .mark(mark)
-                .countOfMarks(0)
-                .build();
-
     }
 }

@@ -40,7 +40,7 @@ public class BookingServiceImpl implements IBookingService {
         Room foundRoom = foundHotel.getRooms().stream()
                 .filter(room -> room.getNumberOfRoom() == roomNumber)
                 .findFirst()
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(DataNotFoundException::new);
 
         Booking createBooking = Booking.builder()
                 .dateChekIn(booking.getDateChekIn())

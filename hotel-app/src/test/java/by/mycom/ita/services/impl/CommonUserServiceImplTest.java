@@ -1,6 +1,7 @@
 package by.mycom.ita.services.impl;
 
 import by.mycom.ita.dao.CommonUserDao;
+import by.mycom.ita.exception.DataIsIncorrectException;
 import by.mycom.ita.model.CommonUser;
 import by.mycom.ita.model.enums.UserRole;
 import org.junit.jupiter.api.Assertions;
@@ -23,7 +24,7 @@ class CommonUserServiceImplTest {
     private CommonUserServiceImpl commonUserService;
 
     @Test
-    void createClient() {
+    void whenCreate_returnClient() {
         CommonUser simpleUser = createSimpleUser();
         simpleUser.setUserRole(UserRole.CLIENT);
         Mockito.when(userDao.save(Mockito.any())).thenReturn(simpleUser);
@@ -33,7 +34,14 @@ class CommonUserServiceImplTest {
     }
 
     @Test
-    void createManager() {
+    void whenCreateClient_ReturnException() {
+        CommonUser user = createSimpleUserWithException();
+        Assertions.assertThrows(DataIsIncorrectException.class,
+                () -> commonUserService.createClient(user));
+    }
+
+    @Test
+    void whenCreate_returnManager() {
         CommonUser simpleUser = createSimpleUser();
         simpleUser.setUserRole(UserRole.MANAGER);
         Mockito.when(userDao.save(Mockito.any())).thenReturn(simpleUser);
@@ -43,7 +51,14 @@ class CommonUserServiceImplTest {
     }
 
     @Test
-    void createAdmin() {
+    void whenCreateManager_ReturnException() {
+        CommonUser user = createSimpleUserWithException();
+        Assertions.assertThrows(DataIsIncorrectException.class,
+                () -> commonUserService.createManager(user));
+    }
+
+    @Test
+    void whenCreate_returnAdmin() {
         CommonUser simpleUser = createSimpleUser();
         simpleUser.setUserRole(UserRole.ADMIN);
         Mockito.when(userDao.save(Mockito.any())).thenReturn(simpleUser);
@@ -53,7 +68,14 @@ class CommonUserServiceImplTest {
     }
 
     @Test
-    void findById(){
+    void whenCreateAdmin_ReturnException() {
+        CommonUser user = createSimpleUserWithException();
+        Assertions.assertThrows(DataIsIncorrectException.class,
+                () -> commonUserService.createAdmin(user));
+    }
+
+    @Test
+    void findById() {
         CommonUser user = createSimpleUser();
         Mockito.when(userDao.findById(10L)).thenReturn(Optional.ofNullable(user));
         CommonUser expected = commonUserService.findById(10L);
@@ -64,6 +86,16 @@ class CommonUserServiceImplTest {
     private CommonUser createSimpleUser() {
         return CommonUser.builder()
                 .firstName("Viktor")
+                .secondName("Bzhosko")
+                .email("vic308@mail.ru")
+                .passport("ab123")
+                .phoneNumber(256)
+                .build();
+    }
+
+    private CommonUser createSimpleUserWithException() {
+        return CommonUser.builder()
+                .firstName(null)
                 .secondName("Bzhosko")
                 .email("vic308@mail.ru")
                 .passport("ab123")

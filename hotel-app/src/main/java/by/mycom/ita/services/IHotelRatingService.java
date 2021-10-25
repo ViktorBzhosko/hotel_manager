@@ -1,13 +1,9 @@
 package by.mycom.ita.services;
 
-import by.mycom.ita.model.HotelRating;
-
-import java.util.List;
+import by.mycom.ita.model.Hotel;
 
 public interface IHotelRatingService {
 
-    void estimateHotel(Long hotelId, Integer mark);
-
-    List<HotelRating> createDefaultRating();
+    Hotel estimateHotel(Long hotelId, Integer mark);
 
 }
