@@ -10,10 +10,6 @@ public interface IRoomService {
 
     List<Room> create(Room room, Long hotelId) throws DataIsIncorrectException;
 
-    List<Room> readAll() throws DataNotFoundException;
-
-    Room readById(Long id) throws DataNotFoundException;
-
     Room update(Long id, Room room);
 
     void deleteById(Long id);

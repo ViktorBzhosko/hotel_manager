@@ -1,7 +1,6 @@
 package by.mycom.ita.services;
 
 import by.mycom.ita.exception.DataIsIncorrectException;
-import by.mycom.ita.exception.DataNotFoundException;
 import by.mycom.ita.model.CommonUser;
 
 public interface ICommonUserService {
@@ -10,9 +9,10 @@ public interface ICommonUserService {
 
     CommonUser createManager(CommonUser user) throws DataIsIncorrectException;
 
-    CommonUser findById(Long id) throws DataNotFoundException;
+    CommonUser createAdmin(CommonUser user) throws DataIsIncorrectException;
 
     CommonUser getCurrentUser();
 
-    void deleteById(Long id);
+    CommonUser findById (Long id);
+
 }

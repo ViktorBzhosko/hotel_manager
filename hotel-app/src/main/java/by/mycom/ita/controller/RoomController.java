@@ -32,19 +32,6 @@ public class RoomController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/read/all")
-    public List<RoomDto> readAll() {
-        List<Room> list = iServiceRoom.readAll();
-        return list.stream().map(room -> objectMapper.convertValue(room, RoomDto.class))
-                .collect(Collectors.toList());
-    }
-
-    @GetMapping("/read")
-    public RoomDto readById(@RequestBody Long id) throws Exception {
-        Room room = iServiceRoom.readById(id);
-        return objectMapper.convertValue(room, RoomDto.class);
-    }
-
     @PutMapping("/update")
     public RoomDto update(@RequestParam(value = "id") Long id,
                           @RequestBody RoomDto roomDto) {

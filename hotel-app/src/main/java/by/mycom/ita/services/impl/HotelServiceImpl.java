@@ -32,7 +32,6 @@ public class HotelServiceImpl implements IHotelService {
                 .name(hotel.getName())
                 .location(hotel.getLocation())
                 .avgMark(0D)
-                .hotelRatings(hotelRating.createDefaultRating())
                 .convenience(hotel.getConvenience())
                 .build();
         return hotelDao.save(createHotel);

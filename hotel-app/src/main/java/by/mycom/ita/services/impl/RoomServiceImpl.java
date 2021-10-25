@@ -40,19 +40,6 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public List<Room> readAll() throws DataNotFoundException {
-        List<Room> rooms = roomDao.findAll();
-        if (!rooms.isEmpty()) return rooms;
-        else throw new DataNotFoundException();
-    }
-
-    @Override
-    public Room readById(Long id) throws DataNotFoundException {
-        if (id < 1) throw new DataIsIncorrectException();
-        return roomDao.findById(id).orElseThrow(DataNotFoundException::new);
-    }
-
-    @Override
     public Room update(Long id, Room room) {
         Room foundedRoom = roomDao.findById(id).orElseThrow(DataNotFoundException::new);
         foundedRoom.setNumberOfRoom(room.getNumberOfRoom());

@@ -31,6 +31,17 @@ public class CommonUserServiceImpl implements ICommonUserService {
         return userDao.save(createUser);
     }
 
+    @Override
+    public CommonUser createAdmin(CommonUser user) throws DataIsIncorrectException {
+        CommonUser createUser = create(user, UserRole.ADMIN);
+        return userDao.save(createUser);
+    }
+
+    @Override
+    public CommonUser findById(Long id) {
+        return userDao.findById(id).orElseThrow(DataNotFoundException::new);
+    }
+
     private CommonUser create(CommonUser user, UserRole userRole) {
         if (user.getFirstName() == null || user.getSecondName() == null || user.getPassport() == null
                 || user.getEmail() == null || user.getPhoneNumber() == null) {
@@ -54,15 +65,5 @@ public class CommonUserServiceImpl implements ICommonUserService {
                 .email("vic308@mail.ru")
                 .phoneNumber(1489)
                 .build();
-    }
-
-    @Override
-    public CommonUser findById(Long id) throws DataNotFoundException {
-        return userDao.findById(id).orElseThrow(DataNotFoundException::new);
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        userDao.deleteById(id);
     }
 }

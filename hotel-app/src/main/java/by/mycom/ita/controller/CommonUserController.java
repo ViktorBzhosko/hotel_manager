@@ -32,8 +32,10 @@ public class CommonUserController {
         return objectMapper.convertValue(userCreated, CommonUserDto.class);
     }
 
-    @DeleteMapping(value = "/delete/{id}")
-    public void deleteById(@PathVariable Long id) {
-        iServiceCommonUser.deleteById(id);
+    @PostMapping("/create/admin")
+    public CommonUserDto createAdmin(@RequestBody CommonUserDto commonUserDto) {
+        final CommonUser commonUser = objectMapper.convertValue(commonUserDto, CommonUser.class);
+        CommonUser userCreated = iServiceCommonUser.createAdmin(commonUser);
+        return objectMapper.convertValue(userCreated, CommonUserDto.class);
     }
 }
