@@ -30,14 +30,16 @@ public class HotelFavoritesService implements IHotelFavoritesService {
 
     @Override
     public CommonUser favorites(CommonUser user, Hotel hotel) {
-        List<HotelFavorites> hotelFavoritesList = new ArrayList<>();
+        List<HotelFavorites> hotelFavoritesList = user.getHotelFavorites();
         Hotel foundHotel = hotelDao.findById(hotel.getId()).orElseThrow(DataNotFoundException::new);
 
         HotelFavorites hotelFavorites = HotelFavorites.builder()
                 .hotel(foundHotel)
                 .build();
-        hotelFavoritesList.add(hotelFavorites);
-        user.setHotelFavorites(hotelFavoritesList);
+        if (!hotelFavoritesList.contains(hotelFavorites)) {
+            hotelFavoritesList.add(hotelFavorites);
+            user.setHotelFavorites(hotelFavoritesList);
+        }
         return userDao.save(user);
     }
 

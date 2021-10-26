@@ -9,6 +9,7 @@ import by.mycom.ita.model.Room;
 import by.mycom.ita.services.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class RoomServiceImpl implements IRoomService {
         this.hotelDao = hotelDao;
     }
 
+    @Transactional
     @Override
     public Room create(Room room, Long hotelId) throws DataNotFoundException {
         Hotel hotelFounded = hotelDao.findById(hotelId).orElseThrow(DataNotFoundException::new);
