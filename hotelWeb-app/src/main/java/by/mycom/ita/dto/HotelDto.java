@@ -6,11 +6,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class HotelDto {
-
     private long id;
     private String name;
     private Double avgMark;

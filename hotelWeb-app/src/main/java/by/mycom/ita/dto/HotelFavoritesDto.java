@@ -12,4 +12,5 @@ public class HotelFavoritesDto {
     private Long id;
     private HotelDto hotel;
     private CommonUserDto user;
+
 }

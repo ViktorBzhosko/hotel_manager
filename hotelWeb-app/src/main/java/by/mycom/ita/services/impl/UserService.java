@@ -1,4 +1,4 @@
-package by.mycom.ita.services;
+package by.mycom.ita.services.impl;
 
 import by.mycom.ita.configuration.UserDetail;
 import by.mycom.ita.dao.IUserDao;
@@ -11,17 +11,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {
-
-    @PersistenceContext
-    private EntityManager em;
 
     @Autowired
     private IUserDao userDao;
@@ -30,8 +24,8 @@ public class UserService implements UserDetailsService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.findByUsername(username);
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        User user = userDao.findByLogin(login);
 
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
@@ -45,12 +39,9 @@ public class UserService implements UserDetailsService {
         return userFromDb.orElse(new User());
     }
 
-    public List<User> allUsers() {
-        return userDao.findAll();
-    }
 
     public boolean saveUser(User user) {
-        User userFromDB = userDao.findByUsername(user.getLogin());
+        User userFromDB = userDao.findByLogin(user.getLogin());
 
         if (userFromDB != null) {
             return false;
@@ -58,20 +49,10 @@ public class UserService implements UserDetailsService {
 
         user.setRoles(Collections.singleton(new Role(1L, "Client")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setLogin(user.getLogin());
         userDao.save(user);
         return true;
     }
 
-    public boolean deleteUser(Long userId) {
-        if (userDao.findById(userId).isPresent()) {
-            userDao.deleteById(userId);
-            return true;
-        }
-        return false;
-    }
 
-    public List<User> usersList(Long idMin) {
-        return em.createQuery("SELECT u FROM User u WHERE u.id > :paramId", User.class)
-                .setParameter("paramId", idMin).getResultList();
-    }
 }

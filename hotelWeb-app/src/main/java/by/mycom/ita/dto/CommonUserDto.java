@@ -15,5 +15,5 @@ public class CommonUserDto {
     private String passport;
     private String email;
     private int phoneNumber;
-    private BookingDto booking;
+    private BookingDto bookingDto;
 }

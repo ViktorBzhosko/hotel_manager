@@ -74,4 +74,9 @@ public class BookingServiceImpl implements IBookingService {
         iEmailService.sendSimpleMessage(id);
         return update(id, BookingStatus.CANCELED);
     }
+
+    @Override
+    public Booking readById(Long id) {
+        return bookingDao.findById(id).orElseThrow(DataNotFoundException::new);
+    }
 }

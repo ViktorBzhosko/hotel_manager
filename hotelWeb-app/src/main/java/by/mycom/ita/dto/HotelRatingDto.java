@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class HotelFavoritesDto {
+public class HotelRatingDto {
 
     private Long id;
-    private HotelDto hotel;
-    private CommonUserDto user;
+    private Integer mark;
+    private Integer countOfMarks;
+
 }

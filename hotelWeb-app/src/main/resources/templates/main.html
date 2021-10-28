@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:fragment="main-fragment (title, otherStaticResources, header, nav, mainContent, footer)">
+<head>
+    <meta charset="UTF-8" />
+    <title th:replace="${title}">Welcome to Hotel manager</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/main.css}" href="../../static/main.css"/>
+
+    <th:block th:replace="${otherStaticResources} ?: ~{}"></th:block>
+</head>
+<body>
+<header th:insert="${header} ?: ~{}">
+    <h2>Welcome to Hotel manager</h2>
+</header>
+<section>
+    <nav th:insert="${nav} ?: ~{}">
+        <ul>
+            <li><a href="#">Show all hotels</a></li>
+            <li><a href="#">Page 2</a></li>
+        </ul>
+    </nav>
+    <article th:insert="${mainContent} ?: ~{}">
+        <h1>Page 1</h1>
+        <p>Main content of Page 1</p>
+    </article>
+</section>
+
+</body>
+</html>

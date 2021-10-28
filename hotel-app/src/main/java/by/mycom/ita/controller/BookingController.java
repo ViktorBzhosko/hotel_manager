@@ -19,29 +19,35 @@ public class BookingController {
     }
 
     @PostMapping("/create")
-    public BookingDto create(@RequestParam Long id,
+    public BookingDto create(@RequestParam Long hotelId,
                              @RequestParam Integer number,
                              @RequestBody BookingDto bookingDto) throws RuntimeException {
         final Booking booking = objectMapper.convertValue(bookingDto, Booking.class);
-        Booking bookingCreated = iServiceBooking.create(booking, number, id);
+        Booking bookingCreated = iServiceBooking.create(booking, number, hotelId);
         return objectMapper.convertValue(bookingCreated, BookingDto.class);
     }
 
-    @PutMapping("/update/arrive/{client_id}")
-    public BookingDto updateByArrive(@PathVariable("client_id") Long id) {
+    @PutMapping("/update/arrive/{booking_id}")
+    public BookingDto updateByArrive(@PathVariable("booking_id") Long id) {
         final Booking bookingUpdated = iServiceBooking.updateByArrive(id);
         return objectMapper.convertValue(bookingUpdated, BookingDto.class);
     }
 
-    @PutMapping("/update/leave/{client_id}")
-    public BookingDto updateByLeave(@PathVariable("client_id") Long id) {
+    @PutMapping("/update/leave/{booking_id}")
+    public BookingDto updateByLeave(@PathVariable("booking_id") Long id) {
         final Booking bookingUpdated = iServiceBooking.updateByLeave(id);
         return objectMapper.convertValue(bookingUpdated, BookingDto.class);
     }
 
-    @PutMapping("/update/canceled/{client_id}")
-    public BookingDto updateByCancelled(@PathVariable("client_id") Long id) {
+    @PutMapping("/update/canceled/{booking_id}")
+    public BookingDto updateByCancelled(@PathVariable("booking_id") Long id) {
         final Booking bookingUpdated = iServiceBooking.updateByCanceled(id);
         return objectMapper.convertValue(bookingUpdated, BookingDto.class);
+    }
+
+    @GetMapping("/business/{id}")
+    public BookingDto readById(@PathVariable Long id) {
+        final Booking booking = iServiceBooking.readById(id);
+        return objectMapper.convertValue(booking, BookingDto.class);
     }
 }

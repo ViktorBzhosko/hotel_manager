@@ -17,6 +17,8 @@ public class User {
     @Column(unique = true)
     private String login;
     private String password;
+    @Transient
+    private String passwordConfirm;
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",

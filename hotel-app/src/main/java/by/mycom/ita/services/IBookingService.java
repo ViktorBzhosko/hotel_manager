@@ -5,7 +5,7 @@ import by.mycom.ita.model.Booking;
 
 public interface IBookingService {
 
-    Booking create(Booking booking,Integer roomNumber, Long id) throws DataNotFoundException;
+    Booking create(Booking booking, Integer roomNumber, Long hotelId) throws DataNotFoundException;
 
     Booking updateByArrive(Long id) throws DataNotFoundException;
 
@@ -13,4 +13,5 @@ public interface IBookingService {
 
     Booking updateByCanceled(Long id) throws DataNotFoundException;
 
+    Booking readById(Long id);
 }
