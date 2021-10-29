@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HotelFavoritesService implements IHotelFavoritesService {
@@ -29,7 +30,8 @@ public class HotelFavoritesService implements IHotelFavoritesService {
     }
 
     @Override
-    public CommonUser favorites(CommonUser user, Hotel hotel) {
+    public CommonUser favorites(Long userId, Hotel hotel) {
+        CommonUser user = userDao.findById(userId).orElseThrow(DataNotFoundException::new);
         List<HotelFavorites> hotelFavoritesList = user.getHotelFavorites();
         Hotel foundHotel = hotelDao.findById(hotel.getId()).orElseThrow(DataNotFoundException::new);
 
@@ -44,12 +46,9 @@ public class HotelFavoritesService implements IHotelFavoritesService {
     }
 
     @Override
-    public List<HotelFavorites> showAllFavorites() {
-        return hotelFavoritesDao.findAll();
+    public List<HotelFavorites> showAllFavorites(Long userId) {
+        CommonUser user = userDao.findById(userId).orElseThrow(DataNotFoundException::new);
+        return user.getHotelFavorites();
     }
 
-    @Override
-    public void deleteFavorite(Long id) {
-        hotelFavoritesDao.deleteById(id);
-    }
 }

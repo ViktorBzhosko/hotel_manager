@@ -22,21 +22,9 @@ public class CommonUserController {
         return "user-create";
     }
 
-    @PostMapping("/client")
+    @PostMapping("/user")
     public String createClient(@ModelAttribute CommonUserDto commonUserDto , Model model) {
-        userService.createClient(commonUserDto,model);
-        return "redirect:/user-create";
-    }
-
-    @PostMapping("/manager")
-    public String createManager(@ModelAttribute CommonUserDto commonUserDto , Model model) {
-        userService.createManager(commonUserDto,model);
-        return "redirect:/user-create";
-    }
-
-    @PostMapping("/manager")
-    public String createAdmin(@ModelAttribute CommonUserDto commonUserDto , Model model) {
-        userService.createAdmin(commonUserDto,model);
+        userService.createUser(commonUserDto,model);
         return "redirect:/user-create";
     }
 

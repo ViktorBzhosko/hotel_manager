@@ -24,21 +24,23 @@ public class BookingServiceImpl implements IBookingService {
     private final BookingDao bookingDao;
     private final IEmailService iEmailService;
 
+
     @Autowired
     public BookingServiceImpl(IHotelService iServiceHotel, ICommonUserService iServiceCommonUser, BookingDao bookingDao, IEmailService iEmailService) {
         this.iServiceHotel = iServiceHotel;
         this.iServiceCommonUser = iServiceCommonUser;
         this.bookingDao = bookingDao;
         this.iEmailService = iEmailService;
+
     }
 
     @Transactional
     @Override
-    public Booking create(Booking booking, Integer roomNumber, Long id) throws DataNotFoundException {
-        CommonUser user = iServiceCommonUser.getCurrentUser();
-        Hotel foundHotel = iServiceHotel.readById(id);
+    public Booking create(Booking booking, Long roomId, Long hotelId, Long userId) throws DataNotFoundException {
+        CommonUser user = iServiceCommonUser.findById(userId);
+        Hotel foundHotel = iServiceHotel.readById(hotelId);
         Room foundRoom = foundHotel.getRooms().stream()
-                .filter(room -> room.getNumberOfRoom() == roomNumber)
+                .filter(room -> room.getId() == roomId)
                 .findFirst()
                 .orElseThrow(DataNotFoundException::new);
 

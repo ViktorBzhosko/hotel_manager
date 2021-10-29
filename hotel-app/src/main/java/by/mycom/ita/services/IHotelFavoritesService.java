@@ -8,10 +8,8 @@ import java.util.List;
 
 public interface IHotelFavoritesService {
 
-    CommonUser favorites(CommonUser user, Hotel hotel);
+    CommonUser favorites(Long userId, Hotel hotel);
 
-    List<HotelFavorites> showAllFavorites();
-
-    void deleteFavorite(Long id);
+    List<HotelFavorites> showAllFavorites(Long userId );
 
 }

@@ -18,24 +18,10 @@ public class CommonUserController {
         this.iServiceCommonUser = iServiceCommonUser;
     }
 
-    @PostMapping("/create/client")
-    public CommonUserDto createClient(@RequestBody CommonUserDto commonUserDto) {
+    @PostMapping("/create")
+    public CommonUserDto createUser(@RequestBody CommonUserDto commonUserDto) {
         final CommonUser commonUser = objectMapper.convertValue(commonUserDto, CommonUser.class);
-        CommonUser userCreated = iServiceCommonUser.createClient(commonUser);
-        return objectMapper.convertValue(userCreated, CommonUserDto.class);
-    }
-
-    @PostMapping("/create/manager")
-    public CommonUserDto createManager(@RequestBody CommonUserDto commonUserDto) {
-        final CommonUser commonUser = objectMapper.convertValue(commonUserDto, CommonUser.class);
-        CommonUser userCreated = iServiceCommonUser.createManager(commonUser);
-        return objectMapper.convertValue(userCreated, CommonUserDto.class);
-    }
-
-    @PostMapping("/create/admin")
-    public CommonUserDto createAdmin(@RequestBody CommonUserDto commonUserDto) {
-        final CommonUser commonUser = objectMapper.convertValue(commonUserDto, CommonUser.class);
-        CommonUser userCreated = iServiceCommonUser.createAdmin(commonUser);
+        CommonUser userCreated = iServiceCommonUser.create(commonUser);
         return objectMapper.convertValue(userCreated, CommonUserDto.class);
     }
 }

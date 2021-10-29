@@ -1,5 +1,6 @@
 package by.mycom.ita.controller;
 
+import by.mycom.ita.dto.BookingDto;
 import by.mycom.ita.dto.HotelRatingDto;
 import by.mycom.ita.services.IHotelRatingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,15 @@ public class HotelEstimateController {
         this.hotelRatingService = hotelRatingService;
     }
 
-    @PostMapping
+    @PostMapping(value = "/estimate")
     private String estimateHotel(@RequestParam String hotel_id,
                                  @ModelAttribute HotelRatingDto hotelRatingDto, Model model) {
         hotelRatingService.estimateHotel(hotel_id, hotelRatingDto, model);
         return "redirect:/main";
+    }
+
+    @ModelAttribute("booking")
+    private HotelRatingDto createHotelRatingDto() {
+        return new HotelRatingDto();
     }
 }

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class BookingWController {
 
-
     private final IBookingService bookingService;
 
     @Autowired
@@ -27,26 +26,26 @@ public class BookingWController {
         return "booking-update";
     }
 
-    @PostMapping(value = "/update")
+    @PostMapping(value = "/update/arrive")
     public String updateByArrive(@ModelAttribute BookingDto bookingDto, Model model) {
         bookingService.updateByArrive(bookingDto, model);
         return "booking-update";
     }
 
-    @PostMapping(value = "/update")
+    @PostMapping(value = "/update/leave")
     public String updateByLeave(@ModelAttribute BookingDto bookingDto, Model model) {
         bookingService.updateByLeave(bookingDto, model);
         return "booking-update";
     }
 
-    @PostMapping(value = "/update")
+    @PostMapping(value = "/update/cancel")
     public String updateByCanceled(@ModelAttribute BookingDto bookingDto, Model model) {
         bookingService.updateByCancelled(bookingDto, model);
         return "booking-update";
     }
 
     @ModelAttribute("booking")
-    private BookingDto createCommonUserDto() {
+    private BookingDto createBookingDto() {
         return new BookingDto();
     }
 }

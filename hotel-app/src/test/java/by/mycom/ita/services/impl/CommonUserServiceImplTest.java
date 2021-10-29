@@ -3,7 +3,6 @@ package by.mycom.ita.services.impl;
 import by.mycom.ita.dao.CommonUserDao;
 import by.mycom.ita.exception.DataIsIncorrectException;
 import by.mycom.ita.model.CommonUser;
-import by.mycom.ita.model.enums.UserRole;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -7,4 +7,6 @@ public interface IUserDao extends JpaRepository<User, Long> {
 
     User findByLogin (String login);
 
+    User findByResetUid(String resetUid);
+
 }

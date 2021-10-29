@@ -13,14 +13,14 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
-public class HotelsWServiceImpl implements IHotelServices {
+public class HotelsServiceImpl implements IHotelServices {
 
     private final RestTemplate restTemplate;
 
     private final String Url = "http://localhost:5438/testdb";
 
     @Autowired
-    public HotelsWServiceImpl(RestTemplate restTemplate) {
+    public HotelsServiceImpl(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 

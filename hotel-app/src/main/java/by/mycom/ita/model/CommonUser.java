@@ -1,6 +1,5 @@
 package by.mycom.ita.model;
 
-import by.mycom.ita.model.enums.UserRole;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -33,9 +32,6 @@ public class CommonUser {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private List<HotelFavorites> hotelFavorites;
-
-    @Enumerated
-    private UserRole userRole;
 
     @Override
     public boolean equals(Object o) {

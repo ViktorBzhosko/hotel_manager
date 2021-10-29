@@ -33,4 +33,15 @@ public class EmailServiceImpl implements IEmailService {
         message.setText(MASSAGE_FOR_CLIENT);
         emailSender.send(message);
     }
+
+    public void notifyResetPassword(Long userId, String textMessage){
+        CommonUser foundClient = commonUserService.findById(userId);
+        String clientEmail = foundClient.getEmail();
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("noreply@hotelmanager.com");
+        message.setSubject("Reset password notification");
+        message.setTo(clientEmail);
+        message.setText(textMessage);
+        emailSender.send(message);
+    }
 }
