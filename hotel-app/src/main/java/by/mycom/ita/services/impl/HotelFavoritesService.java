@@ -29,7 +29,8 @@ public class HotelFavoritesService implements IHotelFavoritesService {
     }
 
     @Override
-    public CommonUser favorites(CommonUser user, Hotel hotel) {
+    public CommonUser favorites(Long userId, Hotel hotel) {
+        CommonUser user = userDao.findById(userId).orElseThrow(DataNotFoundException::new);
         List<HotelFavorites> hotelFavoritesList = user.getHotelFavorites();
         Hotel foundHotel = hotelDao.findById(hotel.getId()).orElseThrow(DataNotFoundException::new);
 

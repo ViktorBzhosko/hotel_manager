@@ -8,14 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class CreateUserWServiceImpl implements IUserService {
+public class CreateUserServiceImpl implements IUserService {
 
     private final RestTemplate restTemplate;
 
     private final String Url = "http://localhost:5438/testdb/users/create";
 
     @Autowired
-    public CreateUserWServiceImpl(RestTemplate restTemplate) {
+    public CreateUserServiceImpl(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 

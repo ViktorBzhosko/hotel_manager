@@ -46,7 +46,7 @@ public class BookingWController {
     }
 
     @ModelAttribute("booking")
-    private BookingDto createCommonUserDto() {
+    private BookingDto createBookingDto() {
         return new BookingDto();
     }
 }

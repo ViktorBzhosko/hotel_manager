@@ -3,6 +3,8 @@ package by.mycom.ita.controller;
 import by.mycom.ita.dto.HotelDto;
 import by.mycom.ita.services.IHotelServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +31,7 @@ public class HotelWController {
         hotelsService.findHotels(model);
         return "all-hotels";
     }
-
+    @PreAuthorize(value = "")
     @GetMapping("/hotel-create")
     public String createHotelForm(HotelDto hotelDto) {
         return "hotel-create";

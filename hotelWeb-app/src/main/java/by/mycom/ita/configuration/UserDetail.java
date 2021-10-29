@@ -15,11 +15,11 @@ import java.util.Set;
 @AllArgsConstructor
 public class UserDetail implements UserDetails {
 
-    private final User users;
+    private final User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<Role> roles = users.getRoles();
+        Set<Role> roles = user.getRoles();
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
         for (Role role : roles) {
@@ -30,12 +30,12 @@ public class UserDetail implements UserDetails {
 
     @Override
     public String getPassword() {
-        return users.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return users.getLogin();
+        return user.getLogin();
     }
 
     @Override
@@ -45,7 +45,7 @@ public class UserDetail implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return user.getResetUid() == null;
     }
 
     @Override

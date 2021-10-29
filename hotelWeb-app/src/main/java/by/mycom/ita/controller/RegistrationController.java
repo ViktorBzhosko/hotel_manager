@@ -1,6 +1,6 @@
 package by.mycom.ita.controller;
 
-import by.mycom.ita.model.User;
+import by.mycom.ita.dto.CommonUserDto;
 import by.mycom.ita.services.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,26 +22,18 @@ public class RegistrationController {
 
     @GetMapping("/registration")
     public String registration(Model model) {
-        model.addAttribute("userForm", new User());
+        model.addAttribute("userForm", new CommonUserDto());
 
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String addUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+    public String addUser(@ModelAttribute("userForm") CommonUserDto commonUserDto, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             return "registration";
-        }
-        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())) {
-            model.addAttribute("passwordError", "Пароли не совпадают");
-            return "registration";
-        }
-        if (!userService.saveUser(userForm)) {
-            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-            return "registration";
-        }
+        } else if (userService.saveUser(commonUserDto)) return "redirect:/";
 
-        return "redirect:/";
+        else return "registration";
     }
 }

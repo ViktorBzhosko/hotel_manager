@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 
 public interface IBookingService {
 
-    void createBooking(Long id, Integer number, BookingDto bookingDto, Model model);
+    void createBooking(Long hotelId, Long roomId, BookingDto bookingDto, Model model);
 
     void updateForm(String id, Model model);
 

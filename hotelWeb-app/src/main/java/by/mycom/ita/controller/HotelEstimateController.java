@@ -19,7 +19,7 @@ public class HotelEstimateController {
         this.hotelRatingService = hotelRatingService;
     }
 
-    @PostMapping
+    @PostMapping(value = "/estimate")
     private String estimateHotel(@RequestParam String hotel_id,
                                  @ModelAttribute HotelRatingDto hotelRatingDto, Model model) {
         hotelRatingService.estimateHotel(hotel_id, hotelRatingDto, model);

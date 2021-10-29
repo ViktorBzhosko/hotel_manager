@@ -26,10 +26,9 @@ public class HotelFavoritesController {
 
     @PostMapping("/create")
     public HotelFavoritesDto createFavorites(@RequestBody HotelDto hotelDto,
-                                    @RequestBody CommonUserDto userDto) {
+                                    @RequestParam Long userId) {
         final Hotel hotel = objectMapper.convertValue(hotelDto, Hotel.class);
-        final CommonUser commonUser= objectMapper.convertValue(userDto, CommonUser.class);
-        CommonUser favorites = favoritesService.favorites(commonUser,hotel);
+        CommonUser favorites = favoritesService.favorites(userId,hotel);
         return objectMapper.convertValue(favorites, HotelFavoritesDto.class);
     }
 
