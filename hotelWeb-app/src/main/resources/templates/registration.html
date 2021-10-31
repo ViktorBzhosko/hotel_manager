@@ -2,20 +2,53 @@
 <head>
     <meta charset="utf-8">
     <title>Create an account</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
     <link href="/css/common.css" rel="stylesheet">
 </head>
 
 <body>
-<div>
+<div class="d-flex justify-content-center">
     <form method="POST" modelAttribute="userForm">
         <h2>Регистрация</h2>
         <div>
             <label>
-                <input type="text" path="username" placeholder="Username"/>
+                <input type="text" path="firstName" placeholder="First Name"/>
             </label>
             <errors path="username"></errors>
-
+        </div>
+        <div>
+            <label>
+                <input type="text" path="secondName" placeholder="Second Name"/>
+            </label>
+            <errors path="username"></errors>
+        </div>
+        <div>
+            <label>
+                <input type="text" path="passport" placeholder="Passport"/>
+            </label>
+            <errors path="passport"></errors>
+        </div>
+        <div>
+            <label>
+                <input type="text" path="email" placeholder="email"/>
+            </label>
+            <errors path="email"></errors>
+        </div>
+        <div>
+            <label>
+                <input type="text" path="phoneNumber" placeholder="phoneNumber"/>
+            </label>
+            <errors path="phoneNumber"></errors>
+        </div>
+        <div>
+            <label>
+                <input type="text" path="login" placeholder="login"/>
+            </label>
+            <errors path="login"></errors>
         </div>
         <div>
             <label>
@@ -31,8 +64,10 @@
 
         </div>
         <button type="submit">Зарегистрироваться</button>
+        <div class="d-flex justify-content-center">
+        <a href="/main">Главная</a>
+        </div>
     </form>
-    <a href="/">Главная</a>
 </div>
 </body>
 </html>

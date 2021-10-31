@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<title>Create user</title>
+
+<body>
+
+<form action="#" th:action="@{/updatedHotel}" th:object="${HotelDto}" method="post">
+    <label for="id">Hotel id</label>
+    <input type="number" th:field="*{id}" id="id" placeholder="ID"  required readonly>
+    <br/>
+    <label for="name">Hotel name</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="Hotel name" required>
+    <br/>
+    <label for="location">Location</label>
+    <input type="text" th:field="*{location}" id="location" placeholder="Location" required>
+    <br/>
+    <label for="convenience">Convenience</label>
+    <input type="text" th:field="*{convenience}" id="convenience" placeholder="Convenience" required>
+    <br/>
+    <input type="submit" value="Update Hotel">
+</form>
+</body>
+</html>

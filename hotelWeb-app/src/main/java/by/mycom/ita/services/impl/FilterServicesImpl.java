@@ -17,7 +17,7 @@ public class FilterServicesImpl implements IFilterService {
 
     private final RestTemplate restTemplate;
 
-    private final String Url = "http://localhost:5438/testdb";
+    private final String Url = "http://localhost:8003/hotel-app";
 
     @Autowired
     public FilterServicesImpl(RestTemplate restTemplate) {
@@ -25,18 +25,16 @@ public class FilterServicesImpl implements IFilterService {
     }
 
     @Override
-    public void coincidences(HotelDto hotelDto, Model model) {
+    public List<HotelDto> coincidences(HotelDto hotelDto) {
         ResponseEntity<HotelDto[]> responseEntity =
                 restTemplate.postForEntity(Url + "/filter/coincidences", hotelDto, HotelDto[].class);
-        List<HotelDto> hotels = Arrays.asList(Objects.requireNonNull(responseEntity.getBody()));
-        model.addAttribute("hotels", hotels);
+        return Arrays.asList(Objects.requireNonNull(responseEntity.getBody()));
     }
 
     @Override
-    public void exact(HotelDto hotelDto, Model model) {
+    public List<HotelDto> exact(HotelDto hotelDto) {
         ResponseEntity<HotelDto[]> responseEntity =
                 restTemplate.postForEntity(Url + "/filter/exact", hotelDto, HotelDto[].class);
-        List<HotelDto> hotels = Arrays.asList(Objects.requireNonNull(responseEntity.getBody()));
-        model.addAttribute("hotels", hotels);
+        return Arrays.asList(Objects.requireNonNull(responseEntity.getBody()));
     }
 }

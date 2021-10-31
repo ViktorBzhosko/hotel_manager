@@ -3,10 +3,12 @@ package by.mycom.ita.services;
 import by.mycom.ita.dto.HotelDto;
 import org.springframework.ui.Model;
 
+import java.util.List;
+
 public interface IFilterService {
 
-    void coincidences(HotelDto hotelDto, Model model);
+    List<HotelDto> coincidences(HotelDto hotelDto);
 
-    void exact(HotelDto hotelDto, Model model);
+    List<HotelDto> exact(HotelDto hotelDto);
 
 }

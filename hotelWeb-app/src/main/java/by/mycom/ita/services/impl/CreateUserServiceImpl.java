@@ -19,7 +19,7 @@ public class CreateUserServiceImpl implements IUserService {
 
     @Override
     public void createUser(CommonUserDto commonUserDto, Model model) {
-        String url = "http://localhost:5438/testdb/users/create";
+        String url = "http://localhost:8003/hotel-app/users/create";
         CommonUserDto createdUser = restTemplate.postForObject(url, commonUserDto, CommonUserDto.class);
         model.addAttribute("Client", createdUser);
     }

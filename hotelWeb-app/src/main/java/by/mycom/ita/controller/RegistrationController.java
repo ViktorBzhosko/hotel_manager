@@ -32,7 +32,8 @@ public class RegistrationController {
 
         if (bindingResult.hasErrors()) {
             return "registration";
-        } else if (userService.saveUser(commonUserDto)) return "redirect:/";
+
+        } else if (userService.saveUser(commonUserDto)) return "main";
 
         else return "registration";
     }

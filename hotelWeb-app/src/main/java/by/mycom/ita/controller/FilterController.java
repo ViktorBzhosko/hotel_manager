@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.util.List;
+
 @Controller
 public class FilterController {
 
@@ -20,13 +22,15 @@ public class FilterController {
 
     @GetMapping(value = "/coincidences")
     public String coincidencesFilter(@ModelAttribute HotelDto hotelDto, Model model) {
-        filterService.coincidences(hotelDto, model);
+        List<HotelDto> hotels = filterService.coincidences(hotelDto);
+        model.addAttribute("hotels", hotels);
         return "filter";
     }
 
     @GetMapping(value = "/exact")
     public String exactFilter(@ModelAttribute HotelDto hotelDto, Model model) {
-        filterService.exact(hotelDto, model);
+        List<HotelDto> hotels = filterService.exact(hotelDto);
+        model.addAttribute("hotels", hotels);
         return "filter";
     }
 

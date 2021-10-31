@@ -19,12 +19,14 @@ public class CommonUserController {
 
     @GetMapping("/user-create")
     public String createUserForm(CommonUserDto commonUserDto) {
+
         return "user-create";
     }
 
     @PostMapping("/user")
     public String createClient(@ModelAttribute CommonUserDto commonUserDto , Model model) {
         userService.createUser(commonUserDto,model);
+
         return "redirect:/user-create";
     }
 

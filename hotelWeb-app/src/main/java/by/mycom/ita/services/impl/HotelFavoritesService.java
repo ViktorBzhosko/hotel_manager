@@ -20,7 +20,7 @@ public class HotelFavoritesService implements IHotelFavoritesService {
 
     private final RestTemplate restTemplate;
 
-    private final String Url = "http://localhost:5438/testdb/favorites";
+    private final String Url = "http://localhost:8003/hotel-app/favorites";
 
     @Autowired
     public HotelFavoritesService(IAuthentication authentication, RestTemplate restTemplate) {
@@ -29,19 +29,16 @@ public class HotelFavoritesService implements IHotelFavoritesService {
     }
 
     @Override
-    public void favorites(HotelDto hotelDto, Model model) {
+    public HotelDto favorites(HotelDto hotelDto, Model model) {
         Long userId = authentication.getCurrentUserId();
-        HotelDto favoriteHotel = restTemplate.postForObject(Url + "/create/" + userId, hotelDto, HotelDto.class);
-        model.addAttribute("favoriteHotel", favoriteHotel);
+        return restTemplate.postForObject(Url + "/create/" + userId, hotelDto, HotelDto.class);
 
     }
 
     @Override
-    public void showAllFavorites(Model model) {
+    public List<HotelFavoritesDto> showAllFavorites() {
         Long userId = authentication.getCurrentUserId();
-        List<HotelFavoritesDto> favorites = Arrays.stream(restTemplate.getForObject(Url + "/read/all/" + userId, HotelFavoritesDto[].class))
+        return Arrays.stream(restTemplate.getForObject(Url + "/read/all/" + userId, HotelFavoritesDto[].class))
                 .collect(Collectors.toList());
-        model.addAttribute("favorites", favorites);
-
     }
 }

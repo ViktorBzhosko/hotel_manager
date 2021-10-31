@@ -5,6 +5,6 @@ import org.springframework.ui.Model;
 
 public interface IHotelRatingService {
 
-    void estimateHotel(String id, HotelRatingDto hotelRatingDto, Model model);
+    HotelRatingDto estimateHotel(String id, HotelRatingDto hotelRatingDto, Model model);
 
 }

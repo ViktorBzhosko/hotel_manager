@@ -17,7 +17,7 @@ public class SearchRoomsService implements ISearchService {
 
     private final RestTemplate restTemplate;
 
-    String Url = "http://localhost:5438/testdb/";
+    String Url = "http://localhost:8003/hotel-app";
 
     @Autowired
     public SearchRoomsService(RestTemplate restTemplate) {
@@ -25,18 +25,16 @@ public class SearchRoomsService implements ISearchService {
     }
 
     @Override
-    public void findBookingRooms(BookingDto bookingDto, Model model) {
+    public List<BookingDto> findBookingRooms(BookingDto bookingDto, Model model) {
         ResponseEntity<BookingDto[]> responseEntity =
                 restTemplate.postForEntity(Url + "/search/booking", bookingDto, BookingDto[].class);
-        List<BookingDto> rooms = Arrays.asList(Objects.requireNonNull(responseEntity.getBody()));
-        model.addAttribute("rooms", rooms);
+        return Arrays.asList(Objects.requireNonNull(responseEntity.getBody()));
     }
 
     @Override
-    public void findEmptyRooms(BookingDto bookingDto, Model model) {
+    public List<BookingDto> findEmptyRooms(BookingDto bookingDto, Model model) {
         ResponseEntity<BookingDto[]> responseEntity =
                 restTemplate.postForEntity(Url + "/search/empty", bookingDto, BookingDto[].class);
-        List<BookingDto> emptyRooms = Arrays.asList(Objects.requireNonNull(responseEntity.getBody()));
-        model.addAttribute("rooms", emptyRooms);
+        return Arrays.asList(Objects.requireNonNull(responseEntity.getBody()));
     }
 }

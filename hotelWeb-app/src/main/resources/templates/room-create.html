@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Create</title>
+</head>
+<body>
+<h1>Create room</h1>
+<form action="#" th:action="@{/room}" th:object="${RoomDto}" method="post">
+    <p>Room number: <input type="text" pattern="^[a-zA-Z]+$" required th:field="*{numberOfRoom}" /></p>
+    <p>Accommodation: <input type="text"  pattern="^[a-zA-Z]+$" required th:field="*{accommodation}"/></p>
+    <p>Comfort: <input type="text"  pattern="^[a-zA-Z]+$" required th:field="*{comfort}"/></p>
+    <p><input type="submit" value="Create" /> <input type="reset" value="Clear" /></p>
+</form>
+<br>
+<form method="get" action="/hotelWeb-app/all-hotels">
+    <button type="submit">Back to all hotels</button>
+</form>
+</body>
+</html>

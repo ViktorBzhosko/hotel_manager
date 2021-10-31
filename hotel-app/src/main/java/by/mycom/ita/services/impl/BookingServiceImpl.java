@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class BookingServiceImpl implements IBookingService {
@@ -75,6 +76,11 @@ public class BookingServiceImpl implements IBookingService {
     public Booking updateByCanceled(Long id) throws DataNotFoundException {
         iEmailService.sendSimpleMessage(id);
         return update(id, BookingStatus.CANCELED);
+    }
+
+    @Override
+    public List<Booking> findAll() {
+        return bookingDao.findAll();
     }
 
     @Override

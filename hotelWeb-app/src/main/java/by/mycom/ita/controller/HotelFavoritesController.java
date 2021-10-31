@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class HotelFavoritesController {
 
@@ -23,13 +25,15 @@ public class HotelFavoritesController {
 
     @PostMapping("/favorite")
     public String createFavorite(@ModelAttribute HotelDto hotelDto, Model model) {
-        hotelFavoritesService.favorites(hotelDto, model);
+        HotelDto favoriteHotel = hotelFavoritesService.favorites(hotelDto, model);
+        model.addAttribute("favoriteHotel", favoriteHotel);
         return "all-hotels";
     }
 
     @GetMapping("/favorites/find")
     public String findFavorite(Model model) {
-        hotelFavoritesService.showAllFavorites(model);
+        List<HotelFavoritesDto> favorites = hotelFavoritesService.showAllFavorites();
+        model.addAttribute("favorites", favorites);
         return "favorites";
     }
 

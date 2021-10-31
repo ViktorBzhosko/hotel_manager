@@ -47,11 +47,11 @@ class BookingServiceImplTest {
         Hotel simpleHotel = createSimpleHotel(List.of(room));
         Booking expectedBooking = createBooking(simpleHotel, room, currentUser);
 
-        Mockito.when(userService.getCurrentUser()).thenReturn(currentUser);
+        Mockito.when(userService.findById(1L)).thenReturn(currentUser);
         Mockito.when(hotelService.readById(Mockito.any())).thenReturn(simpleHotel);
         Mockito.when(bookingDao.save(Mockito.any())).thenReturn(expectedBooking);
 
-        Booking actualBooking = bookingService.create(expectedBooking, 1, 1L);
+        Booking actualBooking = bookingService.create(expectedBooking, 1L, 1L,1L);
         Assertions.assertEquals(expectedBooking, actualBooking);
     }
 
@@ -62,10 +62,10 @@ class BookingServiceImplTest {
         Hotel simpleHotel = createSimpleHotel(List.of(room));
         Booking expectedBooking = createBooking(simpleHotel, room, currentUser);
 
-        Mockito.when(userService.getCurrentUser()).thenReturn(currentUser);
+        Mockito.when(userService.findById(2L)).thenReturn(currentUser);
         Mockito.when(hotelService.readById(Mockito.any())).thenReturn(simpleHotel);
 
-        Assertions.assertThrows(DataNotFoundException.class, () -> bookingService.create(expectedBooking, 2, 2L));
+        Assertions.assertThrows(DataNotFoundException.class, () -> bookingService.create(expectedBooking, 2L, 2L,2L));
     }
 
     @Test

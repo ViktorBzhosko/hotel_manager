@@ -34,7 +34,7 @@ public class UserService implements UserDetailsService {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private final String Url = "http://localhost:5438/testdb";
+    private final String Url = "http://localhost:8003/hotel-app";
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
@@ -56,7 +56,7 @@ public class UserService implements UserDetailsService {
             return false;
         }
 
-        CommonUserDto responseUser = restTemplate.postForObject(Url + "/users/create/client", commonUserDto, CommonUserDto.class);
+        CommonUserDto responseUser = restTemplate.postForObject(Url + "/users/create/", commonUserDto, CommonUserDto.class);
         if (responseUser != null) {
             User user = objectMapper.convertValue(commonUserDto, User.class);
             user.setId(responseUser.getId());

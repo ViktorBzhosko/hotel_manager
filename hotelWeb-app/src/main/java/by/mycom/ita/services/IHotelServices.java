@@ -3,10 +3,20 @@ package by.mycom.ita.services;
 import by.mycom.ita.dto.HotelDto;
 import org.springframework.ui.Model;
 
+import java.util.List;
+
 public interface IHotelServices {
 
-    void findHotels (Model model);
+    List<HotelDto> findHotels();
 
-    void makeHotel (HotelDto hotelDto, Model model);
+    HotelDto makeHotel(HotelDto hotelDto);
+
+    HotelDto updateTarget(Long id);
+
+    void updatedHotel(HotelDto hotelDto);
+
+    HotelDto findById (Long Id);
+
+    void deleteHotel(String id);
 
 }

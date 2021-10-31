@@ -51,6 +51,11 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
+    public Room findById(Long roomId) {
+        return roomDao.findById(roomId).orElseThrow(DataNotFoundException::new);
+    }
+
+    @Override
     public void deleteById(Long id) {
         roomDao.deleteById(id);
     }
