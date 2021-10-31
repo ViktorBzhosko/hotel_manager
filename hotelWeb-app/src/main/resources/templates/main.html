@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
 
-    <link rel="stylesheet" type="text/css" th:href="@{/main.css}" href="/static/main.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/main.css}" />
 </head>
 <body>
 <header >
@@ -12,8 +12,8 @@
 </header>
 <section>
         <ul>
-            <li><a href="/registration" style="font-size: 35px; text-decoration: none">Registration</a></li>
-            <li><a href="/login" style="font-size: 35px; text-decoration: none">Login</a></li>
+            <li><a th:href="@{/registration}" style="font-size: 35px; text-decoration: none">Registration</a></li>
+            <li><a th:href="@{/login}" style="font-size: 35px; text-decoration: none">Login</a></li>
         </ul>
 </section>
 </body>

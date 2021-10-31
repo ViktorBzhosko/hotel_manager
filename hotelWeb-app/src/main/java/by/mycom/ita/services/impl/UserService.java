@@ -38,7 +38,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        User user = userDao.findByLogin(login);
+        User user = userDao.findByUsername(login);
 
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
@@ -50,21 +50,21 @@ public class UserService implements UserDetailsService {
     @Transactional
     public boolean saveUser(CommonUserDto commonUserDto) {
 
-        User userFromDB = userDao.findByLogin(commonUserDto.getLogin());
+        User userFromDB = userDao.findByUsername(commonUserDto.getUsername());
 
         if (userFromDB != null) {
             return false;
         }
 
-        CommonUserDto responseUser = restTemplate.postForObject(Url + "/users/create/", commonUserDto, CommonUserDto.class);
+        CommonUserDto responseUser = restTemplate.postForObject(Url + "/users/create", commonUserDto, CommonUserDto.class);
         if (responseUser != null) {
             User user = objectMapper.convertValue(commonUserDto, User.class);
             user.setId(responseUser.getId());
             user.setRoles(Collections.singleton(Role.builder()
-                    .roleName("Client")
+                    .roleName("ROLE_CLIENT")
                     .build()));
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-            user.setLogin(user.getLogin());
+            user.setUsername(user.getUsername());
             userDao.save(user);
             return true;
         }
@@ -73,7 +73,7 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public void resetPassword(String login) {
-        User user = userDao.findByLogin(login);
+        User user = userDao.findByUsername(login);
         UUID resetUid = UUID.randomUUID();
         user.setResetUid(resetUid.toString());
         EmailNotificationDto emailNotificationDto = EmailNotificationDto.builder()

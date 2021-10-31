@@ -15,7 +15,7 @@ public class CommonUserDto {
     private String passport;
     private String email;
     private int phoneNumber;
-    private String login;
+    private String username;
     private String password;
     private BookingDto bookingDto;
 }

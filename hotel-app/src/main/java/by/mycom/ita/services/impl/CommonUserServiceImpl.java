@@ -24,13 +24,13 @@ public class CommonUserServiceImpl implements ICommonUserService {
                 || user.getEmail() == null || user.getPhoneNumber() == null) {
             throw new DataIsIncorrectException();
         }
-        return CommonUser.builder()
+        return userDao.save(CommonUser.builder()
                 .firstName(user.getFirstName())
                 .secondName(user.getSecondName())
                 .passport(user.getPassport())
                 .email(user.getEmail())
                 .phoneNumber(user.getPhoneNumber())
-                .build();
+                .build());
     }
 
     @Override

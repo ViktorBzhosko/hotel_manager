@@ -54,6 +54,6 @@ public class HotelsServiceImpl implements IHotelServices {
 
     @Override
     public void deleteHotel(String id) {
-        restTemplate.delete(Url + id);
+        restTemplate.delete(Url+ "/hotel/delete/" + id);
     }
 }

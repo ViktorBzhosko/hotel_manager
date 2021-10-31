@@ -40,9 +40,8 @@ public class HotelServiceImpl implements IHotelService {
 
     @Override
     public List<Hotel> readAll() throws DataNotFoundException {
-        List<Hotel> hotels = hotelDao.findAll();
-        if (!hotels.isEmpty()) return hotels;
-        else throw new DataNotFoundException();
+        return hotelDao.findAll();
+
     }
 
     @Override

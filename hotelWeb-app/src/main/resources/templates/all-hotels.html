@@ -37,19 +37,19 @@
         </tr>
         </tbody>
     </table>
-    <form action="/hotelWeb-app/readById" method="get">
+    <form th:action="@{/readById}" method="get">
         <label for="id">Find by ID:</label>
         <input name="id" type="number" id="id" pattern="^[0-9]+$" required size="2"/>
         <input type="submit" value="Find"/>
     </form>
     <hr>
-    <form action="/hotelWeb-app/delete" method="get">
+    <form th:action="@{/delete}" method="get">
         <label for="id">Hotel id</label>
         <input name="id" type="text" id="id" pattern="^[0-9]+$" required size="2"/>
         <input type="submit" value="Delete"/>
     </form>
     <hr>
-    <form action="/hotelWeb-app/booking" method="post">
+    <form th:action="@{/booking}" method="post">
         <label for="hotelId">Hotel id:</label>
         <input name="hotelId" type="text" id="hotelId" pattern="^[0-9]+$" required size="2"/>
         <label for="roomId">Room id:</label>
@@ -61,7 +61,7 @@
         <input type="submit" value="Create booking"/>
     </form>
     <hr>
-    <form action="/hotelWeb-app/estimate" method="post">
+    <form th:action="@{/estimate}" method="post">
         <label for="hotelId">Hotel id:</label>
         <input name="hotelId" type="text" id="hotelId" pattern="^[0-9]+$" required size="2"/>
         <label for="mark">Mark:</label>
@@ -70,14 +70,12 @@
     </form>
 
     <hr>
-    <form action="/hotelWeb-app/allbooking" method="get">
+    <form th:action="@{/allbooking}" method="get">
         <button type="submit">Find all booking</button>
     </form>
     <hr>
-    <form method="get" action="/hotelWeb-app/hotel">
-        <button  type="submit"> Create Hotel</button>
-    </form>
-
+        <a th:href="@{/hotel}" > Create Hotel</a>
 </div>
+
 </body>
 </html>

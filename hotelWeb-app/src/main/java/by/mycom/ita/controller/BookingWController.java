@@ -1,7 +1,6 @@
 package by.mycom.ita.controller;
 
 import by.mycom.ita.dto.BookingDto;
-import by.mycom.ita.dto.HotelDto;
 import by.mycom.ita.services.IBookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

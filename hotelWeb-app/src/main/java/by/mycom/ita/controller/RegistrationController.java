@@ -1,6 +1,7 @@
 package by.mycom.ita.controller;
 
 import by.mycom.ita.dto.CommonUserDto;
+import by.mycom.ita.dto.HotelDto;
 import by.mycom.ita.services.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,8 +34,13 @@ public class RegistrationController {
         if (bindingResult.hasErrors()) {
             return "registration";
 
-        } else if (userService.saveUser(commonUserDto)) return "main";
+        } else if (userService.saveUser(commonUserDto)) return "login";
 
         else return "registration";
+    }
+
+    @ModelAttribute("CommonUserDto")
+    private CommonUserDto createCommonUserDto() {
+        return new CommonUserDto();
     }
 }

@@ -46,11 +46,16 @@ public class HotelWController {
         return "all-hotels";
     }
 
+    @GetMapping("/hotel")
+    public String getPageCreateHotel() {
+        return "hotel-create";
+    }
+
     @PostMapping("/hotel")
     public String createHotel(@ModelAttribute HotelDto hotelDto, Model model) {
         HotelDto createHotel = hotelsService.makeHotel(hotelDto);
         model.addAttribute("Hotel", createHotel);
-        return "redirect:/hotel-create";
+        return "redirect:/hotels";
     }
 
     @GetMapping("/hotels")
@@ -64,7 +69,7 @@ public class HotelWController {
     public String deleteById(@RequestParam(value = "id", required = false) String id, Model model) {
         model.addAttribute("id", id);
         hotelsService.deleteHotel(id);
-        return "all-hotels";
+        return "redirect:/hotels";
     }
 
     @GetMapping(value = "/readById")

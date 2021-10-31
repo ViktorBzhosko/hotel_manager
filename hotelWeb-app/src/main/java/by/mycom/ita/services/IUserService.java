@@ -5,6 +5,6 @@ import org.springframework.ui.Model;
 
 public interface IUserService {
 
-    void createUser(CommonUserDto commonUserDto, Model model);
+    CommonUserDto createUser(CommonUserDto commonUserDto, Model model);
 
 }

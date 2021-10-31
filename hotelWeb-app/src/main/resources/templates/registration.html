@@ -7,52 +7,51 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
-    <link href="/css/common.css" rel="stylesheet">
 </head>
 
 <body>
 <div class="d-flex justify-content-center">
-    <form method="POST" modelAttribute="userForm">
+    <form method="POST" modelAttribute="userForm" th:object="${CommonUserDto}">
         <h2>Регистрация</h2>
         <div>
             <label>
-                <input type="text" path="firstName" placeholder="First Name"/>
+                <input type="text" path="firstName" placeholder="First Name" th:field="*{firstName}"/>
             </label>
             <errors path="username"></errors>
         </div>
         <div>
             <label>
-                <input type="text" path="secondName" placeholder="Second Name"/>
+                <input type="text" path="secondName" placeholder="Second Name" th:field="*{secondName}"/>
             </label>
-            <errors path="username"></errors>
+            <errors path="secondName"></errors>
         </div>
         <div>
             <label>
-                <input type="text" path="passport" placeholder="Passport"/>
+                <input type="text" path="passport" placeholder="Passport" th:field="*{passport}"/>
             </label>
             <errors path="passport"></errors>
         </div>
         <div>
             <label>
-                <input type="text" path="email" placeholder="email"/>
+                <input type="text" path="email" placeholder="email" th:field="*{email}"/>
             </label>
             <errors path="email"></errors>
         </div>
         <div>
             <label>
-                <input type="text" path="phoneNumber" placeholder="phoneNumber"/>
+                <input type="text" path="phoneNumber" placeholder="phoneNumber" th:field="*{phoneNumber}"/>
             </label>
             <errors path="phoneNumber"></errors>
         </div>
         <div>
             <label>
-                <input type="text" path="login" placeholder="login"/>
+                <input type="text" path="username" placeholder="username" th:field="*{username}"/>
             </label>
-            <errors path="login"></errors>
+            <errors path="username"></errors>
         </div>
         <div>
             <label>
-                <input type="password" path="password" placeholder="Password"/>
+                <input type="password" path="password" placeholder="Password" th:field="*{password}"/>
             </label>
         </div>
         <div>
@@ -64,9 +63,9 @@
 
         </div>
         <button type="submit">Зарегистрироваться</button>
-        <div class="d-flex justify-content-center">
-        <a href="/main">Главная</a>
-        </div>
+<!--        <div class="d-flex justify-content-center">-->
+<!--            <a th:href="@{/all-hotels}">Главная</a>-->
+<!--        </div>-->
     </form>
 </div>
 </body>
