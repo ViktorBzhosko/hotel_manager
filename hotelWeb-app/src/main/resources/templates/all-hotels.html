@@ -68,6 +68,14 @@
         <input name="mark" type="text" id="mark" pattern="^[0-9]+$" required size="2"/>
         <input type="submit"  value="Estimate"/>
     </form>
+    <hr>
+    <form action="#" th:action="@{/exact}" th:object="${HotelDto}" method="post">
+        <p>Hotel Name: <input type="text" pattern="^[a-zA-Z]+$"  th:field="*{name}" /></p>
+        <p>Mark: <input type="text" pattern="^[0-9]+$"  th:field="*{avgMark}" /></p>
+        <p>Location: <input type="text"  pattern="^[a-zA-Z]+$"  th:field="*{location}"/></p>
+        <p>Convenience: <input type="text"  pattern="^[a-zA-Z]+$"  th:field="*{convenience}"/></p>
+        <p><input type="submit" value="Find" /> <input type="reset" value="Clear" /></p>
+    </form>
 
     <hr>
     <form th:action="@{/allbooking}" method="get">

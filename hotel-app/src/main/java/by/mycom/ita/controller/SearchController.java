@@ -1,7 +1,9 @@
 package by.mycom.ita.controller;
 
 import by.mycom.ita.dto.BookingDto;
+import by.mycom.ita.dto.RoomDto;
 import by.mycom.ita.model.Booking;
+import by.mycom.ita.model.Room;
 import by.mycom.ita.services.ISearchRooms;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +37,10 @@ public class SearchController {
     }
 
     @PostMapping("/empty")
-    public List<BookingDto> findEmptyRooms(@RequestBody BookingDto bookingDto) {
+    public List<RoomDto> findEmptyRooms(@RequestBody BookingDto bookingDto) {
         final Booking booking = objectMapper.convertValue(bookingDto, Booking.class);
-        List<Booking> bookingRooms = searchRooms.findEmptyRooms(booking.getDateChekIn(), booking.getDateChekOut());
-        return bookingRooms.stream().map(bookRooms -> objectMapper.convertValue(bookRooms, BookingDto.class))
+        List<Room> bookingRooms = searchRooms.findEmptyRooms(booking.getDateChekIn(), booking.getDateChekOut());
+        return bookingRooms.stream().map(nonBookRooms -> objectMapper.convertValue(nonBookRooms, RoomDto.class))
                 .collect(Collectors.toList());
     }
 }

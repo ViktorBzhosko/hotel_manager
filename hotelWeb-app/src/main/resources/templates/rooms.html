@@ -16,10 +16,6 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">dateChekIn</th>
-            <th scope="col">dateChekOut</th>
-            <th scope="col">firstName</th>
-            <th scope="col">secondName</th>
             <th scope="col">numberOfRoom</th>
             <th scope="col">accommodation</th>
             <th scope="col">comfort</th>
@@ -27,16 +23,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="booking: ${bookings}">
-            <td th:text="${booking.id}"></td>
-            <td th:text="${booking.dateChekIn}"></td>
-            <td th:text="${booking.dateChekOut}"></td>
-            <td th:text="${booking.users.firstName}"></td>
-            <td th:text="${booking.users.secondName}"></td>
-            <td th:text="${booking.room.numberOfRoom}"></td>
-            <td th:text="${booking.room.accommodation}"></td>
-            <td th:text="${booking.room.comfort}"></td>
-            <td th:text="${booking.bookingStatus.name()}"></td>
+        <tr th:each="room: ${rooms}">
+            <td th:text="${room.id}"></td>
+            <td th:text="${room.numberOfRoom}"></td>
+            <td th:text="${room.accommodation}"></td>
+            <td th:text="${room.comfort}"></td>
+            <td>FREE</td>
         </tr>
         </tbody>
     </table>

@@ -1,6 +1,7 @@
 package by.mycom.ita.services.impl;
 
 import by.mycom.ita.dto.BookingDto;
+import by.mycom.ita.dto.RoomDto;
 import by.mycom.ita.services.ISearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,9 +33,9 @@ public class SearchRoomsService implements ISearchService {
     }
 
     @Override
-    public List<BookingDto> findEmptyRooms(BookingDto bookingDto, Model model) {
-        ResponseEntity<BookingDto[]> responseEntity =
-                restTemplate.postForEntity(Url + "/search/empty", bookingDto, BookingDto[].class);
+    public List<RoomDto> findEmptyRooms(BookingDto bookingDto, Model model) {
+        ResponseEntity<RoomDto[]> responseEntity =
+                restTemplate.postForEntity(Url + "/search/empty", bookingDto, RoomDto[].class);
         return Arrays.asList(Objects.requireNonNull(responseEntity.getBody()));
     }
 }

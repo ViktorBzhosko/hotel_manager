@@ -53,8 +53,8 @@ class BookingDaoTest {
         Hotel simpleHotel = createSimpleHotel(List.of(room1, room2));
         Booking booking = createBooking(simpleHotel, room1, currentUser);
         bookingDao.save(booking);
-        List<Booking> emptyRooms = bookingDao.findEmptyRooms(LocalDate.parse("2021-01-01"), LocalDate.parse("2021-01-10"));
-        int numberOfRoom = emptyRooms.get(1).getRoom().getNumberOfRoom();
+        List<Room> emptyRooms = bookingDao.findEmptyRooms(LocalDate.parse("2021-01-01"), LocalDate.parse("2021-01-10"));
+        int numberOfRoom = emptyRooms.get(1).getNumberOfRoom();
         Assertions.assertNotNull(emptyRooms);
         Assertions.assertEquals(expectedEmptyNumber, numberOfRoom);
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -27,11 +28,11 @@ public class FilterController {
         return "filter";
     }
 
-    @GetMapping(value = "/exact")
+    @PostMapping(value = "/exact")
     public String exactFilter(@ModelAttribute HotelDto hotelDto, Model model) {
         List<HotelDto> hotels = filterService.exact(hotelDto);
         model.addAttribute("hotels", hotels);
-        return "filter";
+        return "filterHotel";
     }
 
     @ModelAttribute("filter")

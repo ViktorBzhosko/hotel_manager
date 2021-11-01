@@ -46,7 +46,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
                 //Доступ только для не зарегистрированных пользователей
-                .antMatchers("/registration","/login").not().fullyAuthenticated()
+                .antMatchers("/registration","/login","/reset/**").not().fullyAuthenticated()
                 //Доступ только для пользователей с ролью Администратор
                 .antMatchers("/hotels","/readById","/delete","/hotel").hasRole("ADMIN")
                 .antMatchers("/booking","/estimate","/hotels").hasAnyRole("CLIENT","ADMIN", "MANAGER")
@@ -59,6 +59,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .and()
                 //Настройка для входа в систему
                 .formLogin()
+                .loginPage("/login")
 
                 //Перенарпавление на главную страницу после успешного входа
                 .defaultSuccessUrl("/hotels")
@@ -66,6 +67,6 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll()
-                .logoutSuccessUrl("/main");
+                .logoutSuccessUrl("/login");
     }
 }

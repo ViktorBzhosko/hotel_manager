@@ -99,7 +99,7 @@ public class UserService implements UserDetailsService {
     public void resetVerification(String newPassword, String resetUid) {
         User user = userDao.findByResetUid(resetUid);
         if (user != null) {
-            user.setPassword(newPassword);
+            user.setPassword(bCryptPasswordEncoder.encode(newPassword));
             user.setResetUid(null);
             userDao.save(user);
         }
