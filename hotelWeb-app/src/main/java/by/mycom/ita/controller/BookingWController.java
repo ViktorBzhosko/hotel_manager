@@ -23,13 +23,10 @@ public class BookingWController {
     }
 
     @PostMapping("/booking")
-    public String createBooking(@RequestParam Long hotelId,
-                                @RequestParam Long roomId,
-                                @ModelAttribute BookingDto bookingDto,
-                                Model model){
-        BookingDto createdBooking = bookingService.createBooking(hotelId, roomId, bookingDto);
+    public String createBooking( @ModelAttribute BookingDto bookingDto,  Model model){
+        BookingDto createdBooking = bookingService.createBooking(bookingDto);
         model.addAttribute("Booking", createdBooking);
-        return "all-hotels";
+        return "redirect:/hotels";
     }
 
     @GetMapping(value = "/booking-updateForm")
@@ -39,25 +36,30 @@ public class BookingWController {
         return "booking-update";
     }
 
+    @GetMapping(value = "/booking")
+    public String getPageBooking() {
+        return "booking-form";
+    }
+
     @PostMapping(value = "/update/arrive")
     public String updateByArrive(@ModelAttribute BookingDto bookingDto, Model model) {
         model.addAttribute("booking", bookingDto);
         bookingService.updateByArrive(bookingDto);
-        return "booking-update";
+        return "redirect:/allbooking";
     }
 
     @PostMapping(value = "/update/leave")
     public String updateByLeave(@ModelAttribute BookingDto bookingDto, Model model) {
         model.addAttribute("booking", bookingDto);
         bookingService.updateByLeave(bookingDto);
-        return "booking-update";
+        return "redirect:/allbooking";
     }
 
     @PostMapping(value = "/update/cancel")
     public String updateByCanceled(@ModelAttribute BookingDto bookingDto, Model model) {
         model.addAttribute("booking", bookingDto);
         bookingService.updateByCancelled(bookingDto);
-        return "booking-update";
+        return "redirect:/allbooking";
     }
 
     @GetMapping("/allbooking")

@@ -42,8 +42,8 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public Room update(Long id, Room room) {
-        Room foundedRoom = roomDao.findById(id).orElseThrow(DataNotFoundException::new);
+    public Room update(Room room) {
+        Room foundedRoom = roomDao.findById(room.getId()).orElseThrow(DataNotFoundException::new);
         foundedRoom.setNumberOfRoom(room.getNumberOfRoom());
         foundedRoom.setComfort(room.getComfort());
         foundedRoom.setAccommodation(room.getAccommodation());

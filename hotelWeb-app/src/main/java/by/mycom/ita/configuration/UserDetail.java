@@ -3,6 +3,7 @@ package by.mycom.ita.configuration;
 import by.mycom.ita.model.Role;
 import by.mycom.ita.model.User;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +15,7 @@ import java.util.Set;
 
 @AllArgsConstructor
 public class UserDetail implements UserDetails {
-
+    @Getter
     private final User user;
 
     @Override

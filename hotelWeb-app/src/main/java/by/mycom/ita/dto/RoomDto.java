@@ -16,7 +16,7 @@ public class RoomDto {
 
     private long id;
     private int numberOfRoom;
-    private HotelDto hotelsDto;
+    private HotelDto hotel;
     private BookingDto booking;
 
     @Enumerated(EnumType.STRING)

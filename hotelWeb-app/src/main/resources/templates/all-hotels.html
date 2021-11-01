@@ -32,7 +32,7 @@
             <td th:text="${hotel.location}"></td>
             <td th:text="${hotel.convenience}"></td>
             <td>
-                <button th:href="@{update(id=${hotel.id})}">Update</button>
+                <button th:href="@{update(id=${hotel.id})}" class="btn btn-success">Update</button>
             </td>
         </tr>
         </tbody>
@@ -49,13 +49,13 @@
         <input type="submit" value="Delete"/>
     </form>
     <hr>
-    <form th:action="@{/booking}" method="post">
+    <form th:action="@{/booking}" method="post" th:object="${BookingDto}">
         <label for="hotelId">Hotel id:</label>
-        <input name="hotelId" type="text" id="hotelId" pattern="^[0-9]+$" required size="2"/>
+        <input name="hotelId" type="text" id="hotelId" pattern="^[0-9]+$" th:field="*{hotel.id}" required size="2"/>
         <label for="roomId">Room id:</label>
-        <input name="roomId" type="text" id="roomId" pattern="^[0-9]+$" required size="2"/>
+        <input name="roomId" type="text" id="roomId" pattern="^[0-9]+$" th:field="*{room.id}" required size="2"/>
         <label for="dateChekIn">Date ChekIn:</label>
-        <input name="dateChekIn" type="date" id="dateChekIn" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required size="8"/>
+        <input name="dateChekIn" type="date" id="dateChekIn" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"  required size="8"/>
         <label for="dateChekOut">Date CheckOut:</label>
         <input name="dateChekOut" type="date" id="dateChekOut" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required size="8"/>
         <input type="submit" value="Create booking"/>
@@ -66,15 +66,17 @@
         <input name="hotelId" type="text" id="hotelId" pattern="^[0-9]+$" required size="2"/>
         <label for="mark">Mark:</label>
         <input name="mark" type="text" id="mark" pattern="^[0-9]+$" required size="2"/>
-        <input type="submit" value="Estimate"/>
+        <input type="submit"  value="Estimate"/>
     </form>
 
     <hr>
     <form th:action="@{/allbooking}" method="get">
-        <button type="submit">Find all booking</button>
+        <button type="submit" class="btn btn-success">Find all booking</button>
     </form>
     <hr>
-        <a th:href="@{/hotel}" > Create Hotel</a>
+        <a th:href="@{/hotel}" class="btn btn-success"> Create Hotel</a>
+    <hr>
+        <a th:href="@{/room}" class="btn btn-success"> Create Room</a>
 </div>
 
 </body>

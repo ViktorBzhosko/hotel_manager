@@ -19,10 +19,10 @@ public class HotelRatingController {
         this.hotelRatingService = hotelRatingService;
     }
 
-    @PutMapping
-    public void estimateHotel(@RequestParam(value = "id") Long id,
+    @PostMapping("/{hotelId}")
+    public void estimateHotel(@PathVariable Long hotelId,
                               @RequestBody HotelRatingDto hotelRatingDto) {
         final HotelRating hotelRating = objectMapper.convertValue(hotelRatingDto, HotelRating.class);
-        hotelRatingService.estimateHotel(id, hotelRating.getMark());
+        hotelRatingService.estimateHotel(hotelId, hotelRating.getMark());
     }
 }

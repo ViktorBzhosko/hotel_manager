@@ -8,17 +8,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class IHotelRatingServicesImpl implements IHotelRatingService {
+public class HotelRatingServicesImpl implements IHotelRatingService {
 
     private final RestTemplate restTemplate;
 
     @Autowired
-    public IHotelRatingServicesImpl(RestTemplate restTemplate) {
+    public HotelRatingServicesImpl(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
     @Override
-    public HotelRatingDto estimateHotel(String id, HotelRatingDto hotelRatingDto, Model model) {
+    public HotelRatingDto estimateHotel(Long id, HotelRatingDto hotelRatingDto, Model model) {
         String url = "http://localhost:8003/hotel-app";
         return restTemplate.postForObject(url + "/hotel/rating/" + id, hotelRatingDto, HotelRatingDto.class);
     }

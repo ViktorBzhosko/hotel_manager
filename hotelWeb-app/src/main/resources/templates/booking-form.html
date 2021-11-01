@@ -16,7 +16,6 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">id </th>
             <th scope="col">dateChekIn</th>
             <th scope="col">dateChekOut</th>
             <th scope="col">firstName</th>
@@ -24,6 +23,7 @@
             <th scope="col">numberOfRoom</th>
             <th scope="col">accommodation</th>
             <th scope="col">comfort</th>
+            <th scope="col">status</th>
         </tr>
         </thead>
         <tbody>
@@ -31,11 +31,12 @@
             <td th:text="${booking.id}"></td>
             <td th:text="${booking.dateChekIn}"></td>
             <td th:text="${booking.dateChekOut}"></td>
-            <td th:text="${booking.usersDto.firstName}"></td>
-            <td th:text="${booking.usersDto.secondName}"></td>
-            <td th:text="${booking.roomDto.numberOfRoom}"></td>
-            <td th:text="${booking.roomDto.accommodation}"></td>
-            <td th:text="${booking.roomDto.comfort}"></td>
+            <td th:text="${booking.users.firstName}"></td>
+            <td th:text="${booking.users.secondName}"></td>
+            <td th:text="${booking.room.numberOfRoom}"></td>
+            <td th:text="${booking.room.accommodation}"></td>
+            <td th:text="${booking.room.comfort}"></td>
+            <td th:text="${booking.bookingStatus.name()}"></td>
         </tr>
         </tbody>
     </table>
@@ -57,19 +58,19 @@
         <input type="submit" value="Update Status"/>
     </form>
     <hr>
-    <form th:action="@{/search/booking}" method="get">
+    <form th:action="@{/search/booking}" method="post" th:object="${BookingDto}">
         <label for="dateChekIn">Date ChekIn:</label>
-        <input name="dateChekIn" type="date" id="dateChekIn" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required size="8"/>
+        <input name="dateChekIn" type="date" id="dateChekIn" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" th:field="*{dateChekIn}" required size="8"/>
         <label for="dateChekOut">Date CheckOut:</label>
-        <input name="dateChekOut" type="date" id="dateChekOut" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required size="8"/>
+        <input name="dateChekOut" type="date" id="dateChekOut" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" th:field="*{dateChekOut}" required size="8"/>
         <input type="submit" value="Find booking rooms"/>
     </form>
     <hr>
-    <form th:action="@{/search/empty}" method="get">
+    <form th:action="@{/search/free}" method="post" th:object="${BookingDto}">
         <label for="dateChekIn">Date ChekIn:</label>
-        <input name="dateChekIn" type="date" id="dateChekIn" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required size="8"/>
+        <input name="dateChekIn" type="date" id="dateChekIn" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" th:field="*{dateChekIn}" required size="8"/>
         <label for="dateChekOut">Date CheckOut:</label>
-        <input name="dateChekOut" type="date" id="dateChekOut" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required size="8"/>
+        <input name="dateChekOut" type="date" id="dateChekOut" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" th:field="*{dateChekOut}" required size="8"/>
         <input type="submit" value="Find empty rooms"/>
     </form>
     <hr>

@@ -18,7 +18,7 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public RoomDto create(Long hotelId, RoomDto roomDto) {
+    public RoomDto create(RoomDto roomDto) {
         return restTemplate.postForObject(Url + "/room/create", roomDto, RoomDto.class);
 
     }
@@ -31,6 +31,6 @@ public class RoomServiceImpl implements IRoomService {
 
     @Override
     public void update(RoomDto roomDto) {
-        restTemplate.put(Url + "/room/update" + roomDto.getId(), roomDto, HotelDto.class);
+        restTemplate.put(Url + "/room/update" , roomDto, HotelDto.class);
     }
 }

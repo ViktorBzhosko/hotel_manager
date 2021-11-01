@@ -1,5 +1,6 @@
 package by.mycom.ita.controller;
 
+import by.mycom.ita.dto.HotelDto;
 import by.mycom.ita.dto.RoomDto;
 import by.mycom.ita.services.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,16 @@ public class RoomController {
         this.roomService = roomService;
     }
 
+    @GetMapping("/room")
+    public String createHotelForm() {
+        return "room-create";
+    }
+
     @PostMapping("/room")
-    public String createRoom(@RequestParam Long hotelId, @ModelAttribute RoomDto roomDto, Model model) {
-        RoomDto room = roomService.create(hotelId, roomDto);
+    public String createRoom( @ModelAttribute RoomDto roomDto, Model model) {
+        RoomDto room = roomService.create(roomDto);
         model.addAttribute("room", room);
+
         return "room-create";
     }
 
@@ -42,8 +49,13 @@ public class RoomController {
     }
 
     @ModelAttribute("RoomDto")
-    private RoomDto createHotelDto() {
+    private RoomDto createRoomDto() {
         return new RoomDto();
+    }
+
+    @ModelAttribute("HotelDto")
+    private HotelDto createHotelDto() {
+        return new HotelDto();
     }
 
 }

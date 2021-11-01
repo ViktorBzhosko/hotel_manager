@@ -1,6 +1,7 @@
 package by.mycom.ita.services.impl;
 
 import by.mycom.ita.configuration.UserDetail;
+import by.mycom.ita.dao.IRoleDao;
 import by.mycom.ita.dao.IUserDao;
 import by.mycom.ita.dto.CommonUserDto;
 import by.mycom.ita.dto.EmailNotificationDto;
@@ -16,7 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.PostConstruct;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -24,6 +27,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private IUserDao userDao;
+
+    @Autowired
+    private IRoleDao roleDao;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -35,6 +41,14 @@ public class UserService implements UserDetailsService {
     private ObjectMapper objectMapper;
 
     private final String Url = "http://localhost:8003/hotel-app";
+
+    @PostConstruct
+    private void createRoles(){
+        Role roleAdmin = new Role(1L, "ROLE_ADMIN", null);
+        Role roleManager = new Role(2L, "ROLE_MANAGER", null);
+        Role roleClient = new Role(3L, "ROLE_CLIENT", null);
+        roleDao.saveAll(List.of(roleAdmin,roleManager,roleClient));
+    }
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
@@ -60,9 +74,7 @@ public class UserService implements UserDetailsService {
         if (responseUser != null) {
             User user = objectMapper.convertValue(commonUserDto, User.class);
             user.setId(responseUser.getId());
-            user.setRoles(Collections.singleton(Role.builder()
-                    .roleName("ROLE_CLIENT")
-                    .build()));
+            user.setRoles(Collections.singleton(new Role(1L, "ROLE_ADMIN",null)));
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             user.setUsername(user.getUsername());
             userDao.save(user);

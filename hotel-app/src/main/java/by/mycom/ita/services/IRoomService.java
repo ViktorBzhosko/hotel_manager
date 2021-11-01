@@ -7,7 +7,7 @@ public interface IRoomService {
 
     Room create(Room room, Long hotelId) throws DataNotFoundException;
 
-    Room update(Long id, Room room);
+    Room update(Room room);
 
     Room findById(Long id);
 

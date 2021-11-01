@@ -3,18 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Form Create</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <h1>Create room</h1>
 <form action="#" th:action="@{/room}" th:object="${RoomDto}" method="post">
-    <p>Room number: <input type="text" pattern="^[a-zA-Z]+$" required th:field="*{numberOfRoom}" /></p>
+    <p>Hotel id: <input type="text" pattern="^[0-9]+$" required th:field="*{hotel.id}" /></p>
+    <p>Room number: <input type="text" pattern="^[0-9]+$" required th:field="*{numberOfRoom}" /></p>
     <p>Accommodation: <input type="text"  pattern="^[a-zA-Z]+$" required th:field="*{accommodation}"/></p>
     <p>Comfort: <input type="text"  pattern="^[a-zA-Z]+$" required th:field="*{comfort}"/></p>
     <p><input type="submit" value="Create" /> <input type="reset" value="Clear" /></p>
 </form>
 <br>
-<form method="get"th:action="@{/all-hotels}">
-    <button type="submit">Back to all hotels</button>
-</form>
+<a th:href="@{/hotels}" class="btn btn-success" >Back to all hotels</a>
 </body>
 </html>

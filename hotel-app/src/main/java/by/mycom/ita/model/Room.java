@@ -2,6 +2,7 @@ package by.mycom.ita.model;
 
 import by.mycom.ita.model.enums.Accommodation;
 import by.mycom.ita.model.enums.Comfort;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -23,7 +24,8 @@ public class Room {
     private long id;
     private int numberOfRoom;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
     private Hotel hotels;
 
     @Enumerated(EnumType.STRING)
@@ -31,16 +33,4 @@ public class Room {
     @Enumerated(EnumType.STRING)
     private Comfort comfort;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Room room = (Room) o;
-        return Objects.equals(id, room.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return 0;
-    }
 }

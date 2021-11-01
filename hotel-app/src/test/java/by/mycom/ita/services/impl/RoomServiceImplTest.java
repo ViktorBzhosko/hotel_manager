@@ -72,13 +72,14 @@ class RoomServiceImplTest {
         updatedRoom.setId(1);
         updatedRoom.setComfort(Comfort.BUSINESS);
         roomDao.save(room);
-        Room expected = roomService.update(1L, updatedRoom);
+        Room expected = roomService.update( updatedRoom);
         Assertions.assertEquals(expected, updatedRoom);
     }
 
     @Test
     void whenUpdate_returnException() {
-        Assertions.assertThrows(DataNotFoundException.class, () -> roomService.update(20L, null));
+        Room room = createSimpleRoom(10);
+        Assertions.assertThrows(DataNotFoundException.class, () -> roomService.update( room));
     }
 
     private Hotel createSimpleHotel(List<Room> rooms, Long id, String name) {

@@ -21,23 +21,21 @@ public class RoomController {
     }
 
     @PostMapping("/create")
-    public RoomDto create(@RequestBody RoomDto roomDto,
-                          @RequestParam Long hotelId) {
+    public RoomDto create(@RequestBody RoomDto roomDto) {
         final Room room = objectMapper.convertValue(roomDto, Room.class);
-        Room roomCreated = iServiceRoom.create(room, hotelId);
+        Room roomCreated = iServiceRoom.create(room, roomDto.getHotel().getId());
         return objectMapper.convertValue(roomCreated, RoomDto.class);
     }
 
     @PutMapping("/update")
-    public RoomDto update(@RequestParam(value = "id") Long id,
-                          @RequestBody RoomDto roomDto) {
+    public RoomDto update(@RequestBody RoomDto roomDto) {
         final Room room = objectMapper.convertValue(roomDto, Room.class);
-        Room updatedRoom = iServiceRoom.update(id, room);
+        Room updatedRoom = iServiceRoom.update(room);
         return objectMapper.convertValue(updatedRoom, RoomDto.class);
     }
 
-    @GetMapping("/find")
-    public RoomDto readById(@RequestBody Long roomId) {
+    @GetMapping("/find/{roomId}")
+    public RoomDto readById(@PathVariable Long roomId) {
         Room room = iServiceRoom.findById(roomId);
         return objectMapper.convertValue(room, RoomDto.class);
     }

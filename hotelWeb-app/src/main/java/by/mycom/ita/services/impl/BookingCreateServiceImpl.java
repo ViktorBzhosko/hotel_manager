@@ -1,15 +1,13 @@
 package by.mycom.ita.services.impl;
 
 import by.mycom.ita.dto.BookingDto;
-import by.mycom.ita.dto.HotelDto;
+import by.mycom.ita.dto.CommonUserDto;
 import by.mycom.ita.services.IAuthentication;
 import by.mycom.ita.services.IBookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +21,7 @@ public class BookingCreateServiceImpl implements IBookingService {
 
     private final IAuthentication authentication;
 
-    private final String Url = "http://localhost:8003/hotel-app/booking/";
+    private final String Url = "http://localhost:8003/hotel-app/booking";
 
     @Autowired
     public BookingCreateServiceImpl(RestTemplate restTemplate, IAuthentication authentication) {
@@ -32,14 +30,13 @@ public class BookingCreateServiceImpl implements IBookingService {
     }
 
     @Override
-    public BookingDto createBooking(Long hotelId, Long roomId, BookingDto bookingDto) {
+    public BookingDto createBooking(BookingDto bookingDto) {
         Long userId = authentication.getCurrentUserId();
-        UriComponents buildUri = UriComponentsBuilder.fromHttpUrl(Url)
-                .queryParam("hotelId", hotelId)
-                .queryParam("roomId", roomId)
-                .queryParam("userId", userId)
-                .build();
-        return restTemplate.postForObject(buildUri.toString(), bookingDto, BookingDto.class);
+        bookingDto.setUsers(CommonUserDto.builder()
+                .id(userId)
+                .build());
+
+        return restTemplate.postForObject(Url + "/create", bookingDto, BookingDto.class);
     }
 
     @Override
@@ -65,7 +62,7 @@ public class BookingCreateServiceImpl implements IBookingService {
 
     @Override
     public List<BookingDto> findAllBooking() {
-        return Arrays.stream(Objects.requireNonNull(restTemplate.getForObject(Url + "/booking/find/all",
+        return Arrays.stream(Objects.requireNonNull(restTemplate.getForObject(Url + "/find/all",
                         BookingDto[].class)))
                 .collect(Collectors.toList());
     }

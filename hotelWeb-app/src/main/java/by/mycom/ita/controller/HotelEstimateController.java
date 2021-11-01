@@ -21,18 +21,17 @@ public class HotelEstimateController {
         this.hotelRatingService = hotelRatingService;
     }
 
-    @GetMapping("/estimateForm")
-    public String estimateForm(Model model) {
-        model.addAttribute("estimate", new HotelRatingDto());
+    @GetMapping("/estimate")
+    public String estimateForm() {
         return "all-hotels";
     }
 
     @PostMapping(value = "/estimate")
-    private String estimateHotel(@RequestParam String hotelId,
+    private String estimateHotel(@RequestParam Long hotelId,
                                  @ModelAttribute HotelRatingDto hotelRatingDto, Model model) {
         HotelRatingDto estimate = hotelRatingService.estimateHotel(hotelId, hotelRatingDto, model);
         model.addAttribute("estimate", estimate);
-        return "redirect:/main";
+        return "redirect:/hotels";
     }
 
     @ModelAttribute("HotelRatingDto")

@@ -24,12 +24,9 @@ public class BookingController {
     }
 
     @PostMapping("/create")
-    public BookingDto create(@RequestParam Long hotelId,
-                             @RequestParam Long roomId,
-                             @RequestParam Long userId,
-                             @RequestBody BookingDto bookingDto) throws RuntimeException {
+    public BookingDto create( @RequestBody BookingDto bookingDto) throws RuntimeException {
         final Booking booking = objectMapper.convertValue(bookingDto, Booking.class);
-        Booking bookingCreated = iServiceBooking.create(booking, roomId, hotelId,userId);
+        Booking bookingCreated = iServiceBooking.create(booking, booking.getRoom().getId(), booking.getHotel().getId(),booking.getUsers().getId());
         return objectMapper.convertValue(bookingCreated, BookingDto.class);
     }
 

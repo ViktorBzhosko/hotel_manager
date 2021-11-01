@@ -41,7 +41,7 @@ public class BookingServiceImpl implements IBookingService {
         CommonUser user = iServiceCommonUser.findById(userId);
         Hotel foundHotel = iServiceHotel.readById(hotelId);
         Room foundRoom = foundHotel.getRooms().stream()
-                .filter(room -> room.getId() == roomId)
+                .filter(room -> roomId.equals(room.getId()))
                 .findFirst()
                 .orElseThrow(DataNotFoundException::new);
 

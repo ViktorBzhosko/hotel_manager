@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IBookingService {
 
-    BookingDto createBooking(Long hotelId, Long roomId, BookingDto bookingDto);
+    BookingDto createBooking(BookingDto bookingDto);
 
     BookingDto updateForm(String id, Model model);
 
