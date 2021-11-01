@@ -10,6 +10,7 @@ import by.mycom.ita.model.HotelFavorites;
 import by.mycom.ita.services.IHotelFavoritesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,18 +30,23 @@ public class HotelFavoritesService implements IHotelFavoritesService {
         this.hotelDao = hotelDao;
     }
 
+    @Transactional
     @Override
     public CommonUser favorites(Long userId, Hotel hotel) {
         CommonUser user = userDao.findById(userId).orElseThrow(DataNotFoundException::new);
-        List<HotelFavorites> hotelFavoritesList = user.getHotelFavorites();
         Hotel foundHotel = hotelDao.findById(hotel.getId()).orElseThrow(DataNotFoundException::new);
+        List<HotelFavorites> favoritesList = hotelFavoritesDao.findByUserId(userId);
 
-        HotelFavorites hotelFavorites = HotelFavorites.builder()
-                .hotel(foundHotel)
-                .build();
-        if (!hotelFavoritesList.contains(hotelFavorites)) {
-            hotelFavoritesList.add(hotelFavorites);
-            user.setHotelFavorites(hotelFavoritesList);
+        Optional<HotelFavorites> findFavorite = favoritesList.stream()
+                .filter(favorite -> favorite.getHotel().getId() == hotel.getId())
+                .findFirst();
+
+        if (findFavorite.isEmpty()) {
+            HotelFavorites hotelFavorites = HotelFavorites.builder()
+                    .user(user)
+                    .hotel(foundHotel)
+                    .build();
+            hotelFavoritesDao.save(hotelFavorites);
         }
         return userDao.save(user);
     }

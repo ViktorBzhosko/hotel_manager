@@ -1,5 +1,6 @@
 package by.mycom.ita.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -23,19 +24,20 @@ public class HotelFavorites {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Hotel hotel;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
     private CommonUser user;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         HotelFavorites that = (HotelFavorites) o;
-        return Objects.equals(id, that.id);
+        return Objects.equals(hotel, that.hotel) && Objects.equals(user, that.user);
     }
 
     @Override
     public int hashCode() {
-        return 0;
+        return Objects.hash(hotel, user);
     }
 }

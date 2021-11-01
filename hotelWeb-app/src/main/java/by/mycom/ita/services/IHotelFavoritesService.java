@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IHotelFavoritesService {
 
-    HotelDto favorites(HotelDto hotel, Model model);
+    HotelDto favorites(HotelDto hotel);
 
     List<HotelFavoritesDto> showAllFavorites();
 

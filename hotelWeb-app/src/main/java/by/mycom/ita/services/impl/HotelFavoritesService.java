@@ -29,7 +29,7 @@ public class HotelFavoritesService implements IHotelFavoritesService {
     }
 
     @Override
-    public HotelDto favorites(HotelDto hotelDto, Model model) {
+    public HotelDto favorites(HotelDto hotelDto) {
         Long userId = authentication.getCurrentUserId();
         return restTemplate.postForObject(Url + "/create/" + userId, hotelDto, HotelDto.class);
 

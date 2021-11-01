@@ -26,16 +26,16 @@ public class HotelFavoritesController {
         this.favoritesService = favoritesService;
     }
 
-    @PostMapping("/create")
+    @PostMapping("/create/{userId}")
     public HotelFavoritesDto createFavorites(@RequestBody HotelDto hotelDto,
-                                             @RequestParam Long userId) {
+                                             @PathVariable Long userId) {
         final Hotel hotel = objectMapper.convertValue(hotelDto, Hotel.class);
         CommonUser favorites = favoritesService.favorites(userId, hotel);
         return objectMapper.convertValue(favorites, HotelFavoritesDto.class);
     }
 
-    @GetMapping("/read/all")
-    public List<HotelFavoritesDto> readAll(@RequestParam Long userId) {
+    @GetMapping("/read/all/{userId}")
+    public List<HotelFavoritesDto> readAll(@PathVariable Long userId) {
         List<HotelFavorites> userFavorites = favoritesService.showAllFavorites(userId);
         return userFavorites.stream().map(favorites -> objectMapper.convertValue(favorites, HotelFavoritesDto.class))
                 .collect(Collectors.toList());

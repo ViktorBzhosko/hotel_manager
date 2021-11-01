@@ -1,6 +1,5 @@
 package by.mycom.ita.controller;
 
-import by.mycom.ita.dto.CommonUserDto;
 import by.mycom.ita.dto.HotelDto;
 import by.mycom.ita.dto.HotelFavoritesDto;
 import by.mycom.ita.services.IHotelFavoritesService;
@@ -23,22 +22,27 @@ public class HotelFavoritesController {
         this.hotelFavoritesService = hotelFavoritesService;
     }
 
+
     @PostMapping("/favorite")
     public String createFavorite(@ModelAttribute HotelDto hotelDto, Model model) {
-        HotelDto favoriteHotel = hotelFavoritesService.favorites(hotelDto, model);
-        model.addAttribute("favoriteHotel", favoriteHotel);
-        return "all-hotels";
+        hotelFavoritesService.favorites(hotelDto);
+        return "redirect:/favorites/find";
     }
 
     @GetMapping("/favorites/find")
     public String findFavorite(Model model) {
         List<HotelFavoritesDto> favorites = hotelFavoritesService.showAllFavorites();
-        model.addAttribute("favorites", favorites);
+        model.addAttribute("favoritesHotels", favorites);
         return "favorites";
     }
 
-    @ModelAttribute("favorites")
-    private HotelFavoritesDto createHotelFavoritesDto(){
+    @ModelAttribute("HotelFavoritesDto")
+    private HotelFavoritesDto createHotelFavoritesDto() {
         return new HotelFavoritesDto();
+    }
+
+    @ModelAttribute("HotelDto")
+    private HotelDto createHotelDto() {
+        return new HotelDto();
     }
 }
