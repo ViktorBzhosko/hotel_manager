@@ -7,6 +7,7 @@ import by.mycom.ita.model.Hotel;
 import by.mycom.ita.model.HotelFavorites;
 import by.mycom.ita.services.IHotelFavoritesService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,7 @@ public class HotelFavoritesController {
         this.favoritesService = favoritesService;
     }
 
+    @ApiOperation(value = "Create favorite hotel")
     @PostMapping("/create/{userId}")
     public HotelFavoritesDto createFavorites(@RequestBody HotelDto hotelDto,
                                              @PathVariable Long userId) {
@@ -34,6 +36,7 @@ public class HotelFavoritesController {
         return objectMapper.convertValue(favorites, HotelFavoritesDto.class);
     }
 
+    @ApiOperation(value = "Find user's favorite hotel")
     @GetMapping("/read/all/{userId}")
     public List<HotelFavoritesDto> readAll(@PathVariable Long userId) {
         List<HotelFavorites> userFavorites = favoritesService.showAllFavorites(userId);

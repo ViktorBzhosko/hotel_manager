@@ -4,6 +4,7 @@ import by.mycom.ita.dto.RoomDto;
 import by.mycom.ita.model.Room;
 import by.mycom.ita.services.IRoomService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ public class RoomController {
         this.iServiceRoom = iServiceRoom;
     }
 
+    @ApiOperation(value = "Create rooms")
     @PostMapping("/create")
     public RoomDto create(@RequestBody RoomDto roomDto) {
         final Room room = objectMapper.convertValue(roomDto, Room.class);
@@ -27,6 +29,7 @@ public class RoomController {
         return objectMapper.convertValue(roomCreated, RoomDto.class);
     }
 
+    @ApiOperation(value = "Update rooms")
     @PutMapping("/update")
     public RoomDto update(@RequestBody RoomDto roomDto) {
         final Room room = objectMapper.convertValue(roomDto, Room.class);
@@ -34,12 +37,14 @@ public class RoomController {
         return objectMapper.convertValue(updatedRoom, RoomDto.class);
     }
 
+    @ApiOperation(value = "Find rooms by id")
     @GetMapping("/find/{roomId}")
     public RoomDto readById(@PathVariable Long roomId) {
         Room room = iServiceRoom.findById(roomId);
         return objectMapper.convertValue(room, RoomDto.class);
     }
 
+    @ApiOperation(value = "Delete rooms by id")
     @DeleteMapping(value = "/delete/{id}")
     public void deleteById(@PathVariable Long id) {
         iServiceRoom.deleteById(id);

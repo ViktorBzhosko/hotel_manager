@@ -6,6 +6,7 @@ import by.mycom.ita.model.Booking;
 import by.mycom.ita.model.Hotel;
 import by.mycom.ita.services.IBookingService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class BookingController {
         this.iServiceBooking = iServiceBooking;
     }
 
+    @ApiOperation(value = "Create booking rooms for user")
     @PostMapping("/create")
     public BookingDto create( @RequestBody BookingDto bookingDto) throws RuntimeException {
         final Booking booking = objectMapper.convertValue(bookingDto, Booking.class);
@@ -30,24 +32,28 @@ public class BookingController {
         return objectMapper.convertValue(bookingCreated, BookingDto.class);
     }
 
+    @ApiOperation(value = "Update booking status by arrive")
     @PutMapping("/update/arrive/{booking_id}")
     public BookingDto updateByArrive(@PathVariable("booking_id") Long id) {
         final Booking bookingUpdated = iServiceBooking.updateByArrive(id);
         return objectMapper.convertValue(bookingUpdated, BookingDto.class);
     }
 
+    @ApiOperation(value = "Update booking status by arrive")
     @PutMapping("/update/leave/{booking_id}")
     public BookingDto updateByLeave(@PathVariable("booking_id") Long id) {
         final Booking bookingUpdated = iServiceBooking.updateByLeave(id);
         return objectMapper.convertValue(bookingUpdated, BookingDto.class);
     }
 
+    @ApiOperation(value = "Update booking status by arrive")
     @PutMapping("/update/canceled/{booking_id}")
     public BookingDto updateByCancelled(@PathVariable("booking_id") Long id) {
         final Booking bookingUpdated = iServiceBooking.updateByCanceled(id);
         return objectMapper.convertValue(bookingUpdated, BookingDto.class);
     }
 
+    @ApiOperation(value = "Find all booking rooms")
     @GetMapping("/find/all")
     public List<BookingDto> readAll()  {
         List<Booking> list = iServiceBooking.findAll();
@@ -55,6 +61,7 @@ public class BookingController {
                 .collect(Collectors.toList());
     }
 
+    @ApiOperation(value = "Find booking by id")
     @GetMapping("/business/{id}")
     public BookingDto readById(@PathVariable Long id) {
         final Booking booking = iServiceBooking.readById(id);

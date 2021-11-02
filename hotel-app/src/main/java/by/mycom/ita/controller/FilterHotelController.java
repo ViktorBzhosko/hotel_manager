@@ -4,6 +4,7 @@ import by.mycom.ita.dto.HotelDto;
 import by.mycom.ita.model.Hotel;
 import by.mycom.ita.services.IHotelFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ public class FilterHotelController {
         this.hotelFilter = hotelFilter;
     }
 
+    @ApiOperation(value = "Filtering hotels coincidences")
     @PostMapping(value = "/coincidences")
     public List<HotelDto> coincidencesFiltering(@RequestBody HotelDto hotelDto) {
         final Hotel hotel = objectMapper.convertValue(hotelDto, Hotel.class);
@@ -34,6 +36,7 @@ public class FilterHotelController {
                 .collect(Collectors.toList());
     }
 
+    @ApiOperation(value = "Exact hotel filtering")
     @PostMapping(value = "/exact")
     public List<HotelDto> exactFiltering(@RequestBody HotelDto hotelDto) {
         final Hotel hotel = objectMapper.convertValue(hotelDto, Hotel.class);

@@ -6,6 +6,7 @@ import by.mycom.ita.model.Booking;
 import by.mycom.ita.model.Room;
 import by.mycom.ita.services.ISearchRooms;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +29,7 @@ public class SearchController {
         this.searchRooms = searchRooms;
     }
 
+    @ApiOperation(value = "Find bookings rooms for hotel ")
     @PostMapping("/booking")
     public List<BookingDto> findBookingRooms(@RequestBody BookingDto bookingDto) {
         final Booking booking = objectMapper.convertValue(bookingDto, Booking.class);
@@ -36,6 +38,7 @@ public class SearchController {
                 .collect(Collectors.toList());
     }
 
+    @ApiOperation(value = "Find free rooms for hotel ")
     @PostMapping("/empty")
     public List<RoomDto> findEmptyRooms(@RequestBody BookingDto bookingDto) {
         final Booking booking = objectMapper.convertValue(bookingDto, Booking.class);

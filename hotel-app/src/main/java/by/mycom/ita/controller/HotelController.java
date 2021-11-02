@@ -4,6 +4,7 @@ import by.mycom.ita.dto.HotelDto;
 import by.mycom.ita.model.Hotel;
 import by.mycom.ita.services.IHotelService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class HotelController {
         this.iServiceHotel = iServiceHotel;
     }
 
+    @ApiOperation(value = "Create hotel")
     @PostMapping("/create")
     public HotelDto create(@RequestBody HotelDto hotelDto) {
         final Hotel hotel = objectMapper.convertValue(hotelDto, Hotel.class);
@@ -28,6 +30,7 @@ public class HotelController {
         return objectMapper.convertValue(hotelCreated, HotelDto.class);
     }
 
+    @ApiOperation(value = "Read all hotels")
     @GetMapping("/read/all")
     public List<HotelDto> readAll() {
         List<Hotel> list = iServiceHotel.readAll();
@@ -35,13 +38,14 @@ public class HotelController {
                 .collect(Collectors.toList());
     }
 
+    @ApiOperation(value = "Find hotel by id")
     @GetMapping("/read")
     public HotelDto readById(@RequestBody Long id) {
         Hotel hotel = iServiceHotel.readById(id);
         return objectMapper.convertValue(hotel, HotelDto.class);
     }
 
-
+    @ApiOperation(value = "Update hotel")
     @PutMapping("/update")
     public HotelDto update(@RequestParam(value = "id") Long id,
                            @RequestBody HotelDto hotelDto) {
@@ -50,6 +54,7 @@ public class HotelController {
         return objectMapper.convertValue(updatedHotel, HotelDto.class);
     }
 
+    @ApiOperation(value = "Delete hotel by id")
     @DeleteMapping(value = "/delete/{id}")
     public void deleteById(@PathVariable Long id) {
         iServiceHotel.deleteById(id);

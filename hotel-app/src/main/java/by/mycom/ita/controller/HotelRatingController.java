@@ -5,6 +5,7 @@ import by.mycom.ita.model.HotelRating;
 import by.mycom.ita.services.IHotelRatingService;
 import by.mycom.ita.services.impl.HotelRatingService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,6 +20,7 @@ public class HotelRatingController {
         this.hotelRatingService = hotelRatingService;
     }
 
+    @ApiOperation(value = "Estimate hotel by user")
     @PostMapping("/{hotelId}")
     public void estimateHotel(@PathVariable Long hotelId,
                               @RequestBody HotelRatingDto hotelRatingDto) {

@@ -4,6 +4,7 @@ import by.mycom.ita.dto.CommonUserDto;
 import by.mycom.ita.model.CommonUser;
 import by.mycom.ita.services.ICommonUserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,6 +19,7 @@ public class CommonUserController {
         this.iServiceCommonUser = iServiceCommonUser;
     }
 
+    @ApiOperation(value = "Create user")
     @PostMapping("/create")
     public CommonUserDto createUser(@RequestBody CommonUserDto commonUserDto) {
         final CommonUser commonUser = objectMapper.convertValue(commonUserDto, CommonUser.class);
