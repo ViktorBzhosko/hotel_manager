@@ -34,4 +34,16 @@ public class Hotel {
     @JoinColumn(name = "hotel_id")
     private List<HotelRating> hotelRatings;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Hotel hotel = (Hotel) o;
+        return Objects.equals(name, hotel.name) && Objects.equals(avgMark, hotel.avgMark) && Objects.equals(location, hotel.location) && Objects.equals(convenience, hotel.convenience);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, avgMark, location, convenience);
+    }
 }

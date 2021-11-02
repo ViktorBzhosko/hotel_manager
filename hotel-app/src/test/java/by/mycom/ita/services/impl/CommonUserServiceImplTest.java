@@ -1,7 +1,6 @@
 package by.mycom.ita.services.impl;
 
 import by.mycom.ita.dao.CommonUserDao;
-import by.mycom.ita.exception.DataIsIncorrectException;
 import by.mycom.ita.model.CommonUser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -22,18 +21,29 @@ class CommonUserServiceImplTest {
     @InjectMocks
     private CommonUserServiceImpl commonUserService;
 
+    @Test
+    void whenCreate_thenReturnUser() {
+        CommonUser simpleUser = createSimpleUser(0L);
+        CommonUser simpleOtherUser = createSimpleUser(1L);
+
+        Mockito.when(userDao.save(Mockito.any())).thenReturn(simpleOtherUser);
+        CommonUser actualUser = commonUserService.create(simpleUser);
+
+        Assertions.assertEquals(actualUser, simpleOtherUser);
+    }
 
     @Test
     void findById() {
-        CommonUser user = createSimpleUser();
+        CommonUser user = createSimpleUser(1L);
         Mockito.when(userDao.findById(10L)).thenReturn(Optional.ofNullable(user));
         CommonUser expected = commonUserService.findById(10L);
         Assertions.assertEquals(expected, user);
         Mockito.verify(userDao, Mockito.times(1)).findById(10L);
     }
 
-    private CommonUser createSimpleUser() {
+    private CommonUser createSimpleUser(Long id) {
         return CommonUser.builder()
+                .id(id)
                 .firstName("Viktor")
                 .secondName("Bzhosko")
                 .email("vic308@mail.ru")

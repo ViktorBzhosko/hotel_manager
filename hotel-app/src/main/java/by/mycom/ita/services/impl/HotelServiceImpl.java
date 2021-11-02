@@ -39,7 +39,7 @@ public class HotelServiceImpl implements IHotelService {
     }
 
     @Override
-    public List<Hotel> readAll() throws DataNotFoundException {
+    public List<Hotel> readAll() {
         return hotelDao.findAll();
 
     }

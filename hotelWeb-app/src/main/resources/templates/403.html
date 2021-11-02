@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ERROR 403</title>
+</head>
+<body>
+<div class="container">
+    <form th:action="@{/}">
+        <fieldset>
+            <div class="starter-template" >
+                <h1>403 - Access denied</h1>
+                <div th:inline="text">[[${#httpServletRequest.remoteUser}]],
+                    can't have access this page.</div>
+            </div>
+            <div class="submit">
+                <button type="submit" name="ОК" >ОК</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+</body>
+</html>

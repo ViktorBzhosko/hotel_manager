@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface ISearchRooms {
 
-    List<Booking> findBookingRooms(LocalDate dateChekIn, LocalDate dateChekOut);
+    List<Booking> findBookingRooms(Long hotelId, LocalDate dateChekIn, LocalDate dateChekOut);
 
-    List<Room> findEmptyRooms(LocalDate dateChekIn, LocalDate dateChekOut);
+    List<Room> findEmptyRooms(Long hotelId, LocalDate dateChekIn, LocalDate dateChekOut);
 
 }

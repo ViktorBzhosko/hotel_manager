@@ -35,6 +35,4 @@ public class Booking {
     @Enumerated
     private BookingStatus bookingStatus;
 
-
-    
 }

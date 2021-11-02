@@ -31,7 +31,7 @@ public class SearchController {
     @PostMapping("/booking")
     public List<BookingDto> findBookingRooms(@RequestBody BookingDto bookingDto) {
         final Booking booking = objectMapper.convertValue(bookingDto, Booking.class);
-        List<Booking> bookingRooms = searchRooms.findBookingRooms(booking.getDateChekIn(), booking.getDateChekOut());
+        List<Booking> bookingRooms = searchRooms.findBookingRooms(booking.getHotel().getId(), booking.getDateChekIn(), booking.getDateChekOut());
         return bookingRooms.stream().map(bookRooms -> objectMapper.convertValue(bookRooms, BookingDto.class))
                 .collect(Collectors.toList());
     }
@@ -39,7 +39,7 @@ public class SearchController {
     @PostMapping("/empty")
     public List<RoomDto> findEmptyRooms(@RequestBody BookingDto bookingDto) {
         final Booking booking = objectMapper.convertValue(bookingDto, Booking.class);
-        List<Room> bookingRooms = searchRooms.findEmptyRooms(booking.getDateChekIn(), booking.getDateChekOut());
+        List<Room> bookingRooms = searchRooms.findEmptyRooms(booking.getHotel().getId(), booking.getDateChekIn(), booking.getDateChekOut());
         return bookingRooms.stream().map(nonBookRooms -> objectMapper.convertValue(nonBookRooms, RoomDto.class))
                 .collect(Collectors.toList());
     }

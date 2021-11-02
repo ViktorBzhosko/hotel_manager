@@ -40,7 +40,13 @@ public class BookingServiceImpl implements IBookingService {
     public Booking create(Booking booking, Long roomId, Long hotelId, Long userId) throws DataNotFoundException {
         CommonUser user = iServiceCommonUser.findById(userId);
         Hotel foundHotel = iServiceHotel.readById(hotelId);
-        Room foundRoom = foundHotel.getRooms().stream()
+//        Room foundRoom = foundHotel.getRooms().stream()
+//                .filter(room -> roomId.equals(room.getId()))
+//                .findFirst()
+//                .orElseThrow(DataNotFoundException::new);
+
+        List<Room> freeRooms = bookingDao.findEmptyRooms(hotelId, booking.getDateChekIn(), booking.getDateChekOut());
+        Room foundRoom = freeRooms.stream()
                 .filter(room -> roomId.equals(room.getId()))
                 .findFirst()
                 .orElseThrow(DataNotFoundException::new);

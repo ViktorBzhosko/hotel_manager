@@ -2,7 +2,6 @@ package by.mycom.ita.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.List;
@@ -34,4 +33,20 @@ public class CommonUser {
     @JsonManagedReference
     private List<HotelFavorites> hotelFavorites;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CommonUser user = (CommonUser) o;
+        return Objects.equals(firstName, user.firstName)
+                && Objects.equals(secondName, user.secondName)
+                && Objects.equals(passport, user.passport)
+                && Objects.equals(email, user.email)
+                && Objects.equals(phoneNumber, user.phoneNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, secondName, passport, email, phoneNumber);
+    }
 }

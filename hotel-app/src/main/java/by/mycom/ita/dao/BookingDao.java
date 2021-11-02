@@ -12,10 +12,13 @@ import java.util.List;
 @Repository
 public interface BookingDao extends JpaRepository<Booking, Long> {
 
-    @Query(value = "SELECT * FROM Booking b WHERE b.date_chek_in >= :dateChekIn AND b.date_chek_out <= :dateChekOut", nativeQuery = true)
-    List<Booking> findBookingRooms(LocalDate dateChekIn, LocalDate dateChekOut);
+    @Query(value = "SELECT b FROM Booking b WHERE (b.dateChekIn BETWEEN :dateChekIn AND :dateChekOut) or (b.dateChekOut BETWEEN :dateChekIn AND :dateChekOut) AND b.hotel.id= :hotelId AND b.bookingStatus= 0")
+    List<Booking> findBookingRooms(Long hotelId, LocalDate dateChekIn, LocalDate dateChekOut);
 
     @Query(value = "SELECT r FROM Room r " +
-            "WHERE r.id NOT IN (SELECT b.room.id FROM Booking b WHERE b.dateChekIn >= :dateChekIn AND b.dateChekOut <= :dateChekOut)")
-    List<Room> findEmptyRooms(LocalDate dateChekIn, LocalDate dateChekOut);
+            "WHERE r.id NOT IN (SELECT b.room.id FROM Booking b WHERE " +
+            "(b.dateChekIn BETWEEN :dateChekIn AND :dateChekOut) or (b.dateChekOut BETWEEN :dateChekIn AND :dateChekOut) " +
+            "AND b.hotel.id= :hotelId) " +
+            "AND r.hotels.id= :hotelId")
+    List<Room> findEmptyRooms(Long hotelId, LocalDate dateChekIn, LocalDate dateChekOut);
 }

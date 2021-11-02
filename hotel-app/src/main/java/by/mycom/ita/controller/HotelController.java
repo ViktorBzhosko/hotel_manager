@@ -29,22 +29,22 @@ public class HotelController {
     }
 
     @GetMapping("/read/all")
-    public List<HotelDto> readAll() throws Exception {
+    public List<HotelDto> readAll() {
         List<Hotel> list = iServiceHotel.readAll();
         return list.stream().map(hotel -> objectMapper.convertValue(hotel, HotelDto.class))
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/read")
-    public HotelDto readById(@RequestBody Long id) throws Exception {
-       Hotel hotel = iServiceHotel.readById(id);
-        return objectMapper.convertValue(hotel,HotelDto.class);
+    public HotelDto readById(@RequestBody Long id) {
+        Hotel hotel = iServiceHotel.readById(id);
+        return objectMapper.convertValue(hotel, HotelDto.class);
     }
 
 
     @PutMapping("/update")
     public HotelDto update(@RequestParam(value = "id") Long id,
-                            @RequestBody HotelDto hotelDto) {
+                           @RequestBody HotelDto hotelDto) {
         final Hotel hotel = objectMapper.convertValue(hotelDto, Hotel.class);
         Hotel updatedHotel = iServiceHotel.update(id, hotel);
         return objectMapper.convertValue(updatedHotel, HotelDto.class);

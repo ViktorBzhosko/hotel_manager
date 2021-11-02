@@ -28,12 +28,17 @@ class HotelServiceImplTest {
     @Mock
     private HotelDao hotelDao;
 
+    @Mock
+    private HotelRatingService hotelRatingService;
+
     @InjectMocks
     private HotelServiceImpl hotelService;
 
     @Test
     void whenCreate_thenOk() {
         Hotel hotel = createSimpleHotel();
+        List<HotelRating> defaultRating = createDefaultRating();
+        Mockito.when(hotelRatingService.createDefaultRating()).thenReturn(defaultRating);
         Mockito.when(hotelDao.save(Mockito.any())).thenReturn(hotel);
         Hotel actual = hotelService.create(hotel);
         Assertions.assertEquals(hotel, actual);
@@ -56,11 +61,6 @@ class HotelServiceImplTest {
         List<Hotel> actual = hotelService.readAll();
         Assertions.assertEquals(list, actual);
         Mockito.verify(hotelDao, Mockito.times(1)).findAll();
-    }
-
-    @Test
-    void whenReadAll_returnException() {
-        Assertions.assertThrows(DataNotFoundException.class, () -> hotelService.readAll());
     }
 
     @Test
@@ -122,6 +122,19 @@ class HotelServiceImplTest {
                 .location("Egypt")
                 .avgMark(4.5)
                 .convenience("5 stars")
+                .build();
+    }
+
+    public List<HotelRating> createDefaultRating() {
+        return IntStream.range(1, 6)
+                .mapToObj(this::createRating)
+                .collect(Collectors.toList());
+    }
+
+    private HotelRating createRating(Integer mark) {
+        return HotelRating.builder()
+                .mark(mark)
+                .countOfMarks(0)
                 .build();
     }
 }

@@ -110,6 +110,7 @@ class BookingServiceImplTest {
 
     private Room createRoom() {
         return Room.builder()
+                .id(1L)
                 .numberOfRoom(1)
                 .comfort(Comfort.STANDARD)
                 .accommodation(Accommodation.SINGLE)

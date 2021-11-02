@@ -34,11 +34,6 @@
         </tr>
         </tbody>
     </table>
-    <form th:action="@{/readById}" method="get">
-        <label for="id">Find by ID:</label>
-        <input name="id" type="number" id="id" pattern="^[0-9]+$" required size="2"/>
-        <input type="submit" value="Find"/>
-    </form>
     <hr>
     <form th:action="@{/delete}" method="get">
         <label for="id">Hotel id</label>

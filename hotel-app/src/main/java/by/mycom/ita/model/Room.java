@@ -33,4 +33,16 @@ public class Room {
     @Enumerated(EnumType.STRING)
     private Comfort comfort;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Room room = (Room) o;
+        return numberOfRoom == room.numberOfRoom && accommodation == room.accommodation && comfort == room.comfort;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numberOfRoom, accommodation, comfort);
+    }
 }

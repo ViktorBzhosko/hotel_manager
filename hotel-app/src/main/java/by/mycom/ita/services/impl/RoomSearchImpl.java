@@ -21,12 +21,12 @@ public class RoomSearchImpl implements ISearchRooms {
     }
 
     @Override
-    public List<Booking> findBookingRooms(LocalDate dateChekIn, LocalDate dateChekOut) {
-        return bookingDao.findBookingRooms(dateChekIn, dateChekOut);
+    public List<Booking> findBookingRooms(Long hotelId, LocalDate dateChekIn, LocalDate dateChekOut) {
+        return bookingDao.findBookingRooms(hotelId, dateChekIn, dateChekOut);
     }
 
     @Override
-    public List<Room> findEmptyRooms(LocalDate dateChekIn, LocalDate dateChekOut) {
-        return bookingDao.findEmptyRooms(dateChekIn, dateChekOut);
+    public List<Room> findEmptyRooms(Long hotelId, LocalDate dateChekIn, LocalDate dateChekOut) {
+        return bookingDao.findEmptyRooms(hotelId, dateChekIn, dateChekOut);
     }
 }

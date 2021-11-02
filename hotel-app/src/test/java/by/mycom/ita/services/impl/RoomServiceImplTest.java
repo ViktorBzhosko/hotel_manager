@@ -27,7 +27,7 @@ class RoomServiceImplTest {
     @Autowired
     private RoomDao roomDao;
 
-    @MockBean
+    @Autowired
     private HotelDao hotelDao;
 
     @Autowired
@@ -44,11 +44,8 @@ class RoomServiceImplTest {
         Hotel simpleHotel1 = createSimpleHotel(rooms1, 1L, "Mercuri");
         Hotel simpleHotel2 = createSimpleHotel(List.of(), 2L, "Alladin");
 
-        Mockito.when(hotelDao.findById(1L)).thenReturn(Optional.ofNullable(simpleHotel1));
-        Mockito.when(hotelDao.findById(2L)).thenReturn(Optional.ofNullable(simpleHotel2));
-
-        Mockito.when(hotelDao.save(Mockito.any())).thenReturn(simpleHotel1);
-        Mockito.when(hotelDao.save(Mockito.any())).thenReturn(simpleHotel2);
+        hotelDao.save(simpleHotel1);
+        hotelDao.save(simpleHotel2);
 
         Room room11 = roomService.create(simpleRoom2, 1L);
         Room room22 = roomService.create(simpleRoom2, 2L);
@@ -72,14 +69,14 @@ class RoomServiceImplTest {
         updatedRoom.setId(1);
         updatedRoom.setComfort(Comfort.BUSINESS);
         roomDao.save(room);
-        Room expected = roomService.update( updatedRoom);
+        Room expected = roomService.update(updatedRoom);
         Assertions.assertEquals(expected, updatedRoom);
     }
 
     @Test
     void whenUpdate_returnException() {
         Room room = createSimpleRoom(10);
-        Assertions.assertThrows(DataNotFoundException.class, () -> roomService.update( room));
+        Assertions.assertThrows(DataNotFoundException.class, () -> roomService.update(room));
     }
 
     private Hotel createSimpleHotel(List<Room> rooms, Long id, String name) {

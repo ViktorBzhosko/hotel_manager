@@ -29,7 +29,6 @@ class BookingDaoTest {
     BookingServiceImpl bookingService;
 
     Integer expectedNumber = 1;
-    Integer expectedEmptyNumber = 2;
 
     @Test
     void findBookingRooms() {
@@ -38,26 +37,10 @@ class BookingDaoTest {
         Hotel simpleHotel = createSimpleHotel(List.of(room));
         Booking newBooking = createBooking(simpleHotel, room, currentUser);
         bookingDao.save(newBooking);
-        List<Booking> bookingRooms = bookingDao.findBookingRooms(LocalDate.parse("2021-01-01"), LocalDate.parse("2021-01-10"));
+        List<Booking> bookingRooms = bookingDao.findBookingRooms(1L,LocalDate.parse("2021-01-01"), LocalDate.parse("2021-01-10"));
         int numberOfRoom = bookingRooms.get(0).getRoom().getNumberOfRoom();
         Assertions.assertNotNull(bookingRooms);
         Assertions.assertEquals(expectedNumber, numberOfRoom);
-
-    }
-
-    @Test
-    void findEmptyRooms() {
-        CommonUser currentUser = getCurrentUser();
-        Room room1 = createRoom(1);
-        Room room2 = createRoom(2);
-        Hotel simpleHotel = createSimpleHotel(List.of(room1, room2));
-        Booking booking = createBooking(simpleHotel, room1, currentUser);
-        bookingDao.save(booking);
-        List<Room> emptyRooms = bookingDao.findEmptyRooms(LocalDate.parse("2021-01-01"), LocalDate.parse("2021-01-10"));
-        int numberOfRoom = emptyRooms.get(1).getNumberOfRoom();
-        Assertions.assertNotNull(emptyRooms);
-        Assertions.assertEquals(expectedEmptyNumber, numberOfRoom);
-
 
     }
 
