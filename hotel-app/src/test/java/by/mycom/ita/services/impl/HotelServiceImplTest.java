@@ -19,7 +19,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doThrow;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,9 +37,12 @@ class HotelServiceImplTest {
     void whenCreate_thenOk() {
         Hotel hotel = createSimpleHotel();
         List<HotelRating> defaultRating = createDefaultRating();
+
         Mockito.when(hotelRatingService.createDefaultRating()).thenReturn(defaultRating);
         Mockito.when(hotelDao.save(Mockito.any())).thenReturn(hotel);
+
         Hotel actual = hotelService.create(hotel);
+
         Assertions.assertEquals(hotel, actual);
         Mockito.verify(hotelDao, Mockito.times(1)).save(Mockito.any());
     }
@@ -57,8 +59,11 @@ class HotelServiceImplTest {
         List<Hotel> list = new ArrayList<>();
         list.add(createSimpleHotel());
         list.add(createSimpleHotel());
+
         Mockito.when(hotelDao.findAll()).thenReturn(list);
+
         List<Hotel> actual = hotelService.readAll();
+
         Assertions.assertEquals(list, actual);
         Mockito.verify(hotelDao, Mockito.times(1)).findAll();
     }
@@ -66,9 +71,12 @@ class HotelServiceImplTest {
     @Test
     void whenReadById_thenOk() {
         Hotel hotel = createSimpleHotel();
+
         Mockito.when(hotelDao.findById(10L)).thenReturn(Optional.ofNullable(hotel));
+
         Hotel expected = hotelService.readById(10L);
         Assertions.assertEquals(expected, hotel);
+
         Mockito.verify(hotelDao, Mockito.times(1)).findById(10L);
     }
 
@@ -77,18 +85,21 @@ class HotelServiceImplTest {
         Hotel hotel = createSimpleHotel();
         Hotel updatedHotel = createSimpleHotel();
         updatedHotel.setName("Test");
+
         Mockito.when(hotelDao.findById(1L)).thenReturn(Optional.of(hotel));
         Mockito.when(hotelDao.save(hotel)).thenReturn(updatedHotel);
+
         Hotel expected = hotelService.update(1L, hotel);
+
         Assertions.assertEquals(expected, updatedHotel);
         Mockito.verify(hotelDao, Mockito.times(1)).findById(1L);
         Mockito.verify(hotelDao, Mockito.times(1)).save(hotel);
     }
 
-
     @Test
     void whenUpdate_returnException() {
         Hotel hotel = new Hotel();
+
         Mockito.when(hotelDao.findById(1L)).thenReturn(Optional.empty());
         Assertions.assertThrows(DataNotFoundException.class, () -> hotelService.update(1L, hotel));
         Mockito.verify(hotelDao, Mockito.times(1)).findById(1L);

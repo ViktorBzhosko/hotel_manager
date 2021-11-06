@@ -40,10 +40,6 @@ public class BookingServiceImpl implements IBookingService {
     public Booking create(Booking booking, Long roomId, Long hotelId, Long userId) throws DataNotFoundException {
         CommonUser user = iServiceCommonUser.findById(userId);
         Hotel foundHotel = iServiceHotel.readById(hotelId);
-//        Room foundRoom = foundHotel.getRooms().stream()
-//                .filter(room -> roomId.equals(room.getId()))
-//                .findFirst()
-//                .orElseThrow(DataNotFoundException::new);
 
         List<Room> freeRooms = bookingDao.findEmptyRooms(hotelId, booking.getDateChekIn(), booking.getDateChekOut());
         Room foundRoom = freeRooms.stream()
@@ -80,7 +76,9 @@ public class BookingServiceImpl implements IBookingService {
 
     @Override
     public Booking updateByCanceled(Long id) throws DataNotFoundException {
-        iEmailService.sendSimpleMessage(id);
+        Booking foundedBooking = bookingDao.findById(id).orElseThrow(DataNotFoundException::new);
+        long userId = foundedBooking.getUsers().getId();
+        iEmailService.sendSimpleMessage(userId);
         return update(id, BookingStatus.CANCELED);
     }
 

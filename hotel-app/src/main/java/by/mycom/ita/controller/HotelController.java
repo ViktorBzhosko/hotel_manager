@@ -39,15 +39,15 @@ public class HotelController {
     }
 
     @ApiOperation(value = "Find hotel by id")
-    @GetMapping("/read")
-    public HotelDto readById(@RequestBody Long id) {
+    @GetMapping("/read/{id}")
+    public HotelDto readById(@PathVariable Long id) {
         Hotel hotel = iServiceHotel.readById(id);
         return objectMapper.convertValue(hotel, HotelDto.class);
     }
 
     @ApiOperation(value = "Update hotel")
-    @PutMapping("/update")
-    public HotelDto update(@RequestParam(value = "id") Long id,
+    @PutMapping("/update/{id}")
+    public HotelDto update(@PathVariable(value = "id") Long id,
                            @RequestBody HotelDto hotelDto) {
         final Hotel hotel = objectMapper.convertValue(hotelDto, Hotel.class);
         Hotel updatedHotel = iServiceHotel.update(id, hotel);

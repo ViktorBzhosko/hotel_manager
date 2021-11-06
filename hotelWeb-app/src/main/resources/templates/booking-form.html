@@ -52,7 +52,7 @@
         <input type="submit" value="Update Status"/>
     </form>
     <hr>
-    <form th:action="@{/update/cancel}" method="post">
+    <form th:action="@{/update/cancel}" method="post" >
         <label for="id">Cancel:</label>
         <input name="id" type="text" id="id" pattern="^[0-9]+$" placeholder="id" required size="2"/>
         <input type="submit" value="Update Status"/>

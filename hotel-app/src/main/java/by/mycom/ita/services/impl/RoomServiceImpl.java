@@ -28,6 +28,9 @@ public class RoomServiceImpl implements IRoomService {
     @Transactional
     @Override
     public Room create(Room room, Long hotelId) throws DataNotFoundException {
+
+        if (room.getNumberOfRoom() <= 0) throw new DataNotFoundException();
+
         Hotel hotelFounded = hotelDao.findById(hotelId).orElseThrow(DataNotFoundException::new);
         List<Room> rooms = hotelFounded.getRooms();
         Room roomFounded = rooms.stream()

@@ -81,3 +81,9 @@ alter table if exists hotel_rating add constraint FK8s3ld1j9yamvg7kl0nmvd67rx fo
 alter table if exists room add constraint FK2l0g59jbbqciwgn6w76ey09xh foreign key (hotels_hotel_id) references hotel;
 
 alter table if exists room add constraint FKdosq3ww4h9m2osim6o0lugng8 foreign key (hotel_id) references hotel;
+
+INSERT INTO hotel (avg_mark, convenience, location, name)
+VALUES (4.4, 'FiveStars', 'Egypt', 'Mercuri');
+
+INSERT INTO common_user (email, first_name, passport, phone_number, second_name)
+VALUES ('vic308@mail.ru', 'viktor', 'ab123', '123456', 'bzhosko');

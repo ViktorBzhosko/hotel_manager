@@ -8,6 +8,7 @@ import by.mycom.ita.model.enums.Accommodation;
 import by.mycom.ita.model.enums.BookingStatus;
 import by.mycom.ita.model.enums.Comfort;
 import by.mycom.ita.services.impl.BookingServiceImpl;
+import by.mycom.ita.services.impl.RoomServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,7 +27,13 @@ class BookingDaoTest {
     private BookingDao bookingDao;
 
     @Autowired
+    private HotelDao hotelDao;
+
+    @Autowired
     BookingServiceImpl bookingService;
+
+    @Autowired
+    RoomServiceImpl roomService;
 
     Integer expectedNumber = 1;
 

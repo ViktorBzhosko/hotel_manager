@@ -13,12 +13,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -57,9 +55,9 @@ class RoomServiceImplTest {
 
     @Test
     void whenCreate_thenException() {
-        Room simpleRoom = createSimpleRoom(1);
-        Mockito.when(hotelDao.findById(1L)).thenReturn(Optional.empty());
-        Assertions.assertThrows(DataNotFoundException.class, () -> roomService.create(simpleRoom, 1L));
+        Room simpleRoom1 = createOtherSimpleRoom();
+
+        Assertions.assertThrows(DataNotFoundException.class, () -> roomService.create(simpleRoom1, 1L));
     }
 
     @Test
@@ -79,6 +77,7 @@ class RoomServiceImplTest {
         Assertions.assertThrows(DataNotFoundException.class, () -> roomService.update(room));
     }
 
+
     private Hotel createSimpleHotel(List<Room> rooms, Long id, String name) {
         return Hotel.builder()
                 .id(id)
@@ -95,6 +94,15 @@ class RoomServiceImplTest {
                 .numberOfRoom(numberOfRoom)
                 .accommodation(Accommodation.SINGLE)
                 .comfort(Comfort.STANDARD)
+                .build();
+    }
+
+    private Room createOtherSimpleRoom() {
+        return Room.builder()
+                .id(1L)
+                .numberOfRoom(0)
+                .accommodation(Accommodation.SINGLE)
+                .comfort(Comfort.BUSINESS)
                 .build();
     }
 }

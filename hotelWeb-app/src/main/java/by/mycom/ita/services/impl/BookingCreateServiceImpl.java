@@ -58,6 +58,7 @@ public class BookingCreateServiceImpl implements IBookingService {
     @Override
     public void updateByCancelled(BookingDto bookingDto) {
         restTemplate.put(Url + "/update/canceled/" + bookingDto.getId(), BookingDto.class);
+
     }
 
     @Override
