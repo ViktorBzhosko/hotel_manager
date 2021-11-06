@@ -27,7 +27,7 @@ public class RoomController {
     }
 
     @PostMapping("/room")
-    public String createRoom( @ModelAttribute RoomDto roomDto, Model model) {
+    public String createRoom(@ModelAttribute RoomDto roomDto, Model model) {
         RoomDto room = roomService.create(roomDto);
         model.addAttribute("room", room);
 

@@ -24,6 +24,7 @@ public class CommonUserServiceImpl implements ICommonUserService {
                 || user.getEmail() == null || user.getPhoneNumber() == null) {
             throw new DataIsIncorrectException();
         }
+
         return userDao.save(CommonUser.builder()
                 .firstName(user.getFirstName())
                 .secondName(user.getSecondName())

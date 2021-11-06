@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +31,7 @@ public class HotelFavoritesService implements IHotelFavoritesService {
 
     @Transactional
     @Override
-    public CommonUser favorites(Long userId, Hotel hotel) {
+    public HotelFavorites favorites(Long userId, Hotel hotel) {
         CommonUser user = userDao.findById(userId).orElseThrow(DataNotFoundException::new);
         Hotel foundHotel = hotelDao.findById(hotel.getId()).orElseThrow(DataNotFoundException::new);
         List<HotelFavorites> favoritesList = hotelFavoritesDao.findByUserId(userId);
@@ -46,9 +45,9 @@ public class HotelFavoritesService implements IHotelFavoritesService {
                     .user(user)
                     .hotel(foundHotel)
                     .build();
-            hotelFavoritesDao.save(hotelFavorites);
+            return hotelFavoritesDao.save(hotelFavorites);
         }
-        return userDao.save(user);
+        return findFavorite.orElseThrow(RuntimeException::new);
     }
 
     @Override

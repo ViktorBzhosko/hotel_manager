@@ -37,8 +37,7 @@ public class ResetPasswordController {
 
     @PostMapping("/reset/verification")
     public String resetVerification(@RequestParam String password,
-                                    @RequestParam String uid,
-                                    @RequestParam String username) {
+                                    @RequestParam String uid) {
         userService.resetVerification(password, uid);
         return "login";
     }

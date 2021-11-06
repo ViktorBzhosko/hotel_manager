@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <title>All hotels</title>
@@ -20,6 +20,7 @@
             <th scope="col">avgMark</th>
             <th scope="col">location</th>
             <th scope="col">convenience</th>
+            <th scope="col">weather</th>
 
         </tr>
         </thead>
@@ -30,7 +31,7 @@
             <td th:text="${hotel.avgMark}"></td>
             <td th:text="${hotel.location}"></td>
             <td th:text="${hotel.convenience}"></td>
-
+            <td><img th:src="@{'/images/' + ${hotel.weather.getImage()}}"></td>
         </tr>
         </tbody>
     </table>
@@ -84,6 +85,10 @@
     <a th:href="@{/hotel}" class="btn btn-success"> Create Hotel</a>
     <hr>
     <a th:href="@{/room}" class="btn btn-success"> Create Room</a>
+    <hr>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <a th:href="@{/registration/manager}" class="btn btn-success"> Create manager</a>
+    </div>
 </div>
 
 </body>

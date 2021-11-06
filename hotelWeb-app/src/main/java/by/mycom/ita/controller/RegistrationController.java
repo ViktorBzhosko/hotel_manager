@@ -1,7 +1,6 @@
 package by.mycom.ita.controller;
 
 import by.mycom.ita.dto.CommonUserDto;
-import by.mycom.ita.dto.HotelDto;
 import by.mycom.ita.services.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,15 +27,31 @@ public class RegistrationController {
         return "registration";
     }
 
+    @GetMapping("/registration/manager")
+    public String registrationManager(Model model) {
+        return "reg-manager";
+    }
+
     @PostMapping("/registration")
     public String addUser(@ModelAttribute("userForm") CommonUserDto commonUserDto, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             return "registration";
 
-        } else if (userService.saveUser(commonUserDto)) return "login";
+        } else if (userService.saveClient(commonUserDto)) return "login";
 
         else return "registration";
+    }
+
+    @PostMapping("/registration/manager")
+    public String addManager(@ModelAttribute CommonUserDto commonUserDto, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "registration";
+
+        } else if (userService.saveManager(commonUserDto)) return "login";
+
+        else return "reg-manager";
     }
 
     @ModelAttribute("CommonUserDto")

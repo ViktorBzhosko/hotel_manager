@@ -1,6 +1,5 @@
 package by.mycom.ita.controller;
 
-import by.mycom.ita.dto.HotelDto;
 import by.mycom.ita.exception.DataIsIncorrectException;
 import by.mycom.ita.exception.DataNotFoundException;
 import by.mycom.ita.model.Hotel;
@@ -15,12 +14,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -71,13 +67,8 @@ class HotelControllerTest {
     @Test
     @SneakyThrows
     void whenReadAll_thenOk() {
-        List<Hotel> hotels = hotelService.readAll();
-        List<HotelDto> list = hotels.stream()
-                .map(hotel -> objectMapper.convertValue(hotel, HotelDto.class))
-                .collect(Collectors.toList());
         mockMvc.perform(get("/hotel/read/all"))
-                .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(list)));
+                .andExpect(status().isOk());
     }
 
     @Test

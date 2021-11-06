@@ -32,7 +32,7 @@ public class HotelFavoritesController {
     public HotelFavoritesDto createFavorites(@RequestBody HotelDto hotelDto,
                                              @PathVariable Long userId) {
         final Hotel hotel = objectMapper.convertValue(hotelDto, Hotel.class);
-        CommonUser favorites = favoritesService.favorites(userId, hotel);
+        HotelFavorites favorites = favoritesService.favorites(userId, hotel);
         return objectMapper.convertValue(favorites, HotelFavoritesDto.class);
     }
 

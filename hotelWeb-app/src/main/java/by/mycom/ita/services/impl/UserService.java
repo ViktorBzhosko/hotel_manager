@@ -42,12 +42,29 @@ public class UserService implements UserDetailsService {
 
     private final String Url = "http://localhost:8003/hotel-app";
 
+    private static Role ROLE_ADMIN;
+    private static Role ROLE_MANAGER;
+    private static Role ROLE_CLIENT;
+
     @PostConstruct
-    private void createRoles(){
-        Role roleAdmin = new Role(1L, "ROLE_ADMIN", null);
-        Role roleManager = new Role(2L, "ROLE_MANAGER", null);
-        Role roleClient = new Role(3L, "ROLE_CLIENT", null);
-        roleDao.saveAll(List.of(roleAdmin,roleManager,roleClient));
+    private void createRoles() {
+        ROLE_ADMIN = new Role(1L, "ROLE_ADMIN", null);
+        ROLE_MANAGER = new Role(2L, "ROLE_MANAGER", null);
+        ROLE_CLIENT = new Role(3L, "ROLE_CLIENT", null);
+
+        roleDao.saveAll(List.of(ROLE_ADMIN, ROLE_MANAGER, ROLE_CLIENT));
+
+        CommonUserDto userAdmin = CommonUserDto.builder()
+                .firstName("Viktor")
+                .secondName("Bzhosko")
+                .passport("123654ad")
+                .email("vic308@mail.ru")
+                .phoneNumber(123654)
+                .username("admin")
+                .password("123")
+                .build();
+
+        saveAdmin(userAdmin);
     }
 
     @Override
@@ -61,8 +78,22 @@ public class UserService implements UserDetailsService {
         return new UserDetail(user);
     }
 
+    public boolean saveManager(CommonUserDto commonUserDto) {
+        boolean isUserSaved = saveUser(commonUserDto, ROLE_MANAGER);
+        if (isUserSaved) resetPasswordManager(commonUserDto.getUsername());
+        return isUserSaved;
+    }
+
+    public boolean saveClient(CommonUserDto commonUserDto) {
+        return saveUser(commonUserDto, ROLE_CLIENT);
+    }
+
+    private void saveAdmin(CommonUserDto commonUserDto) {
+        saveUser(commonUserDto, ROLE_ADMIN);
+    }
+
     @Transactional
-    public boolean saveUser(CommonUserDto commonUserDto) {
+    public boolean saveUser(CommonUserDto commonUserDto, Role role) {
 
         User userFromDB = userDao.findByUsername(commonUserDto.getUsername());
 
@@ -74,7 +105,7 @@ public class UserService implements UserDetailsService {
         if (responseUser != null) {
             User user = objectMapper.convertValue(commonUserDto, User.class);
             user.setId(responseUser.getId());
-            user.setRoles(Collections.singleton(new Role(1L, "ROLE_ADMIN",null)));
+            user.setRoles(Collections.singleton(role));
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             user.setUsername(user.getUsername());
             userDao.save(user);
@@ -83,14 +114,22 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
-    @Transactional
     public void resetPassword(String login) {
+        resetPassword(login, "Reset code: ");
+    }
+
+    public void resetPasswordManager(String login) {
+        resetPassword(login, "Code for change password: ");
+    }
+
+    @Transactional
+    protected void resetPassword(String login, String message) {
         User user = userDao.findByUsername(login);
         UUID resetUid = UUID.randomUUID();
         user.setResetUid(resetUid.toString());
         EmailNotificationDto emailNotificationDto = EmailNotificationDto.builder()
                 .userId(user.getId())
-                .message("Reset code: " + resetUid)
+                .message(message + resetUid)
                 .build();
         restTemplate.postForObject(Url + "/email/notify/reset", emailNotificationDto, Void.class);
         userDao.save(user);
