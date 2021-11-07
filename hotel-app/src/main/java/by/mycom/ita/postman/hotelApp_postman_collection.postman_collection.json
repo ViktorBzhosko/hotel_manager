@@ -1,0 +1,441 @@
+{
+	"info": {
+		"_postman_id": "0ad440ad-8433-4266-a018-fb5bdd57cedf",
+		"name": "hotelApp_postman_collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"firstName\":\"Viktor\",\r\n   \"secondName\":\"Bzhosko\",\r\n    \"passport\":\"45696AB\",\r\n    \"email\":\"vic308@mail.ru\",\r\n    \"phoneNumber\":156684\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8003/hotel-app/users/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"hotel-app",
+						"users",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create rooms",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"numberOfRoom\": 1,\r\n    \"accommodation\": \"DOUBLE\",\r\n    \"comfort\": \"FAMILY\",\r\n    \"hotel\": {\r\n        \"id\":7\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8003/hotel-app/room/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"hotel-app",
+						"room",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create hotel",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Alladin\",\r\n     \"location\":\"Turkey\",\r\n     \"convenience\":\"FiveStars\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8003/hotel-app/hotel/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"hotel-app",
+						"hotel",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "readAll",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Alladin\",\r\n    \"location\":\"Turkey\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8003/hotel-app/hotel/read/all",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"hotel-app",
+						"hotel",
+						"read",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "readHotelByID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8003/hotel-app/hotel/read/7",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"hotel-app",
+						"hotel",
+						"read",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update hotel",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Alladin\",\r\n     \"location\":\"Egypt\",\r\n     \"convenience\":\"FourStars\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8003/hotel-app/hotel/update/7",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"hotel-app",
+						"hotel",
+						"update",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "estimate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"mark\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8003/hotel-app/hotel/rating/7",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"hotel-app",
+						"hotel",
+						"rating",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filterlocation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Alladin\",\r\n    \"location\":\"Turkey\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8003/hotel-app/filter/exact",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"hotel-app",
+						"filter",
+						"exact"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update room",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":6,\r\n    \"numberOfRoom\": 1,\r\n    \"accommodation\": \"QUADRUPLE\",\r\n    \"comfort\": \"BUSINESS\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8003/hotel-app/room/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"hotel-app",
+						"room",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createbooking",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"dateChekIn\":\"2020-03-03\",\r\n    \"dateChekOut\":\"2020-03-10\",\r\n    \"users\": {\"id\":6},\r\n    \"hotel\": {\"id\": 1},\r\n    \"room\":{\"id\":4}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8003/hotel-app/booking/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"hotel-app",
+						"booking",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updatebookingCancel",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8003/hotel-app/booking/update/canceled/9",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"hotel-app",
+						"booking",
+						"update",
+						"canceled",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updatebookingArrive",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8003/hotel-app/booking/update/arrive/8",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"hotel-app",
+						"booking",
+						"update",
+						"arrive",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updatebookingLeave",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8003/hotel-app/booking/update/leave/8",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"hotel-app",
+						"booking",
+						"update",
+						"leave",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "readAllBookings",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Alladin\",\r\n    \"location\":\"Turkey\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8003/hotel-app/booking/find/all",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"hotel-app",
+						"booking",
+						"find",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "readbookingByID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Alladin\",\r\n    \"location\":\"Turkey\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8003/hotel-app/booking/business/5",
+					"host": [
+						"localhost"
+					],
+					"port": "8003",
+					"path": [
+						"hotel-app",
+						"booking",
+						"business",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

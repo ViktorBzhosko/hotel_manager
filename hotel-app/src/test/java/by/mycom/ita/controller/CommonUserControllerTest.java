@@ -62,6 +62,5 @@ class CommonUserControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof DataIsIncorrectException))
                 .andExpect(result -> assertEquals("Data is not correct", result.getResolvedException().getMessage()));
-
     }
 }
