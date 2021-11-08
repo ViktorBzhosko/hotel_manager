@@ -40,7 +40,7 @@ public class UserService implements UserDetailsService {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private final String Url = "http://localhost:8003/hotel-app";
+    private final String Url = "http://hotel-app:8003/hotel-app";
 
     private static Role ROLE_ADMIN;
     private static Role ROLE_MANAGER;

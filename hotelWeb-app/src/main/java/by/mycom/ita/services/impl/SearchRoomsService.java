@@ -18,7 +18,7 @@ public class SearchRoomsService implements ISearchService {
 
     private final RestTemplate restTemplate;
 
-    String Url = "http://localhost:8003/hotel-app";
+    String Url = "http://hotel-app:8003/hotel-app";
 
     @Autowired
     public SearchRoomsService(RestTemplate restTemplate) {

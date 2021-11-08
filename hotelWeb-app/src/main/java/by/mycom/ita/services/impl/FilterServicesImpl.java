@@ -5,7 +5,6 @@ import by.mycom.ita.services.IFilterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -17,7 +16,7 @@ public class FilterServicesImpl implements IFilterService {
 
     private final RestTemplate restTemplate;
 
-    private final String Url = "http://localhost:8003/hotel-app";
+    private final String Url = "http://hotel-app:8003/hotel-app";
 
     @Autowired
     public FilterServicesImpl(RestTemplate restTemplate) {

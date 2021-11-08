@@ -1,0 +1,42 @@
+version: '3.3'
+
+services:
+  hotelWeb-app:
+    container_name: hotelWeb-app
+    build: ./hotelWeb-app
+    image: hotelweb-app
+    depends_on:
+      - databaseDB
+      - securityDB
+    ports:
+      - "8002:8002"
+
+  hotel-app:
+    container_name: hotel-app
+    build: ./hotel-app
+    image: hotel-app
+    depends_on:
+      - securityDB
+      - databaseDB
+    ports:
+      - "8003:8003"
+
+  databaseDB:
+    container_name: database
+    image: postgres:13.2
+    env_file:
+      - ./hotel_app-db/database.env
+    volumes:
+      - ./hotel_app-db/data:/var/lib/postgresql/data/
+    ports:
+      - "5438:5432"
+
+  securityDB:
+    container_name: secur
+    image: postgres:13.2
+    env_file:
+      - ./hotelWeb_app-db/database.env
+    volumes:
+      - ./hotelWeb_app-db/data:/var/lib/postgresql/data/
+    ports:
+      - "5439:5432"
