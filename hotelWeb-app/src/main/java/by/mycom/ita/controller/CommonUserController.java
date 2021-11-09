@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
+
 @Controller
 public class CommonUserController {
 
@@ -23,7 +25,7 @@ public class CommonUserController {
     }
 
     @PostMapping("/user")
-    public String createClient(@ModelAttribute CommonUserDto commonUserDto , Model model) {
+    public String createClient(@ModelAttribute @Valid CommonUserDto commonUserDto , Model model) {
         CommonUserDto createdUser = userService.createUser(commonUserDto, model);
         model.addAttribute("Client", createdUser);
         return "redirect:/user-create";

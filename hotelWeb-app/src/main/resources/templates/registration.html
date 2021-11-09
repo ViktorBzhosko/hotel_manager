@@ -13,56 +13,59 @@
 <div class="d-flex justify-content-center">
     <form method="POST" modelAttribute="userForm" th:object="${CommonUserDto}">
         <h2>Регистрация</h2>
-        <div>
+        <div class="mt-1">
             <label>
-                <input type="text" path="firstName" placeholder="First Name" th:field="*{firstName}"/>
+                <input type="text" path="firstName" class="form-control" placeholder="First Name"
+                       th:field="*{firstName}"/>
             </label>
             <errors path="username"></errors>
         </div>
-        <div>
+        <div class="mt-1">
             <label>
-                <input type="text" path="secondName" placeholder="Second Name" th:field="*{secondName}"/>
+                <input type="text" path="secondName" class="form-control" placeholder="Second Name"
+                       th:field="*{secondName}"/>
             </label>
-            <errors path="secondName"></errors>
         </div>
-        <div>
+        <div class="mt-1">
             <label>
-                <input type="text" path="passport" placeholder="Passport" th:field="*{passport}"/>
+                <input type="text" path="passport" class="form-control" placeholder="Passport" th:field="*{passport}"/>
             </label>
             <errors path="passport"></errors>
         </div>
-        <div>
+        <div class="mt-1">
             <label>
-                <input type="text" path="email" placeholder="email" th:field="*{email}"/>
+                <input type="text" path="email" class="form-control" placeholder="Email" th:field="*{email}"/>
             </label>
             <errors path="email"></errors>
         </div>
-        <div>
+        <div class="mt-1">
             <label>
-                <input type="text" path="phoneNumber" placeholder="phoneNumber" th:field="*{phoneNumber}"/>
+                <input type="text" path="phoneNumber" class="form-control" placeholder="Phone Number"
+                       th:field="*{phoneNumber}"/>
             </label>
             <errors path="phoneNumber"></errors>
         </div>
-        <div>
+        <div class="mt-1">
             <label>
-                <input type="text" path="username" placeholder="username" th:field="*{username}"/>
+                <input type="text" path="username" class="form-control" placeholder="Username" th:field="*{username}"/>
             </label>
             <errors path="username"></errors>
         </div>
-        <div>
+        <div class="mt-1">
             <label>
-                <input type="password" path="password" placeholder="Password" th:field="*{password}"/>
+                <input type="password" path="password" class="form-control" placeholder="Password"
+                       th:field="*{password}"/>
             </label>
         </div>
-        <div>
+        <div class="mt-1">
             <label>
-                <input type="password" path="passwordConfirm"
+                <input type="password" class="form-control" path="Password Confirm"
                        placeholder="Confirm your password"/>
             </label>
             <errors path="password"></errors>
 
         </div>
-        <button type="submit">Зарегистрироваться</button>
+        <button type="submit" class="btn-primary btn mt-2">Зарегистрироваться</button>
     </form>
 </div>
 </body>

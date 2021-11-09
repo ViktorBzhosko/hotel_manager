@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
+
 @Controller
 public class RegistrationController {
 
@@ -33,7 +35,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String addUser(@ModelAttribute("userForm") CommonUserDto commonUserDto, BindingResult bindingResult, Model model) {
+    public String addUser(@Valid @ModelAttribute("userForm")  CommonUserDto commonUserDto, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             return "registration";
@@ -44,7 +46,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration/manager")
-    public String addManager(@ModelAttribute CommonUserDto commonUserDto, BindingResult bindingResult, Model model) {
+    public String addManager(@ModelAttribute @Valid CommonUserDto commonUserDto, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             return "registration";

@@ -10,15 +10,24 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<h1>Create room</h1>
-<form action="#" th:action="@{/room}" th:object="${RoomDto}" method="post">
-    <p>Hotel id: <input type="text" pattern="^[0-9]+$" required th:field="*{hotel.id}" /></p>
-    <p>Room number: <input type="text" pattern="^[0-9]+$" required th:field="*{numberOfRoom}" /></p>
-    <p>Accommodation: <input type="text"  pattern="^[a-zA-Z]+$" required th:field="*{accommodation}"/></p>
-    <p>Comfort: <input type="text"  pattern="^[a-zA-Z]+$" required th:field="*{comfort}"/></p>
-    <p><input type="submit" value="Create" /> <input type="reset" value="Clear" /></p>
-</form>
-<br>
-<a th:href="@{/hotels}" class="btn btn-success" >Back to all hotels</a>
+
+<div class="d-flex justify-content-center">
+    <form th:action="@{/room}" th:object="${RoomDto}" method="post">
+        <h1>Create room</h1>
+        <p>Hotel id: <input type="text" class="form-control" pattern="^[0-9]+$" required th:field="*{hotel.id}"/></p>
+        <p>Room number: <input type="text" class="form-control" pattern="^[0-9]+$" required th:field="*{numberOfRoom}"/>
+        </p>
+        <p>Accommodation: <input type="text" class="form-control" pattern="^[a-zA-Z]+$" required
+                                 th:field="*{accommodation}"/></p>
+        <p>Comfort: <input type="text" class="form-control" pattern="^[a-zA-Z]+$" required th:field="*{comfort}"/></p>
+        <div class="d-flex justify-content-center flex-column">
+        <div class="mt-2">
+            <input type="submit" class="btn btn-secondary " value="Create"/>
+            <input type="reset" class="btn btn-secondary " value="Clear"/>
+        </div>
+        <a th:href="@{/hotels}" class="btn btn-success mt-2">Back to all hotels</a>
+        </div>
+    </form>
+</div>
 </body>
 </html>

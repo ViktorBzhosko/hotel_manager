@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
 <head>
     <meta charset="UTF-8">
     <title>All hotels</title>
@@ -40,23 +42,23 @@
         </tr>
         </tbody>
     </table>
+    <div sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')" class="d-flex justify-content-between" >
     <form th:action="@{/update/arrive}" method="post">
         <label for="id">Arrive:</label>
         <input name="id" type="text" id="id" pattern="^[0-9]+$" placeholder="id" required size="2"/>
         <input type="submit" value="Update Status"/>
     </form>
-    <hr>
     <form th:action="@{/update/leave}" method="post">
         <label for="id">Leave:</label>
         <input name="id" type="text" id="id" pattern="^[0-9]+$" placeholder="id" required size="2"/>
         <input type="submit" value="Update Status"/>
     </form>
-    <hr>
     <form th:action="@{/update/cancel}" method="post" >
         <label for="id">Cancel:</label>
         <input name="id" type="text" id="id" pattern="^[0-9]+$" placeholder="id" required size="2"/>
         <input type="submit" value="Update Status"/>
     </form>
+    </div>
     <hr>
     <form th:action="@{/search/booking}" method="post" th:object="${BookingDto}">
         <label for="hotelId">Hotel id:</label>
