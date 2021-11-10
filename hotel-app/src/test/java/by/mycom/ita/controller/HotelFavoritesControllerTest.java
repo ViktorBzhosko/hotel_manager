@@ -1,7 +1,6 @@
 package by.mycom.ita.controller;
 
 import by.mycom.ita.model.Hotel;
-import by.mycom.ita.model.HotelFavorites;
 import by.mycom.ita.services.impl.HotelFavoritesService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
@@ -13,7 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -34,7 +32,7 @@ class HotelFavoritesControllerTest {
     @Test
     @SneakyThrows
     void whenCreateFavorites_thenOk() {
-        long userId=1L;
+        long userId = 1L;
         Hotel hotel = Hotel.builder()
                 .id(1L)
                 .name("Mercuri")
@@ -61,11 +59,10 @@ class HotelFavoritesControllerTest {
                 .convenience("FiveStars")
                 .build();
 
-       favoritesService.favorites(1L, hotel);
+        favoritesService.favorites(1L, hotel);
 
         mockMvc.perform(get("/favorites/read/all/{userId}", id))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(id));
-//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].hotel.name").value("Mercuri"));
     }
 }

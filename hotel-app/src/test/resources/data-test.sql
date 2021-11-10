@@ -87,3 +87,6 @@ VALUES (4.4, 'FiveStars', 'Egypt', 'Mercuri');
 
 INSERT INTO common_user (email, first_name, passport, phone_number, second_name)
 VALUES ('vic308@mail.ru', 'viktor', 'ab123', '123456', 'bzhosko');
+
+INSERT INTO room (accommodation, comfort, number_of_room, hotels_hotel_id, hotel_id)
+VALUES ('SINGLE', 'SUITE', 1, 1, 1)

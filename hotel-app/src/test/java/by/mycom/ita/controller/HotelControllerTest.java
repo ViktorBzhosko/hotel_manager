@@ -29,9 +29,6 @@ class HotelControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private HotelServiceImpl hotelService;
-
     @Test
     @SneakyThrows
     void whenCreate_thenOk() {
@@ -60,8 +57,7 @@ class HotelControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof DataIsIncorrectException))
-                .andExpect(result -> assertEquals("Data is not correct"
-                        , result.getResolvedException().getMessage()));
+                .andExpect(result -> assertEquals("Data is not correct", result.getResolvedException().getMessage()));
     }
 
     @Test
