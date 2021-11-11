@@ -1,4 +1,4 @@
-#APPLICATION FOR HOTEL MANAGER
+##APPLICATION FOR HOTEL MANAGER
 ***
 This application gives different
 possibilities from user's role:
@@ -16,7 +16,7 @@ possibilities from user's role:
 3. Estimate hotel
 * Authorization/Registration/Reset Password
 
-![SHEMA DATABASE IN MY APPLICATION]((D:\Project\JE_140_01\.img\SHEMA_BD.png)
+[![](D:\Project\JE_140_01\.img\SHEMA_BD.png "DATABASE SHEMA IN MY APPLICATION")]
 
 * You need to start project:
 
