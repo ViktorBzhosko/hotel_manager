@@ -1,4 +1,4 @@
-##APPLICATION FOR HOTEL MANAGER
+APPLICATION FOR HOTEL MANAGER
 ***
 This application gives different
 possibilities from user's role. Tasks that must be done :
