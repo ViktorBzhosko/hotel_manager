@@ -47,12 +47,12 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 //Доступ только для не зарегистрированных пользователей
                 .antMatchers("/registration","/login","/reset/**").not().fullyAuthenticated()
-                //Доступ только для пользователей с ролью Администратор
+
                 .antMatchers("/hotels","/readById","/delete","/hotel","/registration/manager").hasRole("ADMIN")
                 .antMatchers("/booking","/estimate","/hotels").hasAnyRole("CLIENT","ADMIN", "MANAGER")
                 .antMatchers("/search/booking","/search/empty","/room","/room/update").hasAnyRole("MANAGER","ADMIN")
                 .antMatchers("/update/arrive","/update/leave","/update/cancel").hasAnyRole("MANAGER","ADMIN")
-                //Доступ разрешен всем пользователей
+
                 .antMatchers("/", "/resources/**").permitAll()
                 //Все остальные страницы требуют аутентификации
                 .anyRequest().authenticated()
@@ -68,5 +68,6 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .logout()
                 .permitAll()
                 .logoutSuccessUrl("/login");
+
     }
 }

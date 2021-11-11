@@ -126,7 +126,11 @@
         <div sec:authorize="hasRole('ROLE_ADMIN')">
             <a th:href="@{/registration/manager}" class="btn btn-success"> Create manager</a>
         </div>
+        <div >
+            <a th:href="@{/logout}" class="btn btn-dark"> Logout</a>
+        </div>
     </div>
+
 </div>
 
 </body>
