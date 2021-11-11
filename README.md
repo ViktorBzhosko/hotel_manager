@@ -1,7 +1,7 @@
 ##APPLICATION FOR HOTEL MANAGER
 ***
 This application gives different
-possibilities from user's role:
+possibilities from user's role. Tasks that must be done :
 * Admin:
 1. CRUD operations with hotel
 2. Manager registration
@@ -16,7 +16,7 @@ possibilities from user's role:
 3. Estimate hotel
 * Authorization/Registration/Reset Password
 
-[![](D:\Project\JE_140_01\.img\SHEMA_BD.png "DATABASE SHEMA IN MY APPLICATION")]
+![](\.img\SHEMA_BD.png)
 
 * You need to start project:
 
