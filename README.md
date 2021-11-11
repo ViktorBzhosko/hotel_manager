@@ -16,7 +16,7 @@ possibilities from user's role. Tasks that must be done :
 3. Estimate hotel
 * Authorization/Registration/Reset Password
 
-![](\.img\SHEMA_BD.png)
+![](https://github.com/ViktorBzhosko/hotel_manager/issues/2#issue-1050698468)
 
 * You need to start project:
 
