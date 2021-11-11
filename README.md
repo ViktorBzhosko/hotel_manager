@@ -16,7 +16,7 @@ possibilities from user's role. Tasks that must be done :
 3. Estimate hotel
 * Authorization/Registration/Reset Password
 
-![](\.img\SHEMA_BD.png)
+![SHEMA_BD](https://user-images.githubusercontent.com/79446450/141263813-063ce993-c30f-48de-a8b5-fcaef91a9e83.png)
 
 * You need to start project:
 
