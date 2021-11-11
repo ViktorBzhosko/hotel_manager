@@ -6,9 +6,9 @@
 </head>
 <body>
 <hr>
-<h3>Exception message :  <t th:text="${message}" /></h3>
-<hr>
-<h3>Status :  <t th:text="${status}" /></h3>
+<h3>Status :  <t th:text="${exceptiopn.errorCode}" /></h3>
+<h3>Exception type :  <t th:text="${exception.exceptionType}" /></h3>
+<h3>Message :  <t th:text="${exception.message}" /></h3>
 <hr>
 <a th:href="@{/allbooking}" class="btn btn-success">Back to bookings</a>
 </body>
