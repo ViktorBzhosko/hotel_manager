@@ -11,9 +11,7 @@ public interface IHotelServices {
 
     HotelDto makeHotel(HotelDto hotelDto);
 
-    HotelDto updateTarget(Long id);
-
-    void updatedHotel(HotelDto hotelDto);
+    void updatedHotel(Long id, HotelDto hotelDto);
 
     HotelDto findById (Long Id);
 

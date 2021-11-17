@@ -18,6 +18,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,10 +76,14 @@ class BookingServiceImplTest {
         Hotel simpleHotel = createSimpleHotel(List.of(room));
         Booking expectedBooking = createBooking(simpleHotel, room, currentUser);
         expectedBooking.setBookingStatus(BookingStatus.INUSE);
+
         Mockito.when(bookingDao.findById(1L)).thenReturn(Optional.of(expectedBooking));
         Mockito.when(bookingDao.save(Mockito.any())).thenReturn(expectedBooking);
+
         Booking actualBooking = bookingService.updateByArrive(1L);
         Assertions.assertEquals(expectedBooking.getBookingStatus(), actualBooking.getBookingStatus());
+        Mockito.verify(bookingDao, Mockito.times(1)).findById(1L);
+        Mockito.verify(bookingDao, Mockito.times(1)).save(expectedBooking);
     }
 
     @Test
@@ -88,10 +93,14 @@ class BookingServiceImplTest {
         Hotel simpleHotel = createSimpleHotel(List.of(room));
         Booking expectedBooking = createBooking(simpleHotel, room, currentUser);
         expectedBooking.setBookingStatus(BookingStatus.PASSED);
+
         Mockito.when(bookingDao.findById(1L)).thenReturn(Optional.of(expectedBooking));
         Mockito.when(bookingDao.save(Mockito.any())).thenReturn(expectedBooking);
+
         Booking actualBooking = bookingService.updateByLeave(1L);
         Assertions.assertEquals(expectedBooking.getBookingStatus(), actualBooking.getBookingStatus());
+        Mockito.verify(bookingDao, Mockito.times(1)).findById(1L);
+        Mockito.verify(bookingDao, Mockito.times(1)).save(expectedBooking);
     }
 
     @Test
@@ -108,6 +117,45 @@ class BookingServiceImplTest {
         emailService.sendSimpleMessage(1L);
         Booking actualBooking = bookingService.updateByCanceled(1L);
         Assertions.assertEquals(expectedBooking.getBookingStatus(), actualBooking.getBookingStatus());
+        Mockito.verify(bookingDao, Mockito.times(2)).findById(1L);
+        Mockito.verify(bookingDao, Mockito.times(1)).save(expectedBooking);
+
+    }
+
+    @Test
+    void whenFindAll_returnBookingList(){
+        CommonUser currentUser = getCurrentUser();
+        Room room = createRoom();
+        Hotel simpleHotel = createSimpleHotel(List.of(room));
+        Booking booking = createBooking(simpleHotel, room, currentUser);
+        List <Booking> expectedBooking=new ArrayList<>();
+        expectedBooking.add(booking);
+
+        Mockito.when(bookingDao.findAll()).thenReturn(expectedBooking);
+
+        List<Booking> actualBooking=bookingService.findAll();
+        Assertions.assertEquals(actualBooking,expectedBooking);
+        Mockito.verify(bookingDao, Mockito.times(1)).findAll();
+
+    }
+
+    @Test
+    void whenFindById_thenOk(){
+        CommonUser currentUser = getCurrentUser();
+        Room room = createRoom();
+        Hotel simpleHotel = createSimpleHotel(List.of(room));
+        Booking actual = createBooking(simpleHotel, room, currentUser);
+
+        Mockito.when(bookingDao.findById(5L)).thenReturn(Optional.ofNullable(actual));
+
+        Booking expected=bookingService.readById(5L);
+        Assertions.assertEquals(expected,actual);
+
+    }
+
+    @Test
+    void whenFindById_thenException(){
+        Assertions.assertThrows(DataNotFoundException.class, ()->bookingService.readById(20L));
     }
 
     private Room createRoom() {

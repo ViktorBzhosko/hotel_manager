@@ -30,7 +30,6 @@ public class RoomController {
     public String createRoom(@ModelAttribute RoomDto roomDto, Model model) {
         RoomDto room = roomService.create(roomDto);
         model.addAttribute("room", room);
-
         return "room-create";
     }
 

@@ -40,13 +40,8 @@ public class HotelsServiceImpl implements IHotelServices {
     }
 
     @Override
-    public HotelDto updateTarget(Long id) {
-        return restTemplate.getForObject(Url + "/hotel/read" + id, HotelDto.class);
-    }
-
-    @Override
-    public void updatedHotel(HotelDto hotelDto) {
-        restTemplate.put(Url + "/hotel/update" + hotelDto.getId(), hotelDto, HotelDto.class);
+    public void updatedHotel(Long id, HotelDto hotelDto) {
+        restTemplate.put(Url + "/hotel/update/" + id, hotelDto, HotelDto.class);
     }
 
     @Override

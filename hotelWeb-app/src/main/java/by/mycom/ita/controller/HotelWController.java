@@ -6,10 +6,7 @@ import by.mycom.ita.services.IHotelServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,17 +31,15 @@ public class HotelWController {
     }
 
     @GetMapping(value = "/update")
-    public String update(@RequestParam(value = "id", required = false) Long id, Model model) {
-        HotelDto hotelDto = hotelsService.updateTarget(id);
-        model.addAttribute("hotel", hotelDto);
+    public String update(Model model) {
         return "update-form";
     }
 
     @PostMapping(value = "/updatedHotel")
-    public String updated(@ModelAttribute HotelDto hotelDto, Model model) {
+    public String updated(@RequestParam Long id, @ModelAttribute HotelDto hotelDto, Model model) {
         model.addAttribute("hotel", hotelDto);
-        hotelsService.updatedHotel(hotelDto);
-        return "all-hotels";
+        hotelsService.updatedHotel(id, hotelDto);
+        return "redirect:/hotels";
     }
 
     @GetMapping("/hotel")
@@ -83,10 +78,5 @@ public class HotelWController {
     @ModelAttribute("HotelDto")
     private HotelDto createHotelDto() {
         return new HotelDto();
-    }
-
-    @ModelAttribute("BookingDto")
-    private BookingDto createBookingDto() {
-        return new BookingDto();
     }
 }

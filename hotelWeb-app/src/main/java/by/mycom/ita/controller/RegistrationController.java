@@ -24,7 +24,7 @@ public class RegistrationController {
 
     @GetMapping("/registration")
     public String registration(Model model) {
-        model.addAttribute("userForm", new CommonUserDto());
+        model.addAttribute("CommonUserDto", new CommonUserDto());
 
         return "registration";
     }
@@ -35,7 +35,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String addUser(@Valid @ModelAttribute("userForm")  CommonUserDto commonUserDto, BindingResult bindingResult, Model model) {
+    public String addUser(@Valid @ModelAttribute  CommonUserDto commonUserDto, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             return "registration";

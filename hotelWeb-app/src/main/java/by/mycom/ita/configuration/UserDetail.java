@@ -15,6 +15,7 @@ import java.util.Set;
 
 @AllArgsConstructor
 public class UserDetail implements UserDetails {
+
     @Getter
     private final User user;
 

@@ -11,12 +11,14 @@
 
 <body>
 <div class="d-flex justify-content-center">
-    <form method="POST" modelAttribute="userForm" th:object="${CommonUserDto}">
+    <form method="POST" th:object="${CommonUserDto}">
         <h2>Регистрация</h2>
         <div class="mt-1">
             <label>
                 <input type="text" path="firstName" class="form-control" placeholder="First Name"
                        th:field="*{firstName}"/>
+                <span th:if="${#fields.hasErrors('firstName')}" style="color: red;" class="alert alert-error"
+                      th:errors="*{firstName}">Name Error</span>
             </label>
             <errors path="username"></errors>
         </div>
