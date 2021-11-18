@@ -6,6 +6,7 @@ import by.mycom.ita.exception.DataNotFoundException;
 import by.mycom.ita.model.Hotel;
 import by.mycom.ita.services.IHotelRatingService;
 import by.mycom.ita.services.IHotelService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,11 +15,12 @@ import java.util.List;
 public class HotelServiceImpl implements IHotelService {
 
     private final HotelDao hotelDao;
-    private final IHotelRatingService hotelRating;
+    private final IHotelRatingService hotelRatingService;
 
-    public HotelServiceImpl(HotelDao hotelDao, IHotelRatingService hotelRating) {
+    @Autowired
+    public HotelServiceImpl(HotelDao hotelDao, IHotelRatingService hotelRatingService) {
         this.hotelDao = hotelDao;
-        this.hotelRating = hotelRating;
+        this.hotelRatingService = hotelRatingService;
     }
 
     @Override
@@ -30,17 +32,16 @@ public class HotelServiceImpl implements IHotelService {
                 .name(hotel.getName())
                 .location(hotel.getLocation())
                 .avgMark(0D)
-                .hotelRatings(hotelRating.createDefaultRating())
+                .hotelRatings(hotelRatingService.createDefaultRating())
                 .convenience(hotel.getConvenience())
                 .build();
         return hotelDao.save(createHotel);
     }
 
     @Override
-    public List<Hotel> readAll() throws DataNotFoundException {
-        List<Hotel> hotels = hotelDao.findAll();
-        if (!hotels.isEmpty()) return hotels;
-        else throw new DataNotFoundException();
+    public List<Hotel> readAll() {
+        return hotelDao.findAll();
+
     }
 
     @Override

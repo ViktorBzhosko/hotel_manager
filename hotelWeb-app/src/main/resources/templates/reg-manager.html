@@ -1,0 +1,73 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Registration manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+</head>
+
+<body>
+<div class="d-flex justify-content-center">
+    <form method="POST" th:action="@{/registration/manager}" th:object="${CommonUserDto}">
+        <h2>Registration manager</h2>
+        <div class="mt-1">
+            <label>
+                <input type="text" path="firstName" class="form-control" placeholder="First Name" th:field="*{firstName}"/>
+            </label>
+            <errors path="username"></errors>
+        </div>
+        <div class="mt-1">
+            <label>
+                <input type="text" path="secondName" class="form-control" placeholder="Second Name" th:field="*{secondName}"/>
+            </label>
+            <errors path="secondName"></errors>
+        </div>
+        <div class="mt-1">
+            <label>
+                <input type="text" path="passport" class="form-control" placeholder="Passport" th:field="*{passport}"/>
+            </label>
+            <errors path="passport"></errors>
+        </div>
+        <div class="mt-1">
+            <label>
+                <input type="text" path="email" class="form-control" placeholder="Email" th:field="*{email}"/>
+            </label>
+            <errors path="email"></errors>
+        </div>
+        <div class="mt-1">
+            <label>
+                <input type="text" path="phoneNumber" class="form-control" placeholder="Phone Number" th:field="*{phoneNumber}"/>
+            </label>
+            <errors path="phoneNumber"></errors>
+        </div>
+        <div class="mt-1">
+            <label>
+                <input type="text" path="username" class="form-control" placeholder="Username" th:field="*{username}"/>
+            </label>
+            <errors path="username"></errors>
+        </div>
+        <div class="mt-1">
+            <label>
+                <input type="password" path="password" class="form-control" placeholder="Password" th:field="*{password}"/>
+            </label>
+        </div>
+        <div class="mt-1">
+            <label>
+                <input type="password" class="form-control" path="passwordConfirm"
+                       placeholder="Confirm your password"/>
+            </label>
+            <errors path="password"></errors>
+        </div>
+        <button type="submit" class="btn-primary btn mt-2">Create manager</button>
+        <div th:if="${#fields.hasAnyErrors()}">
+            <ul>
+                <li th:each="err : ${#fields.allErrors()}" th:text="${err}"></li>
+            </ul>
+        </div>
+    </form>
+</div>
+</body>
+</html>

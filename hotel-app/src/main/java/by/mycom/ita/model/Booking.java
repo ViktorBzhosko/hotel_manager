@@ -29,22 +29,10 @@ public class Booking {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Hotel hotel;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "booking")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Room room;
 
     @Enumerated
     private BookingStatus bookingStatus;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Booking booking = (Booking) o;
-        return Objects.equals(id, booking.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return 0;
-    }
 }

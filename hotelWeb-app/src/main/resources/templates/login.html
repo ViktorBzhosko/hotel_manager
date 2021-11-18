@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Log in with your account</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="/static/main.css" rel="stylesheet">
+</head>
+
+<body>
+<authorize access="isAuthenticated()">
+</authorize>
+<div class="d-flex justify-content-center">
+    <div style="width: 400px">
+        <form method="POST" th:action="@{/login}" >
+            <h2>Вход в систему</h2>
+            <div>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Login</label>
+                    <input type="text" name="username" class="form-control" id="username" >
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" id="password" >
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="d-block">
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary">Log In</button>
+                        </div>
+                        <div class="mt-2">
+                            <h6><a th:href="@{/registration}">Registration</a></h6>
+                        </div>
+                        <div class="mt-2">
+                            <h6><a th:href="@{/reset/password}">Reset password</a></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

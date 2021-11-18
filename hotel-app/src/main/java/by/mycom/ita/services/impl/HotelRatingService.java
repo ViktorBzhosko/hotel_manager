@@ -1,11 +1,11 @@
 package by.mycom.ita.services.impl;
 
 import by.mycom.ita.dao.HotelDao;
-import by.mycom.ita.dao.HotelRatingDao;
 import by.mycom.ita.exception.DataNotFoundException;
 import by.mycom.ita.model.Hotel;
 import by.mycom.ita.model.HotelRating;
 import by.mycom.ita.services.IHotelRatingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,17 +17,16 @@ import java.util.stream.IntStream;
 @Service
 public class HotelRatingService implements IHotelRatingService {
 
-    private final HotelRatingDao hotelRatingDao;
     private final HotelDao hotelDao;
 
-    public HotelRatingService(HotelRatingDao hotelRatingDao, HotelDao hotelDao) {
-        this.hotelRatingDao = hotelRatingDao;
+    @Autowired
+    public HotelRatingService(HotelDao hotelDao) {
         this.hotelDao = hotelDao;
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
     @Override
-    public void estimateHotel(Long hotelId, Integer mark) {
+    public Hotel estimateHotel(Long hotelId, Integer mark) {
         Hotel foundHotel = hotelDao.getById(hotelId);
 
         List<HotelRating> hotelRatings = foundHotel.getHotelRatings();
@@ -46,7 +45,7 @@ public class HotelRatingService implements IHotelRatingService {
 
         foundHotel.setAvgMark(avgMark);
 
-        hotelDao.save(foundHotel);
+        return hotelDao.save(foundHotel);
     }
 
     public static double roundAvoid(double value, int places) {

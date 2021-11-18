@@ -11,9 +11,11 @@ import by.mycom.ita.services.IBookingService;
 import by.mycom.ita.services.ICommonUserService;
 import by.mycom.ita.services.IEmailService;
 import by.mycom.ita.services.IHotelService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class BookingServiceImpl implements IBookingService {
@@ -23,22 +25,27 @@ public class BookingServiceImpl implements IBookingService {
     private final BookingDao bookingDao;
     private final IEmailService iEmailService;
 
+
+    @Autowired
     public BookingServiceImpl(IHotelService iServiceHotel, ICommonUserService iServiceCommonUser, BookingDao bookingDao, IEmailService iEmailService) {
         this.iServiceHotel = iServiceHotel;
         this.iServiceCommonUser = iServiceCommonUser;
         this.bookingDao = bookingDao;
         this.iEmailService = iEmailService;
+
     }
 
     @Transactional
     @Override
-    public Booking create(Booking booking, Integer roomNumber, Long id) throws DataNotFoundException {
-        CommonUser user = iServiceCommonUser.getCurrentUser();
-        Hotel foundHotel = iServiceHotel.readById(id);
-        Room foundRoom = foundHotel.getRooms().stream()
-                .filter(room -> room.getNumberOfRoom() == roomNumber)
+    public Booking create(Booking booking, Long roomId, Long hotelId, Long userId) throws DataNotFoundException {
+        CommonUser user = iServiceCommonUser.findById(userId);
+        Hotel foundHotel = iServiceHotel.readById(hotelId);
+
+        List<Room> freeRooms = bookingDao.findEmptyRooms(hotelId, booking.getDateChekIn(), booking.getDateChekOut());
+        Room foundRoom = freeRooms.stream()
+                .filter(room -> roomId.equals(room.getId()))
                 .findFirst()
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(DataNotFoundException::new);
 
         Booking createBooking = Booking.builder()
                 .dateChekIn(booking.getDateChekIn())
@@ -69,7 +76,19 @@ public class BookingServiceImpl implements IBookingService {
 
     @Override
     public Booking updateByCanceled(Long id) throws DataNotFoundException {
-        iEmailService.sendSimpleMessage(id);
+        Booking foundedBooking = bookingDao.findById(id).orElseThrow(DataNotFoundException::new);
+        long userId = foundedBooking.getUsers().getId();
+        iEmailService.sendSimpleMessage(userId);
         return update(id, BookingStatus.CANCELED);
+    }
+
+    @Override
+    public List<Booking> findAll() {
+        return bookingDao.findAll();
+    }
+
+    @Override
+    public Booking readById(Long id) {
+        return bookingDao.findById(id).orElseThrow(DataNotFoundException::new);
     }
 }

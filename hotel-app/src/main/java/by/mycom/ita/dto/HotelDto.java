@@ -1,7 +1,5 @@
 package by.mycom.ita.dto;
 
-import by.mycom.ita.model.HotelRating;
-import by.mycom.ita.model.Room;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +16,6 @@ public class HotelDto {
     private Double avgMark;
     private String location;
     private String convenience;
-    private List<Room> rooms;
-    private List<HotelRating> hotelRatings;
+    private List<RoomDto> rooms;
+    private List<HotelRatingDto> hotelRatings;
 }

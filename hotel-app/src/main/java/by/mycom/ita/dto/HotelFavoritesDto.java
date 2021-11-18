@@ -1,7 +1,5 @@
 package by.mycom.ita.dto;
 
-import by.mycom.ita.model.CommonUser;
-import by.mycom.ita.model.Hotel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class HotelFavoritesDto {
 
     private Long id;
-    private Hotel hotel;
-    private CommonUser user;
+    private HotelDto hotel;
+    private CommonUserDto user;
 }

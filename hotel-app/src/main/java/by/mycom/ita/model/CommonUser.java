@@ -1,8 +1,7 @@
 package by.mycom.ita.model;
 
-import by.mycom.ita.model.enums.UserRole;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.List;
@@ -30,23 +29,24 @@ public class CommonUser {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Booking booking;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    @JsonManagedReference
     private List<HotelFavorites> hotelFavorites;
-
-    @Enumerated
-    private UserRole userRole;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        CommonUser that = (CommonUser) o;
-        return Objects.equals(id, that.id);
+        if (o == null || getClass() != o.getClass()) return false;
+        CommonUser user = (CommonUser) o;
+        return Objects.equals(firstName, user.firstName)
+                && Objects.equals(secondName, user.secondName)
+                && Objects.equals(passport, user.passport)
+                && Objects.equals(email, user.email)
+                && Objects.equals(phoneNumber, user.phoneNumber);
     }
 
     @Override
     public int hashCode() {
-        return 0;
+        return Objects.hash(firstName, secondName, passport, email, phoneNumber);
     }
 }

@@ -10,7 +10,7 @@ public interface IHotelService {
 
     Hotel create(Hotel hotel) throws DataIsIncorrectException;
 
-    List<Hotel> readAll() throws DataNotFoundException;
+    List<Hotel> readAll() ;
 
     Hotel readById(Long id) throws DataNotFoundException;
 

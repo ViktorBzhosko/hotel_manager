@@ -1,0 +1,16 @@
+server:
+  port: 8002
+  servlet:
+    context-path: /hotelWeb-app
+spring:
+  jpa:
+    database: postgresql
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:postgresql://securityDB:5432/securdb
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres

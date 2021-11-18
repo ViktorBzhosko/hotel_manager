@@ -1,13 +1,13 @@
 package by.mycom.ita.dto;
 
-import by.mycom.ita.model.CommonUser;
-import by.mycom.ita.model.Hotel;
+import by.mycom.ita.model.enums.BookingStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import javax.persistence.Enumerated;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,9 +15,15 @@ import java.util.List;
 public class BookingDto {
 
     private long id;
-    private LocalDateTime dateChekIn;
-    private LocalDateTime dateChekOut;
-    private CommonUser users;
-    private List<Hotel> hotel;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateChekIn;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateChekOut;
+    private CommonUserDto users;
+    private RoomDto room;
+    private HotelDto hotel;
+
+    @Enumerated
+    private BookingStatus bookingStatus;
 
 }

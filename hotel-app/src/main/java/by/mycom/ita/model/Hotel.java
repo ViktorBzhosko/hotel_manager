@@ -1,5 +1,6 @@
 package by.mycom.ita.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -25,23 +26,24 @@ public class Hotel {
     private String location;
     private String convenience;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "hotels")
+    @JsonManagedReference
     private List<Room> rooms;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "hotel_id")
     private List<HotelRating> hotelRatings;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Hotel hotel = (Hotel) o;
-        return Objects.equals(id, hotel.id);
+        return Objects.equals(name, hotel.name) && Objects.equals(avgMark, hotel.avgMark) && Objects.equals(location, hotel.location) && Objects.equals(convenience, hotel.convenience);
     }
 
     @Override
     public int hashCode() {
-        return 0;
+        return Objects.hash(name, avgMark, location, convenience);
     }
 }

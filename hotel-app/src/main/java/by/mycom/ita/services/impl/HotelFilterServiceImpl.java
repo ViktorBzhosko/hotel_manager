@@ -1,33 +1,30 @@
 package by.mycom.ita.services.impl;
 
-import by.mycom.ita.dao.HotelFilterDao;
+import by.mycom.ita.dao.FilterDao;
 import by.mycom.ita.model.Hotel;
-import by.mycom.ita.services.IHotelFilterService;
+import by.mycom.ita.services.IHotelFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class HotelFilterServiceImpl implements IHotelFilterService {
+public class HotelFilterServiceImpl implements IHotelFilter {
 
-    private final HotelFilterDao hotelFilterDao;
+    private final FilterDao filterDao;
 
-    public HotelFilterServiceImpl(HotelFilterDao hotelFilterDao) {
-        this.hotelFilterDao = hotelFilterDao;
+    @Autowired
+    public HotelFilterServiceImpl(FilterDao filterDao) {
+        this.filterDao = filterDao;
     }
 
     @Override
-    public List<Hotel> filterByName(String name) {
-        return hotelFilterDao.filteringByName(name);
+    public List<Hotel> coincidencesFiltering(Hotel hotel) {
+        return filterDao.coincidencesFiltering(hotel);
     }
 
     @Override
-    public List<Hotel> filterByLocation(String location) {
-        return hotelFilterDao.filteringByLocation(location);
-    }
-
-    @Override
-    public List<Hotel> filterByRanking() {
-        return hotelFilterDao.filteringByRanking();
+    public List<Hotel> exactFiltering(Hotel hotel) {
+        return filterDao.exactFiltering(hotel);
     }
 }
