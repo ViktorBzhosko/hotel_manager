@@ -58,7 +58,7 @@ public class UserService implements UserDetailsService {
                 .firstName("Viktor")
                 .secondName("Bzhosko")
                 .passport("123654ad")
-                .email("vic308@mail.ru")
+                .email("")
                 .phoneNumber(123654)
                 .username("admin")
                 .password("123")
