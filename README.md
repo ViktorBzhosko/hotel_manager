@@ -20,10 +20,7 @@ possibilities from user's role. Tasks that must be done :
 
 * You need to start project:
 
-  First, run:
-    './mvnw clean install'
 
-  Next:
 
     'docker-compose -f docker-compose.yml up -d --build'
 * Open link : 
