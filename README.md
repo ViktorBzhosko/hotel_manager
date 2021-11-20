@@ -29,4 +29,4 @@ possibilities from user's role. Tasks that must be done :
 * Open link : 
 > http://localhost:8002/hotelWeb-app/login
 * Use Swagger :
-> http://localhost:8003/hotel-app/swagger-iu
+> http://localhost:8003/hotel-app/swagger-ui
