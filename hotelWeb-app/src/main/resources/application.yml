@@ -10,7 +10,7 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    url: jdbc:postgresql://securityDB:5432/securdb
+    url: jdbc:postgresql://localhost:5439/securdb
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: postgres

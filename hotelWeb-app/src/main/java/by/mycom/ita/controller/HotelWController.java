@@ -1,6 +1,7 @@
 package by.mycom.ita.controller;
 
 import by.mycom.ita.dto.BookingDto;
+import by.mycom.ita.dto.CommonUserDto;
 import by.mycom.ita.dto.HotelDto;
 import by.mycom.ita.services.IHotelServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,5 +79,10 @@ public class HotelWController {
     @ModelAttribute("HotelDto")
     private HotelDto createHotelDto() {
         return new HotelDto();
+    }
+
+    @ModelAttribute("BookingDto")
+    private BookingDto createBookingDto() {
+        return new BookingDto();
     }
 }

@@ -21,7 +21,7 @@ public class BookingCreateServiceImpl implements IBookingService {
 
     private final IAuthentication authentication;
 
-    private final String Url = "http://hotel-app:8003/hotel-app/booking";
+    private final String Url = "http://localhost:8003/hotel-app/booking";
 
     @Autowired
     public BookingCreateServiceImpl(RestTemplate restTemplate, IAuthentication authentication) {

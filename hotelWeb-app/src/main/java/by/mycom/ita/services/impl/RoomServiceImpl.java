@@ -11,7 +11,7 @@ public class RoomServiceImpl implements IRoomService {
 
     private final RestTemplate restTemplate;
 
-    private final String Url = "http://hotel-app:8003/hotel-app";
+    private final String Url = "http://localhost:8003/hotel-app";
 
     public RoomServiceImpl(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;

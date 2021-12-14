@@ -25,9 +25,6 @@ public class HotelServiceImpl implements IHotelService {
 
     @Override
     public Hotel create(Hotel hotel) throws DataIsIncorrectException {
-        if (hotel.getName() == null || hotel.getLocation() == null || hotel.getConvenience() == null) {
-            throw new DataIsIncorrectException();
-        }
         Hotel createHotel = Hotel.builder()
                 .name(hotel.getName())
                 .location(hotel.getLocation())

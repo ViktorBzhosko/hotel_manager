@@ -17,8 +17,10 @@ public class BookingDto {
     private long id;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateChekIn;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateChekOut;
+
     private CommonUserDto users;
     private RoomDto room;
     private HotelDto hotel;
