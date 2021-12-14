@@ -4,7 +4,7 @@ server:
     context-path: /hotel-app
 spring:
   liquibase:
-    change-log: data.sql
+    change-log: liquibase/changelog.yml
   jpa:
     database: postgresql
     show-sql: true
@@ -16,3 +16,4 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: postgres
+
