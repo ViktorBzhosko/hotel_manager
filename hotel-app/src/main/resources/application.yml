@@ -4,7 +4,7 @@ server:
     context-path: /hotel-app
 spring:
   liquibase:
-    change-log: liquibase/changelog.yml
+    change-log: db/changelog/changelog-master.xml
   jpa:
     database: postgresql
     show-sql: true

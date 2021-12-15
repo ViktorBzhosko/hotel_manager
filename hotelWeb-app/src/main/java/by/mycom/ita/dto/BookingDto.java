@@ -15,9 +15,9 @@ import java.time.LocalDate;
 @Data
 public class BookingDto {
     private long id;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dateChekIn;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dateChekOut;
     private CommonUserDto users;
     private RoomDto room;

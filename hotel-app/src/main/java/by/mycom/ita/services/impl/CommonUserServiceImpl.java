@@ -30,7 +30,6 @@ public class CommonUserServiceImpl implements ICommonUserService {
 
     @Override
     public CommonUser findById(Long id) {
-        return userDao.findById((long) id).orElseThrow(DataNotFoundException::new);
+        return userDao.findById(id).orElseThrow(DataNotFoundException::new);
     }
-
 }
