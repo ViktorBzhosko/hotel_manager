@@ -4,6 +4,6 @@
         xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-    <include file="/db/changelog/changelog-master-create-tables-01.sql"/>
-    <include file="/db/changelog/changelog-master-insert-data-02.sql"/>
+    <include file="/db/changelog/01-changelog-master-create-tables.sql"/>
+    <include file="/db/changelog/02-changelog-master-insert-data.sql"/>
 </databaseChangeLog>
