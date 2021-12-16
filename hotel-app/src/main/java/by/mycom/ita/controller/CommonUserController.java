@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/users")
 public class CommonUserController {
@@ -21,7 +23,7 @@ public class CommonUserController {
 
     @ApiOperation(value = "Create user")
     @PostMapping("/create")
-    public CommonUserDto createUser(@RequestBody CommonUserDto commonUserDto) {
+    public CommonUserDto createUser(@Valid @RequestBody CommonUserDto commonUserDto) {
         final CommonUser commonUser = objectMapper.convertValue(commonUserDto, CommonUser.class);
         CommonUser userCreated = iServiceCommonUser.create(commonUser);
         return objectMapper.convertValue(userCreated, CommonUserDto.class);

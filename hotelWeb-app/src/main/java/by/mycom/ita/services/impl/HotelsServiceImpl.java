@@ -18,7 +18,7 @@ public class HotelsServiceImpl implements IHotelServices {
 
     private final RestTemplate restTemplate;
 
-    private final String Url = "http://hotel-app:8003/hotel-app";
+    private final String Url = "http://localhost:8003/hotel-app";
 
     @Autowired
     public HotelsServiceImpl(RestTemplate restTemplate) {

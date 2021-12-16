@@ -19,7 +19,7 @@ public class HotelFavoritesService implements IHotelFavoritesService {
 
     private final RestTemplate restTemplate;
 
-    private final String Url = "http://hotel-app:8003/hotel-app/favorites";
+    private final String Url = "http://localhost:8003/hotel-app/favorites";
 
     @Autowired
     public HotelFavoritesService(IAuthentication authentication, RestTemplate restTemplate) {

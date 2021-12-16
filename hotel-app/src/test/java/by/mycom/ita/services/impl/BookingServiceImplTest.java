@@ -180,6 +180,7 @@ class BookingServiceImplTest {
 
     private CommonUser getCurrentUser() {
         return CommonUser.builder()
+                .id(1L)
                 .firstName("Viktor")
                 .secondName("Bzhosko")
                 .passport("1562")
