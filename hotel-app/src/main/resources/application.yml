@@ -10,7 +10,11 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    url: jdbc:postgresql://databaseDB:5432/hoteldb
+    url: jdbc:postgresql://localhost:5432/hoteldb
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: postgres
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
