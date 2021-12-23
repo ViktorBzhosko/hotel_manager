@@ -31,7 +31,6 @@ public class BookingCreateServiceImpl implements IBookingService {
         this.client = client;
     }
 
-
     @Override
     public BookingDto createBooking(BookingDto bookingDto) {
         Long userId = authentication.getCurrentUserId();
