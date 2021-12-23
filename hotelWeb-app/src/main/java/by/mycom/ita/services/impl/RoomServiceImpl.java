@@ -13,7 +13,6 @@ public class RoomServiceImpl implements IRoomService {
     private final RestTemplate restTemplate;
 
     private final ConfigClient client;
-//    private final String Url = "http://localhost:8003/hotel-app";
 
     public RoomServiceImpl(RestTemplate restTemplate, ConfigClient client) {
         this.restTemplate = restTemplate;

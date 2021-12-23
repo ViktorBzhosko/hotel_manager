@@ -21,8 +21,6 @@ public class SearchRoomsService implements ISearchService {
 
     private final ConfigClient client;
 
-//    String Url = "http://localhost:8003/hotel-app";
-
     @Autowired
     public SearchRoomsService(RestTemplate restTemplate, ConfigClient client) {
         this.restTemplate = restTemplate;

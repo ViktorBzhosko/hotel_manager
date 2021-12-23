@@ -1,7 +1,6 @@
 package by.mycom.ita.services.impl;
 
 import by.mycom.ita.dao.CommonUserDao;
-import by.mycom.ita.exception.DataIsIncorrectException;
 import by.mycom.ita.exception.DataNotFoundException;
 import by.mycom.ita.model.CommonUser;
 import by.mycom.ita.services.ICommonUserService;
@@ -20,11 +19,6 @@ public class CommonUserServiceImpl implements ICommonUserService {
 
     @Override
     public CommonUser create(CommonUser user) {
-        if (user.getFirstName() == null || user.getSecondName() == null || user.getPassport() == null
-                || user.getEmail() == null || user.getPhoneNumber() == null) {
-            throw new DataIsIncorrectException();
-        }
-
         return userDao.save(CommonUser.builder()
                 .firstName(user.getFirstName())
                 .secondName(user.getSecondName())
@@ -36,7 +30,6 @@ public class CommonUserServiceImpl implements ICommonUserService {
 
     @Override
     public CommonUser findById(Long id) {
-        return userDao.findById((long)id).orElseThrow(DataNotFoundException::new);
+        return userDao.findById(id).orElseThrow(DataNotFoundException::new);
     }
-
 }

@@ -23,7 +23,7 @@ public class HotelRatingServicesImpl implements IHotelRatingService {
 
     @Override
     public HotelRatingDto estimateHotel(Long id, HotelRatingDto hotelRatingDto, Model model) {
-//        String url = "http://localhost:8003/hotel-app";
-        return restTemplate.postForObject(client.serviceInfo() + "/hotel/rating/" + id, hotelRatingDto, HotelRatingDto.class);
+
+       return restTemplate.postForObject(client.serviceInfo() + "/hotel/rating/" + id, hotelRatingDto, HotelRatingDto.class);
     }
 }

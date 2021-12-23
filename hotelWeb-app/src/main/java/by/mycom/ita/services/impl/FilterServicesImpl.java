@@ -18,7 +18,6 @@ public class FilterServicesImpl implements IFilterService {
     private final RestTemplate restTemplate;
 
     private final ConfigClient client;
-//    private final String Url = "http://localhost:8003/hotel-app";
 
     @Autowired
     public FilterServicesImpl(RestTemplate restTemplate, ConfigClient client) {

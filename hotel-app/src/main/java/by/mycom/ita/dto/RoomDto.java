@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.constraints.NotBlank;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,7 +16,10 @@ import javax.persistence.Enumerated;
 public class RoomDto {
 
     private long id;
+
+    @NotBlank(message = "Enter the numberOfRoom")
     private int numberOfRoom;
+
     private HotelDto hotel;
     private BookingDto booking;
 

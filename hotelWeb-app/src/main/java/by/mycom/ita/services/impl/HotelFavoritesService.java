@@ -22,8 +22,6 @@ public class HotelFavoritesService implements IHotelFavoritesService {
 
     private final ConfigClient client;
 
-//    private final String Url = "http://localhost:8003/hotel-app";
-
     @Autowired
     public HotelFavoritesService(IAuthentication authentication, RestTemplate restTemplate, ConfigClient client) {
         this.authentication = authentication;

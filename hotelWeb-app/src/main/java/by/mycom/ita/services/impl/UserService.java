@@ -43,9 +43,7 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private ConfigClient client;
-
-//    private final String Url = "http://hotel-app:8003/hotel-app";
-
+  
     private static Role ROLE_ADMIN;
     private static Role ROLE_MANAGER;
     private static Role ROLE_CLIENT;
@@ -62,7 +60,7 @@ public class UserService implements UserDetailsService {
                 .firstName("Viktor")
                 .secondName("Bzhosko")
                 .passport("123654ad")
-                .email("")
+                .email("vbzhoska@mail.ru")
                 .phoneNumber(123654)
                 .username("admin")
                 .password("123")

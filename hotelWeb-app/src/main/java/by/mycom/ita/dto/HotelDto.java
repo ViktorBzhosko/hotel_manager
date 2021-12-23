@@ -10,18 +10,23 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.util.List;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
 public class HotelDto {
     private long id;
+
     private String name;
+
     private Double avgMark;
+
     private String location;
+
     private String convenience;
+
     private List<RoomDto> rooms;
+
     private List<HotelRatingDto> hotelRatings;
 
     @Enumerated(EnumType.STRING)

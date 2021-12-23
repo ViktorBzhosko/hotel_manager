@@ -35,7 +35,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String addUser(@Valid @ModelAttribute  CommonUserDto commonUserDto, BindingResult bindingResult, Model model) {
+    public String addUser(@Valid @ModelAttribute CommonUserDto commonUserDto, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             return "registration";

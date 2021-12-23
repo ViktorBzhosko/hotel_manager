@@ -23,10 +23,11 @@ public class Booking {
     private LocalDate dateChekIn;
     private LocalDate dateChekOut;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne
     private CommonUser users;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="hotel_id")
     private Hotel hotel;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
