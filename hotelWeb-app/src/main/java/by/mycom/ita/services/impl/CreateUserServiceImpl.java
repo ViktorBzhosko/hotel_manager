@@ -1,5 +1,6 @@
 package by.mycom.ita.services.impl;
 
+import by.mycom.ita.configuration.ConfigClient;
 import by.mycom.ita.dto.CommonUserDto;
 import by.mycom.ita.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +13,18 @@ public class CreateUserServiceImpl implements IUserService {
 
     private final RestTemplate restTemplate;
 
+    private final ConfigClient client;
+
     @Autowired
-    public CreateUserServiceImpl(RestTemplate restTemplate) {
+    public CreateUserServiceImpl(RestTemplate restTemplate, ConfigClient client) {
         this.restTemplate = restTemplate;
+        this.client = client;
     }
 
     @Override
     public CommonUserDto createUser(CommonUserDto commonUserDto, Model model) {
-        String url = "http://hotel-app:8003/hotel-app/users/create";
-        return restTemplate.postForObject(url, commonUserDto, CommonUserDto.class);
+//        String url = "http://localhost:8003/hotel-app/users/create";
+        return restTemplate.postForObject(client.serviceInfo()+"/users/create", commonUserDto, CommonUserDto.class);
 
     }
 }

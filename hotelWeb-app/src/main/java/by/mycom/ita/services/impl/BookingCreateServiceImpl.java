@@ -1,5 +1,6 @@
 package by.mycom.ita.services.impl;
 
+import by.mycom.ita.configuration.ConfigClient;
 import by.mycom.ita.dto.BookingDto;
 import by.mycom.ita.dto.CommonUserDto;
 import by.mycom.ita.services.IAuthentication;
@@ -21,13 +22,16 @@ public class BookingCreateServiceImpl implements IBookingService {
 
     private final IAuthentication authentication;
 
-    private final String Url = "http://hotel-app:8003/hotel-app/booking";
+    private final ConfigClient client;
+//    private final String Url = "http://localhost:8003/hotel-app";
 
     @Autowired
-    public BookingCreateServiceImpl(RestTemplate restTemplate, IAuthentication authentication) {
+    public BookingCreateServiceImpl(RestTemplate restTemplate, IAuthentication authentication, ConfigClient client) {
         this.restTemplate = restTemplate;
         this.authentication = authentication;
+        this.client = client;
     }
+
 
     @Override
     public BookingDto createBooking(BookingDto bookingDto) {
@@ -36,34 +40,34 @@ public class BookingCreateServiceImpl implements IBookingService {
                 .id(userId)
                 .build());
 
-        return restTemplate.postForObject(Url + "/create", bookingDto, BookingDto.class);
+        return restTemplate.postForObject(client.serviceInfo() + "/booking/create", bookingDto, BookingDto.class);
     }
 
     @Override
     public BookingDto updateForm(String id, Model model) {
-        return restTemplate.getForObject(Url + id, BookingDto.class);
+        return restTemplate.getForObject(client.serviceInfo()+ id, BookingDto.class);
     }
 
     @Override
     public void updateByArrive(BookingDto bookingDto) {
-        restTemplate.put(Url + "/update/arrive/" + bookingDto.getId(), BookingDto.class);
+        restTemplate.put(client.serviceInfo()+"/booking/update/arrive/" + bookingDto.getId(), BookingDto.class);
 
     }
 
     @Override
     public void updateByLeave(BookingDto bookingDto) {
-        restTemplate.put(Url + "/update/leave/" + bookingDto.getId(), BookingDto.class);
+        restTemplate.put(client.serviceInfo()+"/booking/update/leave/" + bookingDto.getId(), BookingDto.class);
     }
 
     @Override
     public void updateByCancelled(BookingDto bookingDto) {
-        restTemplate.put(Url + "/update/canceled/" + bookingDto.getId(), BookingDto.class);
+        restTemplate.put(client.serviceInfo()+"/booking/update/canceled/" + bookingDto.getId(), BookingDto.class);
 
     }
 
     @Override
     public List<BookingDto> findAllBooking() {
-        return Arrays.stream(Objects.requireNonNull(restTemplate.getForObject(Url + "/find/all",
+        return Arrays.stream(Objects.requireNonNull(restTemplate.getForObject(client.serviceInfo()+"/find/all",
                         BookingDto[].class)))
                 .collect(Collectors.toList());
     }

@@ -1,7 +1,5 @@
 server:
   port: 8003
-  servlet:
-    context-path: /hotel-app
 spring:
   jpa:
     database: postgresql
@@ -10,10 +8,12 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    url: jdbc:postgresql://localhost:5432/hoteldb
+    url: jdbc:postgresql://localhost:5438/hoteldb
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: postgres
+  application:
+    name: hotel-app
 eureka:
   client:
     serviceUrl:

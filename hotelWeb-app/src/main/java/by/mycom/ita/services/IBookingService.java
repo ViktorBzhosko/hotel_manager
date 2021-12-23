@@ -15,7 +15,7 @@ public interface IBookingService {
 
     void updateByLeave(BookingDto bookingDto);
 
-    void updateByCancelled (BookingDto bookingDto);
+    void updateByCancelled(BookingDto bookingDto);
 
     List<BookingDto> findAllBooking();
 

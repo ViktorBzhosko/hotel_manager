@@ -1,5 +1,6 @@
 package by.mycom.ita.services.impl;
 
+import by.mycom.ita.configuration.ConfigClient;
 import by.mycom.ita.dto.HotelDto;
 import by.mycom.ita.dto.HotelFavoritesDto;
 import by.mycom.ita.services.IAuthentication;
@@ -19,25 +20,28 @@ public class HotelFavoritesService implements IHotelFavoritesService {
 
     private final RestTemplate restTemplate;
 
-    private final String Url = "http://hotel-app:8003/hotel-app/favorites";
+    private final ConfigClient client;
+
+//    private final String Url = "http://localhost:8003/hotel-app";
 
     @Autowired
-    public HotelFavoritesService(IAuthentication authentication, RestTemplate restTemplate) {
+    public HotelFavoritesService(IAuthentication authentication, RestTemplate restTemplate, ConfigClient client) {
         this.authentication = authentication;
         this.restTemplate = restTemplate;
+        this.client = client;
     }
 
     @Override
     public HotelDto favorites(HotelDto hotelDto) {
         Long userId = authentication.getCurrentUserId();
-        return restTemplate.postForObject(Url + "/create/" + userId, hotelDto, HotelDto.class);
+        return restTemplate.postForObject( client.serviceInfo()+"/favorites/create/" + userId, hotelDto, HotelDto.class);
 
     }
 
     @Override
     public List<HotelFavoritesDto> showAllFavorites() {
         Long userId = authentication.getCurrentUserId();
-        return Arrays.stream(restTemplate.getForObject(Url + "/read/all/" + userId, HotelFavoritesDto[].class))
+        return Arrays.stream(restTemplate.getForObject( client.serviceInfo()+"/favorites/read/all/" + userId, HotelFavoritesDto[].class))
                 .collect(Collectors.toList());
     }
 }
