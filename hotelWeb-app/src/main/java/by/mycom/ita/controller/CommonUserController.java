@@ -1,7 +1,7 @@
 package by.mycom.ita.controller;
 
 import by.mycom.ita.dto.CommonUserDto;
-import by.mycom.ita.services.IUserService;
+import by.mycom.ita.services.UserFeignClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +13,10 @@ import javax.validation.Valid;
 @Controller
 public class CommonUserController {
 
-    private final IUserService userService;
+    private final UserFeignClient userFeignClient;
 
-    public CommonUserController(IUserService userService) {
-        this.userService = userService;
+    public CommonUserController(UserFeignClient userFeignClient) {
+        this.userFeignClient = userFeignClient;
     }
 
     @GetMapping("/user-create")
@@ -25,14 +25,14 @@ public class CommonUserController {
     }
 
     @PostMapping("/user")
-    public String createClient(@ModelAttribute @Valid CommonUserDto commonUserDto , Model model) {
-        CommonUserDto createdUser = userService.createUser(commonUserDto, model);
+    public String createClient(@ModelAttribute @Valid CommonUserDto commonUserDto, Model model) {
+        CommonUserDto createdUser = userFeignClient.createUser(commonUserDto);
         model.addAttribute("Client", createdUser);
         return "redirect:/user-create";
     }
 
     @ModelAttribute("user")
-    private CommonUserDto createCommonUserDto(){
+    private CommonUserDto createCommonUserDto() {
         return new CommonUserDto();
     }
 }

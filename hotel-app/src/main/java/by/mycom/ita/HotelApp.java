@@ -9,6 +9,6 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 public class HotelApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(HotelApp.class,args);
+        SpringApplication.run(HotelApp.class, args);
     }
 }
