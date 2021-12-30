@@ -1,5 +1,6 @@
 package by.mycom.ita.services.impl;
 
+import by.mycom.ita.configuration.ConfigClient;
 import by.mycom.ita.dto.HotelDto;
 import by.mycom.ita.services.IFilterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,24 +17,25 @@ public class FilterServicesImpl implements IFilterService {
 
     private final RestTemplate restTemplate;
 
-    private final String Url = "http://localhost:8003/hotel-app";
+    private final ConfigClient client;
 
     @Autowired
-    public FilterServicesImpl(RestTemplate restTemplate) {
+    public FilterServicesImpl(RestTemplate restTemplate, ConfigClient client) {
         this.restTemplate = restTemplate;
+        this.client = client;
     }
 
     @Override
     public List<HotelDto> coincidences(HotelDto hotelDto) {
         ResponseEntity<HotelDto[]> responseEntity =
-                restTemplate.postForEntity(Url + "/filter/coincidences", hotelDto, HotelDto[].class);
+                restTemplate.postForEntity(client.serviceInfo() + "/filter/coincidences", hotelDto, HotelDto[].class);
         return Arrays.asList(Objects.requireNonNull(responseEntity.getBody()));
     }
 
     @Override
     public List<HotelDto> exact(HotelDto hotelDto) {
         ResponseEntity<HotelDto[]> responseEntity =
-                restTemplate.postForEntity(Url + "/filter/exact", hotelDto, HotelDto[].class);
+                restTemplate.postForEntity(client.serviceInfo() + "/filter/exact", hotelDto, HotelDto[].class);
         return Arrays.asList(Objects.requireNonNull(responseEntity.getBody()));
     }
 }

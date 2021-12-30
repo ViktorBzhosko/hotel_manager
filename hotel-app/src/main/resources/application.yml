@@ -1,7 +1,5 @@
 server:
   port: 8003
-  servlet:
-    context-path: /hotel-app
 spring:
   liquibase:
     change-log: db/changelog/changelog-master.xml
@@ -16,4 +14,10 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: postgres
+  application:
+    name: hotel-app
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
 

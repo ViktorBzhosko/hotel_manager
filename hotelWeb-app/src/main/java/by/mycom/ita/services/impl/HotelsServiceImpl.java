@@ -1,5 +1,6 @@
 package by.mycom.ita.services.impl;
 
+import by.mycom.ita.configuration.ConfigClient;
 import by.mycom.ita.dto.HotelDto;
 import by.mycom.ita.dto.enums.Weather;
 import by.mycom.ita.services.IHotelServices;
@@ -17,18 +18,18 @@ import java.util.stream.Collectors;
 public class HotelsServiceImpl implements IHotelServices {
 
     private final RestTemplate restTemplate;
-
-    private final String Url = "http://localhost:8003/hotel-app";
+    private final ConfigClient client;
 
     @Autowired
-    public HotelsServiceImpl(RestTemplate restTemplate) {
+    public HotelsServiceImpl(RestTemplate restTemplate, ConfigClient client) {
         this.restTemplate = restTemplate;
+        this.client = client;
     }
 
     @Override
     public List<HotelDto> findHotels() {
         Weather[] values = Weather.values();
-        return Arrays.stream(Objects.requireNonNull(restTemplate.getForObject(Url + "/hotel/read/all",
+        return Arrays.stream(Objects.requireNonNull(restTemplate.getForObject( client.serviceInfo()+"/hotel/read/all",
                         HotelDto[].class)))
                 .peek(hotelDto -> hotelDto.setWeather(Weather.values()[new Random().nextInt(values.length)]))
                 .collect(Collectors.toList());
@@ -36,21 +37,21 @@ public class HotelsServiceImpl implements IHotelServices {
 
     @Override
     public HotelDto makeHotel(HotelDto hotelDto) {
-        return restTemplate.postForObject(Url + "/hotel/create", hotelDto, HotelDto.class);
+        return restTemplate.postForObject( client.serviceInfo()+"/hotel/create", hotelDto, HotelDto.class);
     }
 
     @Override
     public void updatedHotel(Long id, HotelDto hotelDto) {
-        restTemplate.put(Url + "/hotel/update/" + id, hotelDto, HotelDto.class);
+        restTemplate.put(client.serviceInfo()+"/hotel/update/" + id, hotelDto, HotelDto.class);
     }
 
     @Override
     public HotelDto findById(Long id) {
-        return restTemplate.getForObject(Url + "/hotel/read/" + id, HotelDto.class);
+        return restTemplate.getForObject( client.serviceInfo()+"/hotel/read/" + id, HotelDto.class);
     }
 
     @Override
     public void deleteHotel(String id) {
-        restTemplate.delete(Url + "/hotel/delete/" + id);
+        restTemplate.delete( client.serviceInfo()+"/hotel/delete/" + id);
     }
 }

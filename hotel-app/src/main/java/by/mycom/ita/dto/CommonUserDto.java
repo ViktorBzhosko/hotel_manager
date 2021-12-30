@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,7 +27,7 @@ public class CommonUserDto {
     @Email(message = "Email should be valid")
     private String email;
 
-    @NotBlank(message = "Please enter your phone number")
+    @NotNull
     private int phoneNumber;
 
     private BookingDto booking;

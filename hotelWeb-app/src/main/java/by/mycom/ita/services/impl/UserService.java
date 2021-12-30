@@ -1,5 +1,6 @@
 package by.mycom.ita.services.impl;
 
+import by.mycom.ita.configuration.ConfigClient;
 import by.mycom.ita.configuration.UserDetail;
 import by.mycom.ita.dao.IRoleDao;
 import by.mycom.ita.dao.IUserDao;
@@ -40,8 +41,9 @@ public class UserService implements UserDetailsService {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private final String Url = "http://localhost:8003/hotel-app";
-
+    @Autowired
+    private ConfigClient client;
+  
     private static Role ROLE_ADMIN;
     private static Role ROLE_MANAGER;
     private static Role ROLE_CLIENT;
@@ -101,7 +103,7 @@ public class UserService implements UserDetailsService {
             return false;
         }
 
-        CommonUserDto responseUser = restTemplate.postForObject(Url + "/users/create", commonUserDto, CommonUserDto.class);
+        CommonUserDto responseUser = restTemplate.postForObject( client.serviceInfo()+"/users/create", commonUserDto, CommonUserDto.class);
         if (responseUser != null) {
             User user = objectMapper.convertValue(commonUserDto, User.class);
             user.setId(responseUser.getId());
@@ -131,7 +133,7 @@ public class UserService implements UserDetailsService {
                 .userId(user.getId())
                 .message(message + resetUid)
                 .build();
-        restTemplate.postForObject(Url + "/email/notify/reset", emailNotificationDto, Void.class);
+        restTemplate.postForObject( client.serviceInfo()+"/email/notify/reset", emailNotificationDto, Void.class);
         userDao.save(user);
     }
 

@@ -1,5 +1,6 @@
 package by.mycom.ita.services.impl;
 
+import by.mycom.ita.configuration.ConfigClient;
 import by.mycom.ita.dto.BookingDto;
 import by.mycom.ita.dto.RoomDto;
 import by.mycom.ita.services.ISearchService;
@@ -18,24 +19,25 @@ public class SearchRoomsService implements ISearchService {
 
     private final RestTemplate restTemplate;
 
-    String Url = "http://localhost:8003/hotel-app";
+    private final ConfigClient client;
 
     @Autowired
-    public SearchRoomsService(RestTemplate restTemplate) {
+    public SearchRoomsService(RestTemplate restTemplate, ConfigClient client) {
         this.restTemplate = restTemplate;
+        this.client = client;
     }
 
     @Override
     public List<BookingDto> findBookingRooms(BookingDto bookingDto, Model model) {
         ResponseEntity<BookingDto[]> responseEntity =
-                restTemplate.postForEntity(Url + "/search/booking", bookingDto, BookingDto[].class);
+                restTemplate.postForEntity( client.serviceInfo()+"/search/booking", bookingDto, BookingDto[].class);
         return Arrays.asList(Objects.requireNonNull(responseEntity.getBody()));
     }
 
     @Override
     public List<RoomDto> findEmptyRooms(BookingDto bookingDto, Model model) {
         ResponseEntity<RoomDto[]> responseEntity =
-                restTemplate.postForEntity(Url + "/search/empty", bookingDto, RoomDto[].class);
+                restTemplate.postForEntity( client.serviceInfo()+"/search/empty", bookingDto, RoomDto[].class);
         return Arrays.asList(Objects.requireNonNull(responseEntity.getBody()));
     }
 }
