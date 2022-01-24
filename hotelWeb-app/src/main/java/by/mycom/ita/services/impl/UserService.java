@@ -55,10 +55,10 @@ public class UserService implements UserDetailsService {
         roleDao.saveAll(List.of(ROLE_ADMIN, ROLE_MANAGER, ROLE_CLIENT));
 
         CommonUserDto userAdmin = CommonUserDto.builder()
-                .firstName("Viktor")
-                .secondName("Bzhosko")
+                .firstName("")
+                .secondName("")
                 .passport("123654ad")
-                .email("vic308@mail.ru")
+                .email("")
                 .phoneNumber(123654)
                 .username("admin")
                 .password("123")
